@@ -43,11 +43,15 @@ void printBinary( unsigned int *pword) {
 }
 int main(int argc, char* argv[])
 {
-	char line[80] = "  LABEL: MOV R2,R2";
-	char line_no_label[80] = "  LABEL MOV R2,R2";
+	char line[80]			= "  LABEL: MOV R2,R2";
+	char line_no_label[80]	= "  LABEL MOV R2,R2";
+	char line_ins[80]		= "  MOV R2, R2";
+	char line_ins_err[80]	= "  LABEL MOV R2,R2";
 
 	int x = label_position(line,0);
 	int y = label_position(line_no_label, 0);
 
+	x = check_legal_comma(line_ins, 0);
+	x = check_legal_comma(line_ins_err, 0);
 	return 0;
 }

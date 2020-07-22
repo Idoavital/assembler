@@ -4,6 +4,21 @@
 
 #include "Definitions.h"
 
+/***************************************************************************/
+						/* ENUMS */
+/***************************************************************************/
+enum eERROR
+{
+	ERR_COMMA_AFTER_CMD,
+	ERR_TWO_COMMA,
+	ERR_COMMA_END_LINE
+};
+
+
+/***************************************************************************/
+					/*Founctoin Declaration*/
+/***************************************************************************/
+
 /**
 * This function check if the postion and numbers that comma appear in the assembly code line
 * is leagal.

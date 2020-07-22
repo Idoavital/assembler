@@ -6,11 +6,69 @@
 
 int check_legal_comma(char* str, int index)
 {
-	while (isspace(str[index]))
+	int comma_flag = OFF;
+
+	/* move to the first word (instruction name)*/
+	while (is_space(str[index++]));
+
+	/* after the first word there is only space without comma */
+	/* check if there is no comma */
+	while (!isspace(str[index]) && str[index] != '\0' && str[index] != EOF)
 	{
-		/*check if the last char is a comma*/
+
+		if (str[index] == COMMA)
+		{
+			/*TODO: print ERR_COMMA_AFTER_CMD*/
+			return ERROR; /*TODO: RETURN ERR*/;
+		}
+
+		index++;
 	}
-	return 0;
+
+	if (str[index] != '\n' && str[index] != '\0' && str[index] != EOF)
+		return OK;
+
+	/* move to the second word*/
+	while (is_space(str[index]))
+		index++;
+	/* if there is a comma in the begining of the second word (first operand)*/
+	if (str[index] == COMMA)
+	{
+		/*TODO: print ERR_COMMA_AFTER_CMD*/
+		return ERROR; /*TODO: RETURN ERR*/;
+	}
+
+	for ( ; str[index] != '\n' && str[index] != '\0' && str[index] != EOF; index++)
+	{
+		if (is_space(str[index]))
+			continue;
+
+		/*Check if two comma in a row */
+		if (str[index] == COMMA)
+		{
+			if (comma_flag == ON)
+			{
+				
+				/*Print error two comma*/
+				return ERROR; /*TODO: RETURN ERR*/;
+			}
+			comma_flag = ON;
+		}		
+		else
+		{
+			comma_flag = OFF;
+		}
+
+	}
+
+	/*Check if the last char is a comma*/
+	if (comma_flag == ON)
+	{
+		/*Print error comma_end_line*/
+		return ERROR;/*TODO: RETURN ERR*/;
+	}
+
+	return OK;
 }
 
 int is_comma(char* str, int index)
