@@ -6,7 +6,7 @@ CFALG   = -g -Wall -ansi -pedantic -std=c90
 LDFLAG  = -lm
 INCLUDE = -I.
 
-DEPS    = parse.h
+DEPS    = parse.h Definitions.h
 OBJ     = assembler.o parse.o
 
 

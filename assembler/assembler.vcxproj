@@ -96,6 +96,7 @@
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="parse.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
