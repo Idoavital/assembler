@@ -1,5 +1,5 @@
-#ifndef __H_DEFINITIONS__
-#define __H_DEFINITIONS__
+#ifndef __DEFINES_H__
+#define __DEFINES_H__
 
 #define FALSE 0
 #define TRUE  1
@@ -12,8 +12,7 @@
 #define ON	1
 #define OFF 0
 
-#define OK		0
-#define ERROR	-1
+#define MAX_KEYWORDS  28  
 
-#endif /* !__H_DEFINITIONS__*/
+#endif /* !__DEFINES_H__*/
 

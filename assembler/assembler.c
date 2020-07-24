@@ -2,24 +2,11 @@
 #include <ctype.h>
 
 #include "parse.h"
+#include "Data_structures.h"
 
-typedef struct mm{
-	unsigned int E			: 1;
-	unsigned int R			: 1;
-	unsigned int A			: 1;
-	unsigned int funct		: 5;
-	unsigned int reg_dest	: 3;
-	unsigned int adrs_dest	: 2;
-	unsigned int reg_source	: 3;
-	unsigned int adrs_source : 2;
-	unsigned int opcode		: 6;
 
-}st_mem_word;
 
-typedef union _memroy {
-	int			 data;
-	st_mem_word  bit_word;
-}memory;
+
 
 
 void printBinary( unsigned int *pword) {
@@ -43,15 +30,33 @@ void printBinary( unsigned int *pword) {
 }
 int main(int argc, char* argv[])
 {
+	
 	char line[80]			= "  LABEL: MOV R2,R2";
 	char line_no_label[80]	= "  LABEL MOV R2,R2";
 	char line_ins[80]		= "  MOV R2, R2";
 	char line_ins_err[80]	= "  LABEL MOV R2,R2";
+	st_mem_word word;
 
+	word.E = 0;
+	word.R = 0;
+	word.A = 1;
+	word.funct = 1;
+	word.reg_dest = 0;
+	word.adrs_dest = 1;
+	word.reg_source = 3;
+	word.adrs_source = 3;
+	word.opcode = 2;
+
+	print_hex(word);
+	printf("\n");
 	int x = label_position(line,0);
-	int y = label_position(line_no_label, 0);
+	x = label_position(line_no_label, 0);
 
 	x = check_legal_comma(line_ins, 0);
 	x = check_legal_comma(line_ins_err, 0);
+
+	x = 0xffccbbaa;
+
+
 	return 0;
 }
