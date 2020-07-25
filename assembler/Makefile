@@ -7,7 +7,7 @@ LDFLAG  = -lm
 INCLUDE = -I.
 
 DEPS    = parse.h Definitions.h Error.h Data_structures.h
-OBJ     = assembler.o parse.o Error.o Data_structures.o
+OBJ     = assembler.o parse.o Error.o Data_structures.o Test.o
 
 
 #################################################

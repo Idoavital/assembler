@@ -10,66 +10,66 @@
 int check_legal_comma(char* str, int index)
 {
 	int comma_flag = OFF;
-	
+	int first_word = TRUE;
+	int first_op   = TRUE;
 
-	/* move to the first word (instruction name)*/
-	index = clear_white_space(str, index);
+	index = label_position(str, index);
 
-	/* if there is a comma in the begining of the sentence*/
-	if (str[index] == COMMA)
+
+	while ( !is_end_of_line(str[index]) )
 	{
-		print_err(ERR_COMMA_NOT_INPLACE);
-		return COMMA_ERROR;
-	}
-
-	/* Read instruction word */
-	index = clear_word(str, index);
-	/*TODO: ask Shachar if it better to check here if the word is insturction word */
-
-	/* if line ends after the instruction (first word ) */
-	if (is_end_of_line(str[index]))
-		return COMMA_OK;
-
-	/* move to the second word*/
-	index = clear_white_space(str, index);
-
-	/* if there is a comma in the begining of the second word (first operand)*/
-	if (str[index] == COMMA)
-	{
-		print_err(ERR_COMMA_AFTER_CMD);
-		return COMMA_ERROR; 
-	}
-
-	for ( ; !is_end_of_line(str[index]) ; index++)
-	{
-		index = clear_word(str, index);
 		if (is_space(str[index]))
 		{
 			index = clear_white_space(str, index);
+			if (is_end_of_line(str[index]))
+				break;
 		}
-	
-		/*Check if two comma in a row */
-		if (str[index] == COMMA)
+				
+
+		if (str[index] == COMMA )
 		{
+
+			/* if there is a comma in the begining of the sentence*/
+			if (first_word == TRUE || first_op ==TRUE)
+			{
+				print_err(ERR_COMMA_NOT_INPLACE);
+				return COMMA_ERROR;
+			}
+
+			/*Check if there is a two comma in a row */
 			if (comma_flag == ON)
 			{
 				print_err(ERR_TWO_COMMA);
-				return COMMA_ERROR; 
+				return COMMA_ERROR;
 			}
 			comma_flag = ON;
-		}		
-		else 
+		}
+		
+		if (str[index] != COMMA )
 		{
-			/* check if comma missing */
-			if (comma_flag == ON)
+
+			/*TODO: ask Shachar if it better to check here if the word is insturction word */
+			if (first_word == TRUE)
+				first_word = FALSE;
+				
+			else if (first_op == TRUE)
+				first_op = FALSE;
+				
+			else if (comma_flag == OFF)
 			{
 				print_err(ERR_MISSING_COMMA);
 				return COMMA_ERROR;
 			}
+
 			comma_flag = OFF;
+
+			index = clear_word(str, index);
+			continue;   /* no need to increase index */
 		}
 
+		index++;
 	}
+
 
 	/*Check if the last char is a comma*/
 	if (comma_flag == ON)
@@ -77,7 +77,7 @@ int check_legal_comma(char* str, int index)
 		print_err(ERR_COMMA_END_LINE);
 		return COMMA_ERROR;
 	}
-
+	
 	return COMMA_OK;
 }
 
@@ -141,14 +141,15 @@ int is_legal_label(char* str, int index)
 
 int clear_white_space(char* str, int index)
 {
-	while (is_space(str[index++]));
+	while (is_space(str[index]))
+		index++;
 	
 	return index;
 }
 
 int clear_word(char* str, int index)
 {
-	while (str[index] != COMMA && !(is_space(str[index])))
+	while (str[index] != COMMA && !isspace(str[index]) && (str[index] != '\0'))
 		index++;
 
 	return index;

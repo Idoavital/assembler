@@ -7,7 +7,7 @@
 /***************************************************************************/
 
 /* If you don't want to print error with color, just commit or delet color definition (/ * #define COLOR * / ) */
-#define COLOR  
+/*#define COLOR  */
 
 #ifdef COLOR
 
@@ -29,7 +29,7 @@
 						/* Define */
 /***************************************************************************/
 
-#define P_ERROR RED"[ERROR]"
+#define P_ERROR RED"[ERROR] "
 
 #define COMMA_OK		0
 #define COMMA_ERROR		-1

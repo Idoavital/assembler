@@ -7,7 +7,7 @@
 
 
 
-
+extern int Test();
 
 void printBinary( unsigned int *pword) {
 
@@ -30,13 +30,10 @@ void printBinary( unsigned int *pword) {
 }
 int main(int argc, char* argv[])
 {
-	
-	char line[80]			= "  LABEL: MOV R2,R2";
-	char line_no_label[80]	= "  LABEL MOV R2,R2";
-	char line_ins[80]		= "  MOV R2, R2";
-	char line_ins_err[80]	= "  LABEL MOV R2,R2";
-	st_mem_word word;
+	Test();
 
+	st_mem_word word;
+/*
 	word.E = 0;
 	word.R = 0;
 	word.A = 1;
@@ -57,6 +54,6 @@ int main(int argc, char* argv[])
 
 	x = 0xffccbbaa;
 
-
+*/
 	return 0;
 }

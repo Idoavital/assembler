@@ -30,7 +30,7 @@ int print_err(enum eERROR err_type)
 		break;
 
 	case ERR_MISSING_COMMA:
-		printf(P_ERROR"MSG\n");
+		printf(P_ERROR"missing comma\n");
 		break;
 
 	case ERR_ILLIGL_LABEL:
