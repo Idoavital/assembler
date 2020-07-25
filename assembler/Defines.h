@@ -6,6 +6,7 @@
 
 #define MAX_WORD_LEN 20
 #define MAX_LINE_LEN 256
+#define MAX_FILE_NAME 100
 
 #define COMMA ','
 

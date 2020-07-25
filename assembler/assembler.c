@@ -1,59 +1,36 @@
 #include <stdio.h>
-#include <ctype.h>
+#include <string.h>
 
 #include "parse.h"
 #include "Data_structures.h"
 
 
-
-
 extern int Test();
 
-void printBinary( unsigned int *pword) {
-
-	
-	unsigned int word = *pword;
-	int i = 0;
-	unsigned int mask = 1;
-	
-	mask <<= 23;
-
-	for (i = 0; i < 24; i++)
-	{
-		if (word & mask)
-			printf("1");
-		else
-			printf("0");
-		mask >>= 1;
-	}
-	printf("\n");
-}
 int main(int argc, char* argv[])
 {
-	Test();
+	/* Test(); debug*/ 
+	char  file_name[MAX_FILE_NAME];
+	FILE* pFile;
+	int   i = 1;  
 
-	st_mem_word word;
-/*
-	word.E = 0;
-	word.R = 0;
-	word.A = 1;
-	word.funct = 1;
-	word.reg_dest = 0;
-	word.adrs_dest = 1;
-	word.reg_source = 3;
-	word.adrs_source = 3;
-	word.opcode = 2;
+	for (i =1 ; i < argc; i++) /* Scanning argv from the second argument, the first file name to be checked */
+	{
 
-	print_hex(word);
-	printf("\n");
-	int x = label_position(line,0);
-	x = label_position(line_no_label, 0);
+		strcpy(file_name, argv[i]);
+		strcat(file_name, ".as");
 
-	x = check_legal_comma(line_ins, 0);
-	x = check_legal_comma(line_ins_err, 0);
+		/* Opens the file, if it exists, for reading */
+		pFile = fopen(file_name, "r");
+		if (!pFile) /* If the file wasn't found, or it isn't allowed for reading, the file pointer is NULL */
+		{
+			printf( "Couldn't open file %s\n", file_name);
+			continue;
+		}
+		 /*first_pass*/
+		 /*second_pass*/
+		fclose(pFile); /* closes the file */
+	}
 
-	x = 0xffccbbaa;
-
-*/
 	return 0;
 }

@@ -28,8 +28,6 @@ int test_comma()
 	
 	int error = 0;
 
-	error = isspace('\0');
-
 	char line_ok[80] = "  LABEL: MOV R2,R2";
 	char line_1[80] = "  LABEL MOV R2 , R2 ,";
 	char line_2[80] = "  MOV R2, R2 \n";
