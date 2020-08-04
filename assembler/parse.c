@@ -81,6 +81,38 @@ int check_legal_comma(char* str, int index)
 	return COMMA_OK;
 }
 
+
+void split_line(char* str, int index)
+{
+    int splitPlace = 0;
+    
+    while (!is_end_of_line(str[index]))
+    {
+        if (is_space(str[index]))
+		{
+	    index = clear_white_space(str, index);
+        if (is_end_of_line(str[index]))
+		break;
+		}
+        if (str[index] == ',')
+        {
+           index++;
+        }
+            
+        splitLine[splitPlace] = &str[index]; /*points to the start of a word*/
+
+        while ( (!is_space(str[index])) && (str[index] != ',') && (!is_end_of_line(str[index]))) /*skip to the end of the word */
+        {
+            index++;
+        }
+        str[index] = '\0'; /*add \0 so the pointer of each cell in splitLine will point only on a one word*/
+        index++; /*skip \0*/
+        splitPlace++;  /*move to the next cell that will point on the next word*/
+        
+    }
+}
+
+
 int is_comma(char* str, int index)
 {
 	while (is_space(str[index]))
@@ -127,7 +159,7 @@ int is_legal_label(char* str, int index)
 	if (is_label(str, index))
 	{
 		/* Check if the name start in a number or a keyword (reserved word) */
-		if (isdigit(str[index]) || is_keyword(str, index))
+		if (isdigit(str[index]) || is_keyword(str, index,CHECK_LABLE))
 			label_flag = FALSE;
 		else
 			label_flag = TRUE;
@@ -159,11 +191,22 @@ int is_end_of_line(char c)
 {
 	return (c == '\n' || c == '\0' || c == EOF);
 }
-
-int is_keyword(char* str, int index)
+/*function that checks if the label or the command name is legal, that depends on the flag info.*/
+int is_keyword(char* str, int index, int flag)
 {
+	int max =0;
 	int i = 0;
-	for (i = 0; i < MAX_KEYWORDS; i++)
+	if (flag == CHECK_COMMAND_NAME)
+	{
+		max = MAX_COMMAND_NAME;
+	}
+	else
+	{
+		max = MAX_KEYWORDS;
+	}
+	
+	
+	for (i = 0; i < max; i++)
 	{
 		if (strcmp(&str[index], g_keywords[i]))
 		{
@@ -173,6 +216,7 @@ int is_keyword(char* str, int index)
 
 	return FALSE;
 }
+
 
 void print_hex(st_mem_word word)
 {

@@ -20,6 +20,14 @@
 int check_legal_comma(char* str, int index);
 
 /**
+* This function devied the line an a way that each cell in the splitLine array points to a word in the orginal sentence.
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the postion of the line
+*/
+void split_line(char* str, int index);
+
+
+/**
 * This function check if the next char  is a comma (ignore white space).
 * @param str	- a pointer to beginnig of the line
 * @param index	- the postion of the line
@@ -91,7 +99,7 @@ int is_end_of_line(char c) ;
 * @param index	- the postion of the line.
 * @return true if the char is end of line.
 */
-int is_keyword(char *str, int index);
+int is_keyword(char *str, int index, int flag);
 
 /**
 * This function print the 24 bit word in hex
