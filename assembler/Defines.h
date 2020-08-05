@@ -14,7 +14,7 @@
 #define OFF 0
 
 #define MAX_KEYWORDS  28  
-#define MAX_COMMAND_NAME 21
+#define MAX_COMMAND_NAME 20
 #define CHECK_LABLE -3
 #define CHECK_COMMAND_NAME -4 
 #define START_LINE	  0

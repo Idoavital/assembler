@@ -206,7 +206,7 @@ int is_keyword(char* str, int index, int flag)
 	}
 	
 	
-	for (i = 0; i < max; i++)
+	for (i = 0; i <= max; i++)
 	{
 		if (strcmp(&str[index], g_keywords[i]))
 		{
