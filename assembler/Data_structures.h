@@ -34,5 +34,14 @@ typedef union _memroy {
 	st_mem_word  bit_word;
 }memory;
 
+
+/* symbole node type for symbol table */
+typedef struct symbol {
+	char    name[MAX_WORD_LEN];
+	int     address;
+	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN, ENTRY  */
+	pSymbole next;              /* The pointer for link list  */
+}symbol, * pSymbole;
+
 #endif /* !__DATA_STRUCTURES_H__ */
 
