@@ -5,14 +5,10 @@
 
 
 /***************************************************************************/
-							/* Gloabls */
+							/* Enums */
 /***************************************************************************/
 
-/*Reserved words */
-extern char *g_keywords[MAX_KEYWORDS];
-/*/*contains the relevant row in the program, so that each cell in the array indicates a word in the line */
-extern char *splitLine [MAX_LINE_LEN];
-
+enum Esymbole_type { ST_DATA, ST_STRING, ST_EXTERN, ST_ENTRY, ST_CODE }; /* Symbols Types, for symbol table */
 
 /***************************************************************************/
 							/* Structures */
@@ -39,12 +35,30 @@ typedef union _memroy {
 
 
 /* symbole node type for symbol table */
-typedef struct symbol {
-	char    name[MAX_WORD_LEN];
-	int     address;
+typedef struct _symbol *pSymbole;
+typedef struct _symbol {
+	char    name[MAX_WORD_LEN]; 
+	int     address;			/* The value of Instruction counter or Data counter*/
 	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN, ENTRY  */
 	pSymbole next;              /* The pointer for link list  */
-}symbol, * pSymbole;
+}symbol ;
+
+/***************************************************************************/
+							/* Gloabls */
+/***************************************************************************/
+
+/*Reserved words */
+extern char* g_keywords[MAX_KEYWORDS];
+/*contains the relevant row in the program, so that each cell in the array indicates a word in the line */
+extern char* splitLine[MAX_LINE_LEN];
+/*The current line number that read in the assembly file (for print error) */
+extern int Line_number;
+/*The head of symbole table link list */
+extern pSymbole pSymbole_Head;
+
+/***************************************************************************/
+				
+/***************************************************************************/
 
 #endif /* !__DATA_STRUCTURES_H__ */
 

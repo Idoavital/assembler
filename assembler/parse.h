@@ -15,6 +15,7 @@
 * is leagal.
 * @param str	- a pointer to beginnig of the line
 * @param index	- the position of the line
+* @return		- COMMA_OK if there is no error, else return COMMA_ERROR
 */
 
 int check_legal_comma(char* str, int index);
@@ -85,7 +86,13 @@ int clear_white_space(char* str, int index);
 */
 int clear_word(char* str, int index);
 
-
+/**
+* This function check if a addembly line is a comment
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the position of the line.
+* @return true if the line is comment or a blank line .
+*/
+int is_comment_or_blank_line(char* str, int index);
 /**
 * This function check if a char is end of line 
 * @param c	- char .
@@ -97,6 +104,7 @@ int is_end_of_line(char c) ;
 * This function check if a word is keyword(reserved word)
 * @param str	- a pointer to beginnig of the line.
 * @param index	- the position of the line.
+* @param flag	- If to check all Keyword or only instructions.
 * @return true if the char is end of line.
 */
 int is_keyword(char *str, int index, int flag);

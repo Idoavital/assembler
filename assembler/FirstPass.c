@@ -4,15 +4,26 @@
 #include "FirstPass.h"
 #include "Defines.h"
 #include "Error.h"
+#include "parse.h"
 
 int firstPass(FILE* pfile)
 {
 	char line[MAX_LINE_LEN];
 	int line_num = 0;
+	pSymbole_Head = NULL;
 
-	for (line_num = 1; fgets(line, MAX_LINE_LEN, pfile); line_num++) /* Scanning through each line of the file */
+	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
+		/* check is a comment or blank line*/
+		if(is_comment_or_blank_line(line, START_LINE))
+			continue;
+		
 		/*TODO: check comma error in line*/
+		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
+		{
+			printf(P_DEBUG"comma problem !!!\n");
+		}
+		printf(P_DEBUG"%s", line);;
 		/*TODO: check line error*/
 		/*TODO: count ic and dc */
 		/*TODO: add to symbloe table*/
@@ -21,13 +32,13 @@ int firstPass(FILE* pfile)
 	return 0;
 }
 
-pSymbole create_symbole(char* pName, int address, int type)
+pSymbole create_symbol(char* pName, int address, int type)
 {
 	pSymbole psym = malloc(sizeof(*psym));
 
 	if (psym == NULL)
 	{
-		printf(P_ERROR"\n"); /*TODO: FINISH PRINT ERR*/
+		printf(P_ERROR"Can't allocate memory for symbol\n"); /*TODO: FINISH PRINT ERR*/
 	}
 	strcpy(psym->name, pName);
 	psym->address = address;
@@ -35,3 +46,54 @@ pSymbole create_symbole(char* pName, int address, int type)
 
 	return psym;
 }
+
+int push_symbol(pSymbole pSymbole_node)
+{
+	pSymbole pCurrent_symbol = pSymbole_Head;
+	/*If is the first symbol*/
+	if (pSymbole_Head == NULL)
+	{
+		pSymbole_Head = pSymbole_node;
+		return PUSH_OK;
+	}
+	
+	/*check if the symbol is already in the table */
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(pCurrent_symbol->name, pSymbole_node->name) == 0)
+			return PUSH_ERROR;
+
+		/*if is the last symbol in the list, add the new symbol*/
+		if (pCurrent_symbol->next == NULL)
+		{
+			pCurrent_symbol->next = pSymbole_node;
+			return PUSH_OK;
+		}
+			
+		pCurrent_symbol = pCurrent_symbol->next;
+	}
+
+	return PUSH_ERROR;
+}
+
+int free_symbol(pSymbole pSymbole_node)
+{
+	free (pSymbole_node);
+	return 0;
+}
+
+int clear_list()
+{
+	pSymbole pCurrent_symbol = pSymbole_Head;
+	pSymbole pSymTemp = NULL;
+
+	while (pCurrent_symbol != NULL)
+	{
+		pSymTemp = pCurrent_symbol;
+		pCurrent_symbol = pCurrent_symbol->next;
+		
+		free_symbol(pSymTemp);
+	}
+	return 0;
+}
+
