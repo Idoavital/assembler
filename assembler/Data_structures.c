@@ -10,5 +10,5 @@ char* g_keywords[MAX_KEYWORDS] = { ".extern", ".entry", ".data", ".string", "mov
 
 
 
-/*contains the relevant row in the program, so that each cell in the array indicates a word in the line */
-char* splitLine [MAX_LINE_LEN];
+/*contains the divided line. every row represent a word in the sentence. */
+char splitLine [MAX_LINE_LEN][MAX_LINE_LEN];

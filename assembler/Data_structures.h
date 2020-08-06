@@ -10,8 +10,8 @@
 
 /*Reserved words */
 extern char *g_keywords[MAX_KEYWORDS];
-/*/*contains the relevant row in the program, so that each cell in the array indicates a word in the line */
-extern char *splitLine [MAX_LINE_LEN];
+/*contains the divided line. every row represent a word in the sentence. */
+extern char splitLine [MAX_LINE_LEN][MAX_LINE_LEN];
 
 
 /***************************************************************************/

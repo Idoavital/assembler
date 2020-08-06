@@ -84,10 +84,15 @@ int check_legal_comma(char* str, int index)
 
 void split_line(char* str, int index)
 {
-    int splitPlace = 0;
+    int row_index = 0;
+    int column_index = 0;
+    int start_word;
+    int last_word = FALSE;
     
-    while (!is_end_of_line(str[index]))
+      while (last_word == FALSE)
     {
+        
+
         if (is_space(str[index]))
 		{
 	    index = clear_white_space(str, index);
@@ -98,19 +103,19 @@ void split_line(char* str, int index)
         {
            index++;
         }
-            
-        splitLine[splitPlace] = &str[index]; /*points to the start of a word*/
 
-        while ( (!is_space(str[index])) && (str[index] != ',') && (!is_end_of_line(str[index]))) /*skip to the end of the word */
-        {
-            index++;
-        }
-        str[index] = '\0'; /*add \0 so the pointer of each cell in splitLine will point only on a one word*/
-        index++; /*skip \0*/
-        splitPlace++;  /*move to the next cell that will point on the next word*/
+        start_word = index;
+        index = clear_word(str,index);
+        last_word = is_end_of_line(str[index]) ? TRUE: FALSE;
+        str[index] = '\0';
+        strcpy(&splitLine[row_index++][column_index], &str[start_word]);    
+        index++;
+      
         
     }
 }
+
+
 
 
 int is_comma(char* str, int index)
@@ -137,14 +142,14 @@ int label_position(char* str, int index)
 
 int is_label(char* str, int index)
 {
-	char word[MAX_WORD_LEN];
+	char word[MAX_LABEL_LEN];
 	int  endIndex = 0;
 
 	sscanf(str, "%s", word);  /*Read the first word*/
 	endIndex = strlen(word);
 
 	/*Check for error*/
-	if (endIndex == 0 || endIndex >= MAX_WORD_LEN) 
+	if (endIndex == 0 || endIndex >= MAX_LABEL_LEN) 
 		return FALSE;
 
 	return (':' == word[endIndex -1]);
@@ -196,19 +201,12 @@ int is_keyword(char* str, int index, int flag)
 {
 	int max =0;
 	int i = 0;
-	if (flag == CHECK_COMMAND_NAME)
-	{
-		max = MAX_COMMAND_NAME;
-	}
-	else
-	{
-		max = MAX_KEYWORDS;
-	}
+
+    max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
 	
-	
-	for (i = 0; i <= max; i++)
+	for (i = 0; i < max; i++)
 	{
-		if (strcmp(&str[index], g_keywords[i]))
+		if (!strcmp(&str[index], g_keywords[i]))
 		{
 			return TRUE;
 		}
@@ -216,7 +214,6 @@ int is_keyword(char* str, int index, int flag)
 
 	return FALSE;
 }
-
 
 void print_hex(st_mem_word word)
 {

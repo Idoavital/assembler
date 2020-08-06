@@ -20,9 +20,9 @@
 int check_legal_comma(char* str, int index);
 
 /**
-* This function devied the line an a way that each cell in the splitLine array points to a word in the orginal sentence.
+* This function devied the line an a way that each row in the matrix splitLine contains a word from the sentence. 
 * @param str	- a pointer to beginnig of the line.
-* @param index	- the position of the line
+* @param index	- the postion of the line
 */
 void split_line(char* str, int index);
 

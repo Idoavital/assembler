@@ -4,8 +4,8 @@
 #define FALSE 0
 #define TRUE  1
 
-#define MAX_WORD_LEN 20
-#define MAX_LINE_LEN 256
+#define MAX_LABEL_LEN 31
+#define MAX_LINE_LEN 81
 #define MAX_FILE_NAME 100
 
 #define COMMA ','
