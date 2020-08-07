@@ -338,3 +338,12 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+assembler/Data_structures.o
+assembler/assembler.o
+assembler/Error.o
+assembler/parse.o
+assembler/Test.o
+assembler/.vscode/launch.json
+assembler/.vscode/tasks.json
+assembler/.vscode/c_cpp_properties.json
+assembler/assembler
