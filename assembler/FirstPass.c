@@ -5,6 +5,7 @@
 #include "Defines.h"
 #include "Error.h"
 #include "parse.h"
+#include "parseLine.h"
 
 int firstPass(FILE* pfile)
 {

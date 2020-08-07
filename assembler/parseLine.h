@@ -44,7 +44,7 @@ int is_keyword(char *str, int index, int flag);
 * @param op	- points to the operator that is tested as a number
 * @param index	- the position of the operator
 * @return the function returns the number of the method address of a number operator, if the operator is a number
-          otherwise returns false.
+          otherwise returns NO_NUM.
 */
 int is_number (char* op, int index);
 
@@ -84,7 +84,7 @@ int is_address_method_for_jump_command (char* label, int index);
 * @param source_or_target - this indicates for us if the operator is a target or a source and according to that info we will check the method.
 * @return the function returns ok if the address method is legal, otherwise it will return that there isn't a match.
 */
-int match_address_method (char* command_name, int method_address, int source_or_target );
+int match_address_method (char* command_name, int address_method, int source_or_target );
 
 
 
