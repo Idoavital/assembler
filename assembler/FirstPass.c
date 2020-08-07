@@ -8,9 +8,14 @@
 
 int firstPass(FILE* pfile)
 {
+	char name[MAX_WORD_LEN];
 	char line[MAX_LINE_LEN];
-	int line_num = 0;
-	pSymbole_Head = NULL;
+
+	enum Esymbole_type type;
+	int address				= 0;
+	pSymbole new_symbol     = NULL;
+
+	init_globals();
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
@@ -26,10 +31,26 @@ int firstPass(FILE* pfile)
 		printf(P_DEBUG"%s", line);;
 		/*TODO: check line error*/
 		/*TODO: count ic and dc */
+
+		address = (type == ST_DATA ? DC : IC);
 		/*TODO: add to symbloe table*/
+		new_symbol = create_symbol(name, address, type);
+		if (new_symbol == NULL)
+		{
+			/*TODO: ERROR*/
+		}
+		push_symbol(new_symbol);
+		
 
 	}
 	return 0;
+}
+
+void init_globals()
+{
+	pSymbole_Head = NULL;
+	IC			  = IC_BEGIN;
+	DC			  = DC_BEGIN;
 }
 
 pSymbole create_symbol(char* pName, int address, int type)
@@ -39,6 +60,7 @@ pSymbole create_symbol(char* pName, int address, int type)
 	if (psym == NULL)
 	{
 		printf(P_ERROR"Can't allocate memory for symbol\n"); /*TODO: FINISH PRINT ERR*/
+		return NULL;
 	}
 	strcpy(psym->name, pName);
 	psym->address = address;

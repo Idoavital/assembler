@@ -5,6 +5,10 @@
 #include <stdio.h>
 #include "Data_structures.h"
 
+
+/***************************************************************************/
+						/* First pass functions */
+/***************************************************************************/
 /*
 * the first pass in assembler process - check for error in string line,
 * and build a symbole table
@@ -12,6 +16,12 @@
   @return error if there is error in the file code.
 */
 int firstPass(FILE* pfile);
+
+
+/*
+* The function initialize of the global variable.
+*/
+void init_globals();
 
 /***************************************************************************/
 						/* Link list functions */

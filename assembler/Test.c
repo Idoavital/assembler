@@ -20,6 +20,7 @@ int test_comment();
 /***************************************************************************/
 int Test()
 {
+	init_globals();
 	test_comment();
 	test_symbol();
 
@@ -59,18 +60,19 @@ int test_comma()
 
 int test_symbol()
 {
-
-
+	
 	char name[10] = "LAB";
 	int address = 100;
 	enum Esymbole_type type = ST_STRING;
-	pSymbole_Head = NULL;
 
-	pSymbole sym = create_symbol(name, address, type);
+	pSymbole sym;
 	pSymbole sym1;
 	pSymbole sym2;
 	pSymbole sym3;
 	pSymbole sym4;
+
+
+	sym = create_symbol(name, address, type);
 
 	strcpy(name, "dodo");
 	address = 120;
@@ -106,7 +108,7 @@ int test_symbol()
 	printf("name: %s  address: %d, type: %d \n", sym->name, sym->address, sym->type);
 	printf("name: %s  address: %d, type: %d \n", sym1->name, sym1->address, sym1->type);
 	printf("name: %s  address: %d, type: %d \n", sym2->name, sym2->address, sym2->type);
-	printf("name: %s  address: %d, type: %d \n", sym3->name, sym3>address, sym3->type);
+	printf("name: %s  address: %d, type: %d \n", sym3->name, sym3->address, sym3->type);
 	printf("name: %s  address: %d, type: %d \n", sym4->name, sym4->address, sym4->type);
 
 

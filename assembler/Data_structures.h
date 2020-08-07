@@ -55,6 +55,11 @@ extern char* splitLine[MAX_LINE_LEN];
 extern int Line_number;
 /*The head of symbole table link list */
 extern pSymbole pSymbole_Head;
+/*The instruction counter*/
+extern int IC;
+/*The Data counter*/
+extern int DC;
+
 
 /***************************************************************************/
 				

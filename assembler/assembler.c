@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 			printf( "Couldn't open file %s\n", file_name);
 			continue;
 		}
+
 		firstPass(pFile);
 		 /*second_pass*/
 		fclose(pFile); /* closes the file */
