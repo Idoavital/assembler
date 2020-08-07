@@ -8,6 +8,11 @@
 							/* Enums */
 /***************************************************************************/
 
+
+/*Reserved words */
+extern char *g_keywords[MAX_KEYWORDS];
+/*contains the divided line. every row represent a word in the sentence. */
+extern char splitLine [MAX_LINE_LEN][MAX_LINE_LEN];
 enum Esymbole_type { ST_DATA, ST_STRING, ST_EXTERN, ST_ENTRY, ST_CODE }; /* Symbols Types, for symbol table */
 
 /***************************************************************************/
