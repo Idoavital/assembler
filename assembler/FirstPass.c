@@ -8,7 +8,7 @@
 
 int firstPass(FILE* pfile)
 {
-	char name[MAX_WORD_LEN];
+	char name[MAX_LABEL_LEN];
 	char line[MAX_LINE_LEN];
 
 	enum Esymbole_type type;
