@@ -13,6 +13,7 @@
 #define ON	1
 #define OFF 0
 
+#define MAX_LABEL_TYPE 4
 #define MAX_KEYWORDS  28  
 #define MAX_COMMAND_NAME 20
 #define CHECK_LABLE -3
@@ -21,6 +22,10 @@
 
 #define IC_BEGIN 100
 #define DC_BEGIN 0
+
+#define __IN
+#define __OUT
+
 
 #endif /* !__DEFINES_H__*/
 
