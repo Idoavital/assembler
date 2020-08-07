@@ -46,6 +46,16 @@ typedef struct _symbol {
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
 
+
+/*the address mathod table that contains the legal methods for each command*/
+typedef struct address_method_table
+{
+    char command_name [4];
+    int legal_source [NUM_METHOD];
+    int legal_target [NUM_METHOD];
+
+}address_method_table;
+
 /***************************************************************************/
 							/* Gloabls */
 /***************************************************************************/
@@ -62,6 +72,8 @@ extern pSymbole pSymbole_Head;
 extern int IC;
 /*The Data counter*/
 extern int DC;
+/*the address mathod table that contains the legal methods for each command*/
+extern address_method_table method_table[16];
 
 
 /***************************************************************************/

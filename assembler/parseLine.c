@@ -1,0 +1,175 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>  /* is_number */
+#include <stdlib.h> /*extra_text*/
+
+#include "Defines.h"
+#include "Data_structures.h"
+#include "Error.h"
+
+
+
+
+int is_label(char* label , int index)
+{
+	int  endIndex = 0;
+	endIndex = strlen(&label[index]);
+
+	return (':' == (label[endIndex -1]));
+}
+
+
+int is_legal_label(char* lable, int index)
+{
+	int label_flag = FALSE;
+
+	if (is_label(lable, index))
+	{
+		/* Check if the name start in a number or a keyword (reserved word). and the label is max 31 characters*/
+		if (isdigit(lable[index]) || is_keyword( lable ,index, CHECK_LABLE) || (strlen(lable) > MAX_LABEL_LEN) )
+			label_flag = FALSE;
+		else
+			label_flag = TRUE;
+	}
+
+	if (label_flag == FALSE)
+		return FALSE;
+
+	return label_flag;
+}
+
+/*function that checks if the label or the command name is legal, that depends on the flag info.*/
+int is_keyword(char* str, int index, int flag)
+{
+
+	int max = 0;
+	int i   = 0;
+
+  max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
+	
+	for (i = 0; i < max; i++)
+	{
+		if (!strcmp(&str[index], g_keywords[i]))
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+
+
+
+int is_number (char* op, int index)
+{
+    double number = 0;
+    int num = 0;
+    int check = 0; 
+    int length = 0; /*the length of the string before converting to a number */
+    int count = 0; /*the number of digits of the number, this will need to be equal to 'length'*/
+    if (op[index] == '#')
+    {
+       index++;
+       number = atof(&op[index]);
+       check = (int)number; /*convert to int, and then check if the original number is equal to the convert number */
+       length = strlen(&op[index]);
+       num = number;
+       while(num)
+       {
+           count++;
+           num/=10;
+       }
+       if( isdigit(number) == 0 && check == number && length == count) /*we check that the operator is an integer number*/
+       return METHOD_ADDRESS0;
+    }
+
+    return NOT_NUM;
+}
+
+
+int is_register (char* op, int index)
+{
+    int i;
+    for ( i = START_REGISTER; i < MAX_KEYWORDS; i++)
+    {
+        if (!strcmp(&op[index], g_keywords[i]))
+		{
+			return METHOD_ADDRESS3;
+		}
+    }
+
+    return FALSE;
+}
+
+
+int is_there_extra_text (char* line, int index)
+{
+    if (&line[index] == NULL)
+    {
+        return FALSE; 
+    }
+    
+    return TRUE;
+}
+
+int is_address_method_for_jump_command (char* label, int index)
+{
+    if(label[index] == '&')
+    return METHOD_ADDRESS2;
+
+    else
+    return FALSE;
+}
+
+
+
+int match_address_method (char* command_name, int method_address, int source_or_target )
+{
+    int i,j;
+    for ( i = 0; i < MAX_METHOD_TABLE; i++)
+    {
+        if (!strcmp(command_name, method_table[i].command_name))
+        {
+            if (source_or_target == SOURCE)
+            {
+                for ( j = 0; j < NUM_METHOD; j++)
+                {
+                    if (method_address == method_table[i].legal_source[j])
+                    {
+                        return OK;
+                    }
+                }
+                
+            }
+
+            else
+            {
+                for ( j = 0; j < NUM_METHOD; j++)
+                {
+                    if (method_address == method_table[i].legal_target[j])
+                    {
+                        return OK;
+                    }
+                    
+                }
+                
+            }
+
+            return ERR_NO_MATCH; /*after we have found the correct command name and checked for a match between the methods. we can stop the search. */
+            
+        }
+        
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
