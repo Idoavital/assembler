@@ -20,6 +20,7 @@ int test_comment();
 /***************************************************************************/
 int Test()
 {
+
 	init_globals();
 	test_comment();
 	test_symbol();

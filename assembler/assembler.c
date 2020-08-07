@@ -11,7 +11,7 @@ extern int Test();
 int main(int argc, char* argv[])
 {
 	/*TODO: only for debug - delete leater*/
-/*#define _DEBUG*/
+#define _DEBUG
 #ifdef _DEBUG
 
 	Test(); /*debug*/
