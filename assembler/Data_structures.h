@@ -42,7 +42,7 @@ typedef union _memroy {
 /* symbole node type for symbol table */
 typedef struct _symbol *pSymbole;
 typedef struct _symbol {
-	char    name[MAX_WORD_LEN]; 
+	char    name[MAX_LABEL_LEN]; 
 	int     address;			/* The value of Instruction counter or Data counter*/
 	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN, ENTRY  */
 	pSymbole next;              /* The pointer for link list  */
