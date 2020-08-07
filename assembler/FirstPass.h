@@ -6,6 +6,7 @@
 #include "Data_structures.h"
 
 
+
 /***************************************************************************/
 						/* First pass functions */
 /***************************************************************************/
@@ -22,6 +23,22 @@ int firstPass(FILE* pfile);
 * The function initialize of the global variable.
 */
 void init_globals();
+
+/*
+* The function check the type of the label.
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the postion of the line
+* @return		- the type of the label. 
+*/
+int get_type(char* str, int index);
+
+/*
+* the function copy the label name to param name
+* @param str_in	- the line with label name to copy from.
+* @param name	- pointer to a place that the name will be copy. 
+* 
+*/
+void get_label_name(__IN char* str_in, __OUT char* name);
 
 /***************************************************************************/
 						/* Link list functions */

@@ -9,9 +9,9 @@
 /***************************************************************************/
 
 
-/*Reserved words */
-extern char *g_keywords[MAX_KEYWORDS];
-enum Esymbole_type { ST_DATA, ST_STRING, ST_EXTERN, ST_ENTRY, ST_CODE }; /* Symbols Types, for symbol table */
+
+
+enum Esymbole_type { ST_EXTERN, ST_ENTRY, ST_DATA, ST_STRING,  ST_CODE }; /* Symbols Types, for symbol table */
 
 /***************************************************************************/
 							/* Structures */
@@ -46,16 +46,6 @@ typedef struct _symbol {
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
 
-
-/*the address mathod table that contains the legal methods for each command*/
-typedef struct address_method_table
-{
-    char command_name [4];
-    int legal_source [NUM_METHOD];
-    int legal_target [NUM_METHOD];
-
-}address_method_table;
-
 /***************************************************************************/
 							/* Gloabls */
 /***************************************************************************/
@@ -63,7 +53,7 @@ typedef struct address_method_table
 /*Reserved words */
 extern char* g_keywords[MAX_KEYWORDS];
 /*contains the divided line. every row represent a word in the sentence. */
-extern char splitLine [MAX_LINE_LEN][MAX_LINE_LEN];
+extern char splitLine[MAX_LINE_LEN][MAX_LINE_LEN];
 /*The current line number that read in the assembly file (for print error) */
 extern int Line_number;
 /*The head of symbole table link list */
@@ -72,8 +62,6 @@ extern pSymbole pSymbole_Head;
 extern int IC;
 /*The Data counter*/
 extern int DC;
-/*the address mathod table that contains the legal methods for each command*/
-extern address_method_table method_table[16];
 
 
 /***************************************************************************/
