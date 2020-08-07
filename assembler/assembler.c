@@ -3,13 +3,21 @@
 
 #include "parse.h"
 #include "Data_structures.h"
+#include "FirstPass.h"
 
 
 extern int Test();
 
 int main(int argc, char* argv[])
 {
-	/* Test(); debug*/ 
+	/*TODO: only for debug - delete leater*/
+#define _DEBUG
+#ifdef _DEBUG
+
+	Test(); /*debug*/
+
+#else
+	
 	char  file_name[MAX_FILE_NAME];
 	FILE* pFile;
 	int   i = 1;  
@@ -27,10 +35,13 @@ int main(int argc, char* argv[])
 			printf( "Couldn't open file %s\n", file_name);
 			continue;
 		}
-		 /*first_pass*/
+
+		firstPass(pFile);
 		 /*second_pass*/
 		fclose(pFile); /* closes the file */
 	}
+
+#endif /* DEBUG*/
 
 	return 0;
 }

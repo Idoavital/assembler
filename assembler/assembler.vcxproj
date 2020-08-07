@@ -97,6 +97,7 @@
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="file.as" />
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>

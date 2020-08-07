@@ -192,6 +192,13 @@ int clear_word(char* str, int index)
 	return index;
 }
 
+int is_comment_or_blank_line(char* str, int index)
+{
+	index = clear_white_space( str, index);
+
+	return (str[index] == ';' || is_end_of_line(str[index]));
+}
+
 int is_end_of_line(char c)
 {
 	return (c == '\n' || c == '\0' || c == EOF);
@@ -199,10 +206,11 @@ int is_end_of_line(char c)
 /*function that checks if the label or the command name is legal, that depends on the flag info.*/
 int is_keyword(char* str, int index, int flag)
 {
-	int max =0;
-	int i = 0;
 
-    max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
+	int max = 0;
+	int i   = 0;
+
+  max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
 	
 	for (i = 0; i < max; i++)
 	{
