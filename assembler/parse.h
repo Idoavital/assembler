@@ -54,21 +54,6 @@ int is_space(char c);
 */
 int label_position(char* str, int index);
 
-/**
-* This function check if the next word is a label (ignore white space).
-* @param str	- a pointer to beginnig of the line.
-* @param index	- the position of the line.
-* @return true if the next word is label .
-*/
-int is_label(char* str, int index);
-
-/**
-* This function check if the next word is lagal label name.
-* @param str	- a pointer to beginnig of the line.
-* @param index	- the position of the line.
-* @return true if the word is leagal label.
-*/
-int is_legal_label(char* str, int index);
 
 /**
 * This function clear white space.
@@ -100,14 +85,6 @@ int is_comment_or_blank_line(char* str, int index);
 */
 int is_end_of_line(char c) ;
 
-/**
-* This function check if a word is keyword(reserved word)
-* @param str	- a pointer to beginnig of the line.
-* @param index	- the position of the line.
-* @param flag	- If to check all Keyword or only instructions.
-* @return true if the char is end of line.
-*/
-int is_keyword(char *str, int index, int flag);
 
 /**
 * This function print the 24 bit word in hex
