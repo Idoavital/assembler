@@ -19,21 +19,32 @@ int is_label(char* label , int index)
 }
 
 
-int is_legal_label(char* lable, int index)
+int is_legal_label_definition(char* label, int index)  /*we check if the definition label is valid.*/
 {
+    int  endIndex,i = 0;
+	endIndex = strlen(&label[index]);
 	int label_flag = FALSE;
 
-	if (is_label(lable, index))
+	if (is_label_definition(label, index)  && ':' != (label[endIndex-2]))
 	{
-		/* Check if the name start in a number or a keyword (reserved word). and the label is max 31 characters*/
-		if (isdigit(lable[index]) || is_keyword( lable ,index, CHECK_LABLE) || (strlen(lable) > MAX_LABEL_LEN) )
-			label_flag = FALSE;
-		else
-			label_flag = TRUE;
-	}
 
-	if (label_flag == FALSE)
-		return FALSE;
+        if (isdigit(label[index]) || is_keyword( label ,index, CHECK_LABLE) || (strlen(label) > MAX_LABEL_LEN))
+        {
+            return FALSE;
+        }
+
+        for ( i = 0; label[i] != ':'; i++)
+        {
+            if (isdigit(label[i]) == 0 && isalpha(label[i]) == 0 )
+            return FALSE;
+        }
+
+        label_flag = TRUE;
+		
+    }
+
+	if (label_flag == TRUE)
+		return TRUE;
 
 	return label_flag;
 }

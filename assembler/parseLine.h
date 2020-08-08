@@ -26,7 +26,7 @@ int is_label(char* str, int index);
 * @param index	- the position of the line.
 * @return true if the word is leagal label.
 */
-int is_legal_label(char* str, int index);
+int is_legal_label_definition(char* label, int index);
 
 
 /**
