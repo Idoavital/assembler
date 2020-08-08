@@ -38,6 +38,28 @@ int is_legal_label(char* lable, int index)
 	return label_flag;
 }
 
+
+int is_label_valid(char* label, int index)
+{
+    int i;
+
+    /* Check if the name start with a number, or the label is a keyword (reserved word), and if the label is more then 31 characters*/
+    if (isdigit(label[index]) || is_keyword( label ,index, CHECK_LABLE) || (strlen(label) > MAX_LABEL_LEN))
+    {
+       return FALSE;
+    }
+
+    for ( i = index; label[i] != '\0'; i++)
+    {
+        if (isdigit(label[i]) == 0 && isalpha(label[i]) == 0 )
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
+
+
 /*function that checks if the label or the command name is legal, that depends on the flag info.*/
 int is_keyword(char* str, int index, int flag)
 {

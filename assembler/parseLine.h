@@ -30,6 +30,15 @@ int is_legal_label(char* str, int index);
 
 
 /**
+* this function checks if the label is valid.
+* @param label	- a pointer to the row that contains the label.
+* @param index -  the position of the label.
+* @return - the function returns true if the label is valid, otherwise returns false.
+*/
+int is_label_valid(char* label, int index);
+
+
+/**
 * This function check if a word is keyword(reserved word)
 * @param str	- a pointer to beginnig of the line.
 * @param index	- the position of the line.
