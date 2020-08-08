@@ -46,7 +46,7 @@ int firstPass(FILE* pfile)
 			type = get_type(line, START_LINE);
 			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
 
-			get_label_name(&line[index], name);
+			get_label_name(line, name);
 			/*TODO: add to symbloe table*/
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
