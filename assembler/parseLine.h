@@ -33,8 +33,8 @@ int is_legal_label(char* str, int index);
 * This function check if a word is keyword(reserved word)
 * @param str	- a pointer to beginnig of the line.
 * @param index	- the position of the line.
-* @param flag	- If to check all Keyword or only instructions.
-* @return true if the char is end of line.
+* @param flag	- If to check all Keyword or only instructions/data.
+* @return the index of the command in the array g_keywords, otherwise if there wasnt a match returns false.
 */
 int is_keyword(char *str, int index, int flag);
 

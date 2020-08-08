@@ -41,17 +41,26 @@ int is_legal_label(char* lable, int index)
 /*function that checks if the label or the command name is legal, that depends on the flag info.*/
 int is_keyword(char* str, int index, int flag)
 {
+	int max,i = 0;
+    char temp_str[MAX_LABEL_LEN];
+	int temp_index = 0;
+    sscanf(str,"%s",temp_str);
 
-	int max = 0;
-	int i   = 0;
+    max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
 
-  max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
-	
+    if (flag == CHECK_LABLE) /*in order to compare between a keyword and the label, we need to remove the ':'*/
+    {
+        while (temp_str[temp_index] != ':')
+            temp_index++;
+        
+        temp_str[temp_index] = '\0';      
+    }
+    
 	for (i = 0; i < max; i++)
 	{
-		if (!strcmp(&str[index], g_keywords[i]))
+		if (!strcmp(&temp_str[index], g_keywords[i]))
 		{
-			return TRUE;
+			return i;
 		}
 	}
 
