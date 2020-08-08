@@ -6,7 +6,7 @@
 #include "Defines.h"
 #include "Data_structures.h"
 #include "Error.h"
-
+#include "parseLine.h"
 
 
 
@@ -124,7 +124,7 @@ int is_address_method_for_jump_command (char* label, int index)
 
 
 
-int match_address_method (char* command_name, int method_address, int source_or_target )
+int match_address_method (char* command_name, int address_method, int source_or_target )
 {
     int i,j;
     for ( i = 0; i < MAX_METHOD_TABLE; i++)
@@ -135,7 +135,7 @@ int match_address_method (char* command_name, int method_address, int source_or_
             {
                 for ( j = 0; j < NUM_METHOD; j++)
                 {
-                    if (method_address == method_table[i].legal_source[j])
+                    if (address_method == method_table[i].legal_source[j])
                     {
                         return OK;
                     }
@@ -147,7 +147,7 @@ int match_address_method (char* command_name, int method_address, int source_or_
             {
                 for ( j = 0; j < NUM_METHOD; j++)
                 {
-                    if (method_address == method_table[i].legal_target[j])
+                    if (address_method == method_table[i].legal_target[j])
                     {
                         return OK;
                     }
@@ -162,7 +162,7 @@ int match_address_method (char* command_name, int method_address, int source_or_
         
         
     }
-    
+    return OK;
 }
 
 
