@@ -1,3 +1,5 @@
+#include "string.h"
+
 #include "Data_structures.h"
 #include "Defines.h"
 
@@ -66,7 +68,7 @@ void initialize_address_mathod_table ()
     {
         method_table[i].legal_target[0]=1;
         method_table[i].legal_target[1]=3;
-        i = (i == 8 ? i=11 : i); /*here we jmp to commands red and prn*/
+        i = (i == 8 ? 11 : i); /*here we jmp to commands red and prn*/
     }
     /*initialize target method for command: cmp*/
     method_table[1].legal_target[2]=0;

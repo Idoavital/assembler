@@ -5,6 +5,7 @@
 #include "parse.h"
 #include "Error.h"
 #include "Data_structures.h"
+#include "parseLine.h"
 
 
 int check_legal_comma(char* str, int index)

@@ -33,7 +33,7 @@ int Test()
 /***************************************************************************/
 int test_comma()
 {
-	
+	char name[50];
 	int error = 0;
 
 	char line_ok[80] = "  LABEL: MOV R2,R2";
@@ -55,6 +55,8 @@ int test_comma()
 	error += check_legal_comma(line_6,	START_LINE);
 	error += check_legal_comma(line_7,	START_LINE);
 	error += check_legal_comma(line_8,	START_LINE);
+
+	get_label_name(line_5, name);
 
 	return 0;
 }
