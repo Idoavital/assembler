@@ -133,7 +133,7 @@ int is_address_method_for_jump_command (char* label, int index)
 
 
 
-int match_address_method (char* command_name, int address_method, int source_or_target )
+int match_address_method (char* command_name,int index, int address_method, int source_or_target )
 {
     int i,j;
     for ( i = 0; i < MAX_METHOD_TABLE; i++)
