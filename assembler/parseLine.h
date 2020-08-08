@@ -63,7 +63,7 @@ int is_register (char* op, int index);
 * this function checks if the command line have unnecessary text.
 * @param line	- end of of the line 
 * @param index	- the position of the end of the line 
-* @return the function returns FALSE if there isnt extra text otherwise returns TRUE
+* @return the function returns FALSE if there isnt extra text otherwise returns TRUE.
 */
 int is_there_extra_text (char* line, int index);
 

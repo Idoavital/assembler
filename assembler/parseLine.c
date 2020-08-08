@@ -114,7 +114,7 @@ int is_register (char* op, int index)
 
 int is_there_extra_text (char* line, int index)
 {
-    if (&line[index] == NULL)
+    if (line[index] == '\0')
     {
         return FALSE; 
     }
