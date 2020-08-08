@@ -1,5 +1,7 @@
+#include <string.h>
 #include "Data_structures.h"
 #include "Defines.h"
+
 
 /***************************************************************************/
 							/* Gloabls */

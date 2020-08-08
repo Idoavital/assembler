@@ -5,6 +5,7 @@
 #include "parse.h"
 #include "Error.h"
 #include "Data_structures.h"
+#include "parseLine.h"
 
 
 int check_legal_comma(char* str, int index)
@@ -86,14 +87,11 @@ void split_line(char* str, int index)
 {
     int row_index = 0;
     int column_index = 0;
-    int start_word;
-    int last_word = FALSE;
+    int temp_index = 0;
     
-      while (last_word == FALSE)
+    while (!is_end_of_line(str[index]))
     {
-        
-
-        if (is_space(str[index]))
+         if (is_space(str[index]))
 		{
 	    index = clear_white_space(str, index);
         if (is_end_of_line(str[index]))
@@ -103,15 +101,25 @@ void split_line(char* str, int index)
         {
            index++;
         }
-
-        start_word = index;
-        index = clear_word(str,index);
-        last_word = is_end_of_line(str[index]) ? TRUE: FALSE;
-        str[index] = '\0';
-        strcpy(&splitLine[row_index++][column_index], &str[start_word]);    
-        index++;
-      
         
+        sscanf(&str[index],"%s",&splitLine[row_index][column_index]);
+        
+        temp_index = column_index;
+        while (splitLine[row_index][temp_index] != ',' && splitLine[row_index][temp_index] != '\0')
+        temp_index++;
+        
+        if (splitLine[row_index][temp_index] == ',')
+        {
+            splitLine[row_index++][temp_index] = '\0';
+            index = clear_word(str,index);
+            index++;
+        }
+        else
+        {
+            row_index++;
+            index = clear_word(str,index);
+        }
+            
     }
 }
 
@@ -130,6 +138,7 @@ int is_space(char c)
 {
 	return (isspace(c) && c != '\n');
 }
+
 
 int label_position(char* str, int index)
 {
