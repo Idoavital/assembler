@@ -7,7 +7,6 @@
 #include "parse.h"
 #include "parseLine.h"
 
-
 int firstPass(FILE* pfile)
 {
 	char name[MAX_LABEL_LEN];
@@ -21,7 +20,6 @@ int firstPass(FILE* pfile)
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
-		int index = 0;
 		/* check is a comment or blank line*/
 		if(is_comment_or_blank_line(line, START_LINE))
 			continue;
@@ -29,10 +27,9 @@ int firstPass(FILE* pfile)
 		/*TODO: check comma error in line*/
 		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
 		{
-			/*TODO:  print error and jump to the next line - flag dont do second pass*/
-			continue;
+			printf(P_DEBUG"comma problem !!!\n");
 		}
-
+		printf(P_DEBUG"%s", line);;
 		/*TODO: check line error*/
 		/*TODO: count ic and dc */
 
@@ -45,8 +42,8 @@ int firstPass(FILE* pfile)
 			}
 			type = get_type(line, START_LINE);
 			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-
 			get_label_name(line, name);
+
 			/*TODO: add to symbloe table*/
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
