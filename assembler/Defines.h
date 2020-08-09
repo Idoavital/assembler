@@ -35,7 +35,7 @@
 #define TARGET 2
 #define NOT_NUM 1
 
-
+#define REACH_END_LINE	-1
 
 #define IC_BEGIN 100
 #define DC_BEGIN 0

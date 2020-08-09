@@ -12,10 +12,13 @@
 
 int is_label(char* label , int index)
 {
+    char label_name[MAX_LABEL_LEN];
 	int  endIndex = 0;
-	endIndex = strlen(&label[index]);
 
-	return (':' == (label[endIndex -1]));
+    sscanf(&label[index], "%s", label_name);
+	endIndex = strlen(label_name);
+
+	return (':' == (label_name[endIndex -1]));
 }
 
 

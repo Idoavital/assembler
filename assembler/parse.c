@@ -165,6 +165,17 @@ int is_comment_or_blank_line(char* str, int index)
 	return (str[index] == ';' || is_end_of_line(str[index]));
 }
 
+int get_next_comma_pos(char* str, int index)
+{
+	while (str[index] != COMMA && !is_end_of_line(str[index]))
+		index++;
+
+	if (is_end_of_line(str[index]))
+		return REACH_END_LINE;
+
+	return ++index;
+}
+
 int is_end_of_line(char c)
 {
 	return (c == '\n' || c == '\0' || c == EOF);

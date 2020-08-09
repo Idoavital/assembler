@@ -78,6 +78,15 @@ int clear_word(char* str, int index);
 * @return true if the line is comment or a blank line .
 */
 int is_comment_or_blank_line(char* str, int index);
+
+/**
+* This function return the index in line after the comma.
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the position of the line.
+* @return the index in line after comma. if the line end return a negtive number.
+*/
+int get_next_comma_pos(char* str, int index);
+
 /**
 * This function check if a char is end of line 
 * @param c	- char .
