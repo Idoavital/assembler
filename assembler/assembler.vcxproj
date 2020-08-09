@@ -94,6 +94,7 @@
     <ClCompile Include="Error.c" />
     <ClCompile Include="FirstPass.c" />
     <ClCompile Include="parse.c" />
+    <ClCompile Include="parseLine.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +107,7 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="FirstPass.h" />
     <ClInclude Include="parse.h" />
+    <ClInclude Include="parseLine.h" />
     <ClInclude Include="SeconePass.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
