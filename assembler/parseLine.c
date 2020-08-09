@@ -157,7 +157,7 @@ int is_there_extra_text (char* line, int index)
 
 int is_address_method_for_jump_command (char* label, int index)
 {
-    if(label[index] == '&')
+    if(label[index] == '&' && is_label_valid(label,index+1))
     return METHOD_ADDRESS2;
 
     else

@@ -80,8 +80,8 @@ int is_there_extra_text (char* line, int index);
 * this function checks if the address method specified by the operator type is valid for the this command.
 * @param label	- points to the operator that is tested as a label in template &label 
 * @param index	-  the position of the operator
-* @return the function returns the number of the method address of a &label operator, if the operator is a &label
-          otherwise returns false.
+* @return the function returns the number of the method address of a &label operator, if the operator is a &label 
+          otherwise returns false. 
 */
 int is_address_method_for_jump_command (char* label, int index);
 
