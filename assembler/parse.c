@@ -143,7 +143,7 @@ int is_space(char c)
 int label_position(char* str, int index)
 {
 
-	if (is_label(str, index))
+	if (is_label_definition(str, index))
 		while (':' != str[index++]);
 
 	return index;

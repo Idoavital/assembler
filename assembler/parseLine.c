@@ -10,12 +10,12 @@
 
 
 
-int is_label(char* label , int index)
+int is_label_definition(char* label , int index) /*here we check if this is a label that we want to define */
 {
 	int  endIndex = 0;
-	endIndex = strlen(&label[index]);
+	endIndex = strlen(&label[index]);          
 
-	return (':' == (label[endIndex -1]));
+	return (':' == (label[endIndex -1]) );
 }
 
 

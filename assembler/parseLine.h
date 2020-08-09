@@ -16,8 +16,7 @@
 * @param index	- the position of the line.
 * @return true if the next word is label .
 */
-int is_label(char* str, int index);
-
+int is_label_definition(char* label , int index);
 
 
 /**

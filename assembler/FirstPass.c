@@ -34,9 +34,9 @@ int firstPass(FILE* pfile)
 		/*TODO: check line error*/
 		/*TODO: count ic and dc */
 
-		if (is_label(line, START_LINE))
+		if (is_label_definition(line, START_LINE))
 		{
-			if (is_legal_label(line, START_LINE) == FALSE)
+			if (is_legal_label_definition(line, START_LINE) == FALSE)
 			{
 				/*TODO:  print error and jump to the next line - flag dont do second pass*/
 				continue;
