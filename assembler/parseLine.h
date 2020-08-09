@@ -93,7 +93,7 @@ int is_address_method_for_jump_command (char* label, int index);
 * @param source_or_target - this indicates for us if the operator is a target or a source and according to that info we will check the method.
 * @return the function returns ok if the address method is legal, otherwise it will return that there isn't a match. 
 */
-int match_address_method (char* command_name, int address_method, int source_or_target );
+int match_address_method (char* command_name,int index, int address_method, int source_or_target );
 
 
 /**
