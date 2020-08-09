@@ -21,7 +21,7 @@ int firstPass(FILE* pfile)
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
-		int index = 0;
+
 		/* check is a comment or blank line*/
 		if(is_comment_or_blank_line(line, START_LINE))
 			continue;
