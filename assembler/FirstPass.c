@@ -6,6 +6,7 @@
 #include "Error.h"
 #include "parse.h"
 #include "parseLine.h"
+#include "Data_structures.h"
 
 int firstPass(FILE* pfile)
 {
@@ -16,11 +17,24 @@ int firstPass(FILE* pfile)
 	int address				= 0;
 	pSymbole new_symbol     = NULL;
 
+	int index_command = 0;
+    int outcome =  0;
+    int flag_label = FALSE;
+	/*TODO: need to change the function for the data check, after i write them.*/
+	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
+	{ template0,  template0,  template0, template0, template2, template2, template2, template2, template2, template1, template1,
+	template1, template1, template1, template1, template1, template1, template1, template0, template0};
+	
 	init_globals();
+	initialize_address_mathod_table();
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
 		int index = 0;
+		
+		index_command,outcome = 0;
+		flag_label = FALSE;
+		
 		/* check is a comment or blank line*/
 		if(is_comment_or_blank_line(line, START_LINE))
 			continue;
@@ -31,7 +45,38 @@ int firstPass(FILE* pfile)
 			printf(P_DEBUG"comma problem !!!\n");
 		}
 		printf(P_DEBUG"%s", line);;
-		/*TODO: check line error*/
+
+		/*check line error*/
+
+		split_line(line,START_LINE);
+
+		if (is_label_definition(splitLine[START_LINE],START_LINE))
+    	{
+        	if (!is_legal_label_definition(splitLine[START_LINE],START_LINE))
+        	{
+        	    print_err(ERR_ILLEGAL_DEF_LABEL);
+				break;
+        	}	 
+        	else
+        	{
+            	flag_label = TRUE;
+        	}
+    	}
+		
+    	if ( (index_command = is_keyword(splitLine[flag_label],START_LINE,CHECK_COMMAND_NAME)) == FALSE)
+    	{
+      	  	print_err(ERR_COMMAND_NAME);
+		  	break;
+    	}
+
+		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
+    	{                                                                                   /*to the first row in spiltLine or the second.*/
+      		print_err(outcome);                                                             /*that depends if there is a definition of a label.*/
+        	break;
+    	}
+
+
+
 		/*TODO: count ic and dc */
 
 		if (is_label_definition(line, START_LINE))

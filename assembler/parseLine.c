@@ -207,11 +207,193 @@ int match_address_method (char* command_name,int index, int address_method, int 
     
 }
 
+int active_search_address_method_table (char* line,int index, int address_method, int flag_source_target)
+{
+    int flag;
+    flag = flag_source_target == SOURCE ? SOURCE : TARGET;
+
+    if(match_address_method(line ,index, address_method, flag) == OK) /*checks if the command can accept the address method that the opertaor needs */
+    {
+        return OK; 
+    }
+    else
+    {
+        return ERR_NO_MATCH;     
+    }
+  
+}
 
 
 
+int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int index_op, int flag_source_target)
+{
+    int op = 0;
+    int flag = flag_source_target == SOURCE? SOURCE: TARGET;
+
+    if (op = is_register(line[index_op],indexC))
+    {
+        if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
+        {
+           return REGISTER;
+        } 
+        else
+        {
+            return ERR_REGISTER(flag);
+        }
+        
+    }
+    else if ( (op = is_number(line[index_op],indexC)) != NOT_NUM )
+    {
+        if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
+        {
+            return NUMBER;
+        }
+        else
+        {
+            return ERR_NUMBER(flag);
+        }
+    }
+    else if (op = is_address_method_for_jump_command(line[index_op], indexC))
+    {
+        if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
+        {
+            return ADDRESS_LABEL;
+        }
+        else
+        {
+            return ERR_ADDRESS_LABEL(flag);
+        }
+            
+    }
+    else if (op = is_label_valid(line[index_op],indexC))
+    {
+        if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
+        {
+            return LABEL;
+        }
+        else
+        {
+            return ERR_LABEL(flag);
+        }
+        
+    }
+    else
+    {
+        return ERR_OPERATOR_UNDEFINED(flag);
+    }   
+
+}
+
+
+int is_more_memory_needed (int op)
+{
+    int count = 0;
+
+    if (op == NUMBER || op == ADDRESS_LABEL || op == LABEL)
+    {
+        count++;
+    }
+    
+    return count;
+}
+
+int is_operator_missing (char* op, int index)
+{
+    if (op[index] == '\0')
+    {
+        return ERR_MISSING_OPERATOR;
+    }
+
+    return OK;  
+}
 
 
 
+int template2 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
+{
+    int op = 0;
+    int amount_memory = 1; /*at least one word of memory must be assigned to a line in the program*/
+    int index_op1 = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
+    int index_op2 = indexR+2;/*like the explanation from above, but here if we move +2 we will point to the second operator.*/
+    int index_exstra_text = indexR+3; /*in this row there should be no text, that mean that in this point the command need to end*/
+    
+    if (is_there_extra_text(line[index_exstra_text],indexC))
+    {
+        return ERR_EXTRA_TEXT;
+    }
 
+    if (is_operator_missing(line[index_op1],indexC) == ERR_MISSING_OPERATOR)
+    {
+        return ERR_MISSING_SOURCE;
+    }
+
+    if (is_operator_missing(line[index_op2],indexC) == ERR_MISSING_OPERATOR)
+    {
+        return ERR_MISSING_TARGET;
+    }
+    
+    if( (op = which_operator_and_if_legal(line,indexR,indexC,index_op1,SOURCE) ) > 0) /*If the result is positive the check was successful*/
+    {
+        amount_memory += is_more_memory_needed(op);
+    }
+    else
+    {
+        return op; /*op represents the type of the error*/
+    }
+    if ( (op = which_operator_and_if_legal(line,indexR,indexC,index_op2,TARGET) ) > 0)
+    {
+        amount_memory += is_more_memory_needed(op);
+    }
+    else
+    {
+        return op;
+    }
+    
+    return amount_memory;
+  
+}
+
+
+int template1 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR ,int indexC)
+{
+    int op = 0;
+    int amount_memory = 1;/*at least one word of memory must be assigned to a line in the program*/
+    int index_op1 = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
+    int index_exstra_text = indexR+2;/*in this row there should be no text, that mean that in this point the command need to end*/
+
+    if (is_there_extra_text(line[index_exstra_text],indexC))
+    {
+        return ERR_EXTRA_TEXT;
+    }
+
+    if (is_operator_missing(line[index_op1],indexC) == ERR_MISSING_OPERATOR)
+    {
+        return ERR_MISSING_TARGET; /*when the command have one operator we will see the operator as a target.*/
+    }
+    
+
+    if( (op = which_operator_and_if_legal(line,indexR,indexC,index_op1,TARGET) ) > 0) /*If the result is positive the check was successful*/
+    {
+        amount_memory += is_more_memory_needed(op);
+    }
+    else
+    {
+        return op; /*op represents the type of the error*/
+    }
+
+      return amount_memory;    
+}
+
+int template0 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
+{
+    int  amount_memory = 1;/*at least one word of memory must be assigned to a line in the program*/
+    int index_exstra_text = indexR+1;/*in this row there should be no text, that mean that in this point the command need to end*/
+    
+    if (is_there_extra_text(line[index_exstra_text],indexC))
+    {
+        return ERR_EXTRA_TEXT;
+    }
+
+    return amount_memory;
+}
 

@@ -44,19 +44,42 @@ extern int Line_number;
 /***************************************************************************/
 enum eERROR
 {
+	ERR_MISSING_TARGET = -14,
+   	ERR_MISSING_SOURCE,
+   	ERR_MISSING_OPERATOR,
+   	ERR_EXTRA_TEXT,
+   	ERR_OPERATOR_UNDEFINED_TARGET,
+   	ERR_OPERATOR_UNDEFINED_SOURCE,
+   	ERR_NUMBER_TARGET,
+  	ERR_NUMBER_SOURCE,
+  	ERR_LBAEL_TARGET,
+  	ERR_LABEL_SOURCE,
+   	ERR_ADDRESS_LABEL_TARGET,
+   	ERR_ADDRESS_LABEL_SOURCE,
+   	ERR_REGISTER_TARGET,
+   	ERR_REGISTER_SOURCE,
+
 	ERR_COMMA_AFTER_CMD = 1,
 	ERR_COMMA_NOT_INPLACE,
 	ERR_TWO_COMMA,
 	ERR_COMMA_END_LINE,
 	ERR_MISSING_COMMA,
-	ERR_ILLIGL_LABEL,
+	ERR_ILLEGAL_DEF_LABEL,
 	ERR_NO_MATCH,
-	ERR_OPERATOR_TARGET,
-	ERR_OPERATOR_SOURCE,
-	ERR_EXTRA_TEXT
-
+	ERR_COMMAND_NAME
 
 };
+
+
+/***************************************************************************/
+						/* Define Macros */
+/***************************************************************************/
+
+#define ERR_REGISTER(flag) flag == SOURCE ? ERR_REGISTER_SOURCE : ERR_REGISTER_TARGET
+#define ERR_ADDRESS_LABEL(flag) flag == SOURCE? ERR_ADDRESS_LABEL_SOURCE: ERR_ADDRESS_LABEL_TARGET
+#define ERR_LABEL(flag) flag == SOURCE? ERR_LABEL_SOURCE: ERR_LBAEL_TARGET
+#define ERR_NUMBER(flag) flag == SOURCE? ERR_NUMBER_SOURCE: ERR_NUMBER_TARGET
+#define ERR_OPERATOR_UNDEFINED(flag) flag == SOURCE? ERR_OPERATOR_UNDEFINED_SOURCE: ERR_OPERATOR_UNDEFINED_TARGET
 
 
 /***************************************************************************/
