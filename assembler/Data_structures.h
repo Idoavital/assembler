@@ -76,8 +76,14 @@ extern int DC;
 extern address_method_table method_table[16];
 
 /***************************************************************************/
-				
+				/*/*Founctoin Declaration*/
 /***************************************************************************/
+
+/**
+* this function updates data into the address method table.
+*/
+void initialize_address_mathod_table ();
+
 
 #endif /* !__DATA_STRUCTURES_H__ */
 
