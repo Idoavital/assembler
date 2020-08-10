@@ -55,32 +55,32 @@ void initialize_address_mathod_table ()
     /*initialize source method for commands: mov, cmp, add, sub */
     for ( i = 0; i < 4; i++)
     {
-       method_table[i].legal_source[0] =0;
-       method_table[i].legal_source[1] =1;
-       method_table[i].legal_source[2] =3;   
+       method_table[i].legal_source[0] =METHOD_ADDRESS0;
+       method_table[i].legal_source[1] =METHOD_ADDRESS1;
+       method_table[i].legal_source[2] =METHOD_ADDRESS3;   
     }
 
     /*initialize source method for command: lea*/
-    method_table[4].legal_source[0]=1;
+    method_table[4].legal_source[0]=METHOD_ADDRESS1;
 
     /*initialize target method for commands: mov, cmp, add, sub, lea, clr, not, inc, dec,red, prn*/
     for ( i = 0; i < 14; i++)
     {
-        method_table[i].legal_target[0]=1;
-        method_table[i].legal_target[1]=3;
-        i = (i == 8 ? 11 : i); /*here we jump to commands red and prn*/
+        method_table[i].legal_target[0]=METHOD_ADDRESS1;
+        method_table[i].legal_target[1]=METHOD_ADDRESS3;
+        i = (i == DEC_METHOD_TABEL ? JSR_METHOD_TABEL : i); /*here we jump to commands red and prn*/
     }
     /*initialize target method for command: cmp*/
-    method_table[1].legal_target[2]=0;
+    method_table[1].legal_target[2]=METHOD_ADDRESS0;
     
     /*initialize target method for commands: jmp, bne, jsr*/
     for ( i = 9; i < 12; i++)
     {
-        method_table[i].legal_target[0]=1;
-        method_table[i].legal_target[1]=2;
+        method_table[i].legal_target[0]=METHOD_ADDRESS1;
+        method_table[i].legal_target[1]=METHOD_ADDRESS2;
     }
 
     /*initialize target method for command: prn*/
-    method_table[13].legal_target[2]=0;
+    method_table[13].legal_target[2]=METHOD_ADDRESS0;
       
 }

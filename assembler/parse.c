@@ -85,43 +85,38 @@ int check_legal_comma(char* str, int index)
 
 void split_line(char* str, int index)
 {
+    char temp_str[MAX_LINE_LEN];
     int row_index = 0;
     int column_index = 0;
-    int temp_index = 0;
+    int start_word;
+    int last_word = FALSE;
+    strcpy(&temp_str[index],&str[index]);  
     
-    while (!is_end_of_line(str[index]))
+    while (last_word == FALSE)
     {
-         if (is_space(str[index]))
+        if (is_space(temp_str[index]))
 		{
-	    index = clear_white_space(str, index);
-        if (is_end_of_line(str[index]))
+	    index = clear_white_space(temp_str, index);
+        if (is_end_of_line(temp_str[index]))
 		break;
 		}
-        if (str[index] == ',')
+        if (temp_str[index] == ',')
         {
            index++;
         }
+
+        start_word = index;
+        index = clear_word(temp_str,index);
+        last_word = is_end_of_line(temp_str[index]) ? TRUE: FALSE;
+        temp_str[index] = '\0';
+        strcpy(&splitLine[row_index++][column_index], &temp_str[start_word]);    
+        index++;
+      
         
-        sscanf(&str[index],"%s",&splitLine[row_index][column_index]);
-        
-        temp_index = column_index;
-        while (splitLine[row_index][temp_index] != ',' && splitLine[row_index][temp_index] != '\0')
-        temp_index++;
-        
-        if (splitLine[row_index][temp_index] == ',')
-        {
-            splitLine[row_index++][temp_index] = '\0';
-            index = clear_word(str,index);
-            index++;
-        }
-        else
-        {
-            row_index++;
-            index = clear_word(str,index);
-        }
-            
     }
+    
 }
+
 
 
 
