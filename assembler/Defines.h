@@ -5,6 +5,7 @@
 #define FALSE 0
 #define TRUE  1
 
+#define START_LINE	  0
 #define MAX_LABEL_LEN 31
 #define MAX_LINE_LEN 81
 #define MAX_FILE_NAME 100
@@ -22,7 +23,7 @@
 
 #define CHECK_LABLE -3
 #define CHECK_COMMAND_NAME -4 
-#define START_LINE	  0
+
 
 #define NUM_METHOD 3
 #define METHOD_ADDRESS0 0
@@ -36,6 +37,12 @@
 #define NOT_NUM 1
 
 #define REACH_END_LINE	-1
+
+#define REGISTER 1
+#define NUMBER 2
+#define ADDRESS_LABEL 3
+#define LABEL 4
+
 
 #define IC_BEGIN 100
 #define DC_BEGIN 0

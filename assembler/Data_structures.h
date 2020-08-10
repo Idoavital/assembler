@@ -3,6 +3,12 @@
 
 #include "Defines.h"
 
+/***************************************************************************/
+							/* Defines */
+/***************************************************************************/
+#define JSR_METHOD_TABEL 11
+#define DEC_METHOD_TABEL 8
+
 
 /***************************************************************************/
 							/* Enums */
@@ -76,8 +82,14 @@ extern int DC;
 extern address_method_table method_table[16];
 
 /***************************************************************************/
-				
+				/*/*Founctoin Declaration*/
 /***************************************************************************/
+
+/**
+* this function updates data into the address method table.
+*/
+void initialize_address_mathod_table ();
+
 
 #endif /* !__DATA_STRUCTURES_H__ */
 
