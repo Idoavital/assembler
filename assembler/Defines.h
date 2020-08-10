@@ -36,6 +36,8 @@
 #define TARGET 2
 #define NOT_NUM 1
 
+#define REACH_END_LINE	-1
+
 #define REGISTER 1
 #define NUMBER 2
 #define ADDRESS_LABEL 3

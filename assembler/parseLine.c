@@ -12,10 +12,12 @@
 
 int is_label_definition(char* label , int index) /*here we check if this is a label that we want to define */
 {
+  char label_name[MAX_LABEL_LEN];
 	int  endIndex = 0;
-	endIndex = strlen(&label[index]);          
+  sscanf(&label[index], "%s", label_name);
+	endIndex = strlen(label_name);
 
-	return (':' == (label[endIndex -1]) );
+	return (':' == (label_name[endIndex -1]));
 }
 
 

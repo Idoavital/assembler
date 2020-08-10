@@ -12,9 +12,11 @@ int firstPass(FILE* pfile)
 {
 	char name[MAX_LABEL_LEN];
 	char line[MAX_LINE_LEN];
+	int  index = START_LINE;
 
 	enum Esymbole_type type;
 	int address				= 0;
+
 	pSymbole new_symbol     = NULL;
 
 	int index_command = 0;
@@ -99,6 +101,7 @@ int firstPass(FILE* pfile)
 			push_symbol(new_symbol);
 		}
 
+		calc_dc_counter(line, index);
 		
 
 	}
@@ -141,6 +144,40 @@ void get_label_name(__IN char* str_in, __OUT char* name)
 	while (*name != ':')
 		name++;
 	*name = '\0';
+}
+
+void calc_dc_counter(char* str, int index)
+{
+	int count_data = 0;
+	char cmd[MAX_COMMAND_NAME];
+
+	index = label_position(str, index);
+	
+	sscanf(&str[index], "%s", cmd);
+	index = clear_white_space(str, index);
+	/*If is a .data*/
+	if (strcmp(".data", cmd) == 0)
+	{
+		index += strlen(".data");
+		while (index >= 0)
+		{
+			count_data++;
+			index = get_next_comma_pos(str, index);
+		}	
+
+	}
+	else if (strcmp(".string", cmd) == 0)
+	{
+
+		index += strlen(".string");
+		index = clear_white_space(str, index);
+		index++; /*the string start with char ["] */
+		while (str[index++] != '"')
+			count_data++;
+	}
+
+	DC += count_data;
+
 }
 
 pSymbole create_symbol(char* pName, int address, int type)
