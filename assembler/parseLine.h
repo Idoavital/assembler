@@ -48,13 +48,26 @@ int is_keyword(char *str, int index, int flag);
 
 
 /**
-* this function checks if the operator is a number in this tamplate #num
+* this function checks if the operator is a number in this tamplate #num if the flag is ins_number. if the flag is 
+* data_number it will just check if the number is an intger type.
+* @param opertaor	- points to the operator that is tested as a number
+* @param index	- the position of the operator
+* @param flag - indicate if the check is for a number in an instruction command or a data command.
+* @return the function returns the number of the method address of a number operator, if the operator is a number
+          otherwise returns NO_NUM. 8888 NEED TO UPDATE 8888
+*/
+int is_number (char* op, int index, int flag);
+
+
+/**
+* this function checks if the operator is a valid number. 
 * @param op	- points to the operator that is tested as a number
 * @param index	- the position of the operator
 * @return the function returns the number of the method address of a number operator, if the operator is a number
-          otherwise returns NO_NUM.
+          otherwise returns NO_NUM. 
 */
-int is_number (char* op, int index);
+int is_legal_number(char* op, int index);
+
 
 
 /**

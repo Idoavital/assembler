@@ -102,31 +102,73 @@ int is_keyword(char* str, int index, int flag)
 
 
 
-
-int is_number (char* op, int index)
+int is_number (char* op, int index, int flag)
 {
-    double number = 0;
-    int num = 0;
-    int check = 0; 
-    int length = 0; /*the length of the string before converting to a number */
-    int count = 0; /*the number of digits of the number, this will need to be equal to 'length'*/
-    if (op[index] == '#')
+    if (flag == INS_NUMBER)
     {
-       index++;
-       number = atof(&op[index]);
-       check = (int)number; /*convert to int, and then check if the original number is equal to the convert number */
-       length = strlen(&op[index]);
-       num = number;
-       while(num)
-       {
-           count++;
-           num/=10;
-       }
-       if( isdigit(number) == 0 && check == number && length == count) /*we check that the operator is an integer number*/
-       return METHOD_ADDRESS0;
+        if (op[index] == '#')
+        {
+            index++;
+            if (legal_number(op,index) == METHOD_ADDRESS0)
+                return METHOD_ADDRESS0;
+            else
+                return NOT_NUM; 
+        }
+        
     }
+    else
+    {
+        if (legal_number(op,index) == METHOD_ADDRESS0)
+            return METHOD_ADDRESS0;
+        else
+            return NOT_NUM;   
+    }
+    
+}
 
-    return NOT_NUM;
+
+int is_legal_number(char* op, int index) 
+{
+    int i;
+    int temp_digit;
+    char temp_str[1];
+    int flag_after_dot = FALSE;
+    int flag_num = TRUE;
+
+       for ( i = index ; op[i] != '\0'; i++)
+        {
+            if (flag_after_dot == TRUE)
+            {
+                if (op[i] != '0')
+                {   
+                    flag_num = FALSE;
+                    break;
+                }
+            
+            }
+            else if (op[i] == '.')
+            {
+                flag_after_dot = TRUE;
+            }
+            else
+            {
+                temp_str[0] = op[i];
+                temp_digit = atoi(temp_str);
+                if (strcmp(&temp_str[0],"0") != 0  && temp_digit == 0)
+                {
+                    flag_num = FALSE;
+                    break;
+                } 
+            } 
+        } 
+
+    if (flag_num == FALSE)
+    {
+       return NOT_NUM;
+    }
+     
+    return METHOD_ADDRESS0;
+
 }
 
 
@@ -242,7 +284,7 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
         }
         
     }
-    else if ( (op = is_number(line[index_op],indexC)) != NOT_NUM )
+    else if ( (op = is_number(line[index_op],indexC, INS_NUMBER)) != NOT_NUM )
     {
         if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
         {
