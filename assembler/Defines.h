@@ -43,6 +43,8 @@
 #define ADDRESS_LABEL 3
 #define LABEL 4
 
+#define INS_NUMBER 5/*ins: instruction*/
+#define DATA_NUMBER 6
 
 #define IC_BEGIN 100
 #define DC_BEGIN 0
