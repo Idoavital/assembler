@@ -54,7 +54,7 @@ int is_keyword(char *str, int index, int flag);
 * @param index	- the position of the operator
 * @param flag - indicate if the check is for a number in an instruction command or a data command.
 * @return the function returns the number of the method address of a number operator, if the operator is a number
-          otherwise returns NO_NUM. 8888 NEED TO UPDATE 8888
+          otherwise returns NO_NUM. 
 */
 int is_number (char* op, int index, int flag);
 
