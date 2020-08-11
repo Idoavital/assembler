@@ -111,7 +111,7 @@ int is_number (char* op, int index, int flag)
         if (op[index] == '#')
         {
             index++;
-            if (legal_number(op,index) == METHOD_ADDRESS0)
+            if (is_legal_number(op,index) == METHOD_ADDRESS0)
                 return METHOD_ADDRESS0;
             else
                 return NOT_NUM; 
@@ -120,7 +120,7 @@ int is_number (char* op, int index, int flag)
     }
     else
     {
-        if (legal_number(op,index) == METHOD_ADDRESS0)
+        if (is_legal_number(op,index) == METHOD_ADDRESS0)
             return METHOD_ADDRESS0;
         else
             return NOT_NUM;   
