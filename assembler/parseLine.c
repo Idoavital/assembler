@@ -309,7 +309,7 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
         }
             
     }
-    else if (op = is_label_valid(line[index_op],indexC))
+    else if ((op = is_label_valid(line[index_op],indexC)))
     {
         if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
         {
