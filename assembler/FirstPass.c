@@ -6,22 +6,37 @@
 #include "Error.h"
 #include "parse.h"
 #include "parseLine.h"
-
+#include "Data_structures.h"
 
 int firstPass(FILE* pfile)
 {
 	char name[MAX_LABEL_LEN];
 	char line[MAX_LINE_LEN];
+	int  index = START_LINE;
 
 	enum Esymbole_type type;
 	int address				= 0;
+
 	pSymbole new_symbol     = NULL;
 
+	int index_command = 0;
+    int outcome =  0;
+    int flag_label = FALSE;
+	/*TODO: need to change the function for the data check, after i write them.*/
+	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
+	{ template0,  template0,  template0, template0, template2, template2, template2, template2, template2, template1, template1,
+	template1, template1, template1, template1, template1, template1, template1, template0, template0};
+	
 	init_globals();
+	initialize_address_mathod_table();
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
-
+		int index = 0;
+		
+		index_command,outcome = 0;
+		flag_label = FALSE;
+		
 		/* check is a comment or blank line*/
 		if(is_comment_or_blank_line(line, START_LINE))
 			continue;
@@ -29,24 +44,54 @@ int firstPass(FILE* pfile)
 		/*TODO: check comma error in line*/
 		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
 		{
-			/*TODO:  print error and jump to the next line - flag dont do second pass*/
-			continue;
+			printf(P_DEBUG"comma problem !!!\n");
 		}
+		printf(P_DEBUG"%s", line);;
 
-		/*TODO: check line error*/
+		/*check line error*/
+
+		split_line(line,START_LINE);
+
+		if (is_label_definition(splitLine[START_LINE],START_LINE))
+    	{
+        	if (!is_legal_label_definition(splitLine[START_LINE],START_LINE))
+        	{
+        	    print_err(ERR_ILLEGAL_DEF_LABEL);
+				break;
+        	}	 
+        	else
+        	{
+            	flag_label = TRUE;
+        	}
+    	}
+		
+    	if ( (index_command = is_keyword(splitLine[flag_label],START_LINE,CHECK_COMMAND_NAME)) == FALSE)
+    	{
+      	  	print_err(ERR_COMMAND_NAME);
+		  	break;
+    	}
+
+		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
+    	{                                                                                   /*to the first row in spiltLine or the second.*/
+      		print_err(outcome);                                                             /*that depends if there is a definition of a label.*/
+        	break;
+    	}
+
+
+
 		/*TODO: count ic and dc */
 
-		if (is_label(line, START_LINE))
+		if (is_label_definition(line, START_LINE))
 		{
-			if (is_legal_label(line, START_LINE) == FALSE)
+			if (is_legal_label_definition(line, START_LINE) == FALSE)
 			{
 				/*TODO:  print error and jump to the next line - flag dont do second pass*/
 				continue;
 			}
 			type = get_type(line, START_LINE);
 			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-
 			get_label_name(line, name);
+
 			/*TODO: add to symbloe table*/
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
@@ -56,6 +101,7 @@ int firstPass(FILE* pfile)
 			push_symbol(new_symbol);
 		}
 
+		calc_dc_counter(line, index);
 		
 
 	}
@@ -98,6 +144,40 @@ void get_label_name(__IN char* str_in, __OUT char* name)
 	while (*name != ':')
 		name++;
 	*name = '\0';
+}
+
+void calc_dc_counter(char* str, int index)
+{
+	int count_data = 0;
+	char cmd[MAX_COMMAND_NAME];
+
+	index = label_position(str, index);
+	
+	sscanf(&str[index], "%s", cmd);
+	index = clear_white_space(str, index);
+	/*If is a .data*/
+	if (strcmp(".data", cmd) == 0)
+	{
+		index += strlen(".data");
+		while (index >= 0)
+		{
+			count_data++;
+			index = get_next_comma_pos(str, index);
+		}	
+
+	}
+	else if (strcmp(".string", cmd) == 0)
+	{
+
+		index += strlen(".string");
+		index = clear_white_space(str, index);
+		index++; /*the string start with char ["] */
+		while (str[index++] != '"')
+			count_data++;
+	}
+
+	DC += count_data;
+
 }
 
 pSymbole create_symbol(char* pName, int address, int type)

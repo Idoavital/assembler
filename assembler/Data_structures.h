@@ -3,6 +3,12 @@
 
 #include "Defines.h"
 
+/***************************************************************************/
+							/* Defines */
+/***************************************************************************/
+#define JSR_METHOD_TABEL 11
+#define DEC_METHOD_TABEL 8
+
 
 /***************************************************************************/
 							/* Enums */
@@ -30,6 +36,14 @@ typedef struct _st_mem_word {
 
 }st_mem_word;
 
+/*the address mathod table that contains the legal methods for each command*/
+typedef struct address_method_table
+{
+	char command_name[4];
+	int legal_source[NUM_METHOD];
+	int legal_target[NUM_METHOD];
+
+}address_method_table;
 
 typedef union _memroy {
 	int			 data;
@@ -45,15 +59,6 @@ typedef struct _symbol {
 	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN, ENTRY  */
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
-
-/*the address mathod table that contains the legal methods for each command*/
-typedef struct address_method_table
-{
-	char command_name[4];
-	int legal_source[NUM_METHOD];
-	int legal_target[NUM_METHOD];
-
-}address_method_table;
 
 /***************************************************************************/
 							/* Gloabls */
@@ -76,8 +81,14 @@ extern int DC;
 extern address_method_table method_table[16];
 
 /***************************************************************************/
-				
+				/*/*Founctoin Declaration*/
 /***************************************************************************/
+
+/**
+* this function updates data into the address method table.
+*/
+void initialize_address_mathod_table ();
+
 
 #endif /* !__DATA_STRUCTURES_H__ */
 
