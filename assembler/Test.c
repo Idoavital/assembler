@@ -14,6 +14,7 @@
 int test_comma();
 int test_symbol();
 int test_comment();
+int test_calc_dc();
 
 /***************************************************************************/
 							/* main function */
@@ -22,6 +23,9 @@ int Test()
 {
 
 	init_globals();
+
+	test_calc_dc();
+	test_comma();
 	test_comment();
 	test_symbol();
 
@@ -33,7 +37,7 @@ int Test()
 /***************************************************************************/
 int test_comma()
 {
-	
+	char name[50];
 	int error = 0;
 
 	char line_ok[80] = "  LABEL: MOV R2,R2";
@@ -55,6 +59,9 @@ int test_comma()
 	error += check_legal_comma(line_6,	START_LINE);
 	error += check_legal_comma(line_7,	START_LINE);
 	error += check_legal_comma(line_8,	START_LINE);
+
+
+	get_label_name(line_5, name);
 
 	return 0;
 }
@@ -130,6 +137,27 @@ int test_comment()
 	ret += is_comment_or_blank_line(line2, 0);
 	ret += is_comment_or_blank_line(line3, 0);
 	ret += is_comment_or_blank_line(line4, 0);
+
+	return 0;
+}
+
+int test_calc_dc()
+{
+	int index = 0;
+	char line_1[80] = "   LABEL: .data 10,-12  ,20,  +10";
+	char line_2[80] = "  .string \"aswd   123\"  ";
+	char line_3[80] = "  .string   \"1234567\"	";
+
+	printf("dc = %d\n", DC);
+	index = label_position(line_1, index);
+	calc_dc_counter(line_1, index);
+	printf("dc after line 1= %d\n", DC);
+
+	calc_dc_counter(line_2, 0);
+	printf("dc after line 3= %d\n", DC);
+
+	calc_dc_counter(line_3, 0);
+	printf("dc after line 3= %d\n", DC);
 
 	return 0;
 }

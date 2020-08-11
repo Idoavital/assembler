@@ -3,6 +3,12 @@
 
 #include "Defines.h"
 
+/***************************************************************************/
+							/* Defines */
+/***************************************************************************/
+#define JSR_METHOD_TABEL 11
+#define DEC_METHOD_TABEL 8
+
 
 /***************************************************************************/
 							/* Enums */
@@ -54,6 +60,15 @@ typedef struct _symbol {
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
 
+/*the address mathod table that contains the legal methods for each command*/
+typedef struct address_method_table
+{
+	char command_name[4];
+	int legal_source[NUM_METHOD];
+	int legal_target[NUM_METHOD];
+
+}address_method_table;
+
 /***************************************************************************/
 							/* Gloabls */
 /***************************************************************************/
@@ -71,10 +86,18 @@ extern int IC;
 /*The Data counter*/
 extern int DC;
 
+/*the address mathod table that contains the legal methods for each command*/
+extern address_method_table method_table[16];
 
 /***************************************************************************/
-				
+				/*/*Founctoin Declaration*/
 /***************************************************************************/
+
+/**
+* this function updates data into the address method table.
+*/
+void initialize_address_mathod_table ();
+
 
 #endif /* !__DATA_STRUCTURES_H__ */
 

@@ -5,6 +5,7 @@
 #include "parse.h"
 #include "Error.h"
 #include "Data_structures.h"
+#include "parseLine.h"
 
 
 int check_legal_comma(char* str, int index)
@@ -84,36 +85,38 @@ int check_legal_comma(char* str, int index)
 
 void split_line(char* str, int index)
 {
+    char temp_str[MAX_LINE_LEN];
     int row_index = 0;
     int column_index = 0;
     int start_word;
     int last_word = FALSE;
+    strcpy(&temp_str[index],&str[index]);  
     
-      while (last_word == FALSE)
+    while (last_word == FALSE)
     {
-        
-
-        if (is_space(str[index]))
+        if (is_space(temp_str[index]))
 		{
-	    index = clear_white_space(str, index);
-        if (is_end_of_line(str[index]))
+	    index = clear_white_space(temp_str, index);
+        if (is_end_of_line(temp_str[index]))
 		break;
 		}
-        if (str[index] == ',')
+        if (temp_str[index] == ',')
         {
            index++;
         }
 
         start_word = index;
-        index = clear_word(str,index);
-        last_word = is_end_of_line(str[index]) ? TRUE: FALSE;
-        str[index] = '\0';
-        strcpy(&splitLine[row_index++][column_index], &str[start_word]);    
+        index = clear_word(temp_str,index);
+        last_word = is_end_of_line(temp_str[index]) ? TRUE: FALSE;
+        temp_str[index] = '\0';
+        strcpy(&splitLine[row_index++][column_index], &temp_str[start_word]);    
         index++;
       
         
     }
+    
 }
+
 
 
 
@@ -131,10 +134,11 @@ int is_space(char c)
 	return (isspace(c) && c != '\n');
 }
 
+
 int label_position(char* str, int index)
 {
 
-	if (is_label(str, index))
+	if (is_label_definition(str, index))
 		while (':' != str[index++]);
 
 	return index;
@@ -162,6 +166,17 @@ int is_comment_or_blank_line(char* str, int index)
 	index = clear_white_space( str, index);
 
 	return (str[index] == ';' || is_end_of_line(str[index]));
+}
+
+int get_next_comma_pos(char* str, int index)
+{
+	while (str[index] != COMMA && !is_end_of_line(str[index]))
+		index++;
+
+	if (is_end_of_line(str[index]))
+		return REACH_END_LINE;
+
+	return ++index;
 }
 
 int is_end_of_line(char c)
