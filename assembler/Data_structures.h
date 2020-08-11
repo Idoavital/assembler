@@ -30,6 +30,14 @@ typedef struct _st_mem_word {
 
 }st_mem_word;
 
+/*the address mathod table that contains the legal methods for each command*/
+typedef struct address_method_table
+{
+	char command_name[4];
+	int legal_source[NUM_METHOD];
+	int legal_target[NUM_METHOD];
+
+}address_method_table;
 
 typedef union _memroy {
 	int			 data;
