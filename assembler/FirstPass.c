@@ -34,7 +34,8 @@ int firstPass(FILE* pfile)
 	{
 		int index = 0;
 		
-		index_command,outcome = 0;
+		index_command = 0;
+	    outcome = 0;
 		flag_label = FALSE;
 		
 		/* check is a comment or blank line*/
