@@ -12,9 +12,9 @@
 
 int is_label_definition(char* label , int index) /*here we check if this is a label that we want to define */
 {
-  char label_name[MAX_LABEL_LEN];
-	int  endIndex = 0;
-  sscanf(&label[index], "%s", label_name);
+    char label_name[MAX_LABEL_LEN];
+    int  endIndex = 0;
+    sscanf(&label[index], "%s", label_name);
 	endIndex = strlen(label_name);
 
 	return (':' == (label_name[endIndex -1]));
@@ -24,8 +24,8 @@ int is_label_definition(char* label , int index) /*here we check if this is a la
 int is_legal_label_definition(char* label, int index)  /*we check if the definition label is valid.*/
 {
     int  endIndex,i = 0;
-	endIndex = strlen(&label[index]);
 	int label_flag = FALSE;
+    endIndex = strlen(&label[index]);
 
 	if (is_label_definition(label, index)  && ':' != (label[endIndex-2]))
 	{
@@ -305,7 +305,7 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
     int op = 0;
     int flag = flag_source_target == SOURCE? SOURCE: TARGET;
 
-    if (op = is_register(line[index_op],indexC))
+    if ((op = is_register(line[index_op],indexC)))
     {
         if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
         {
@@ -328,7 +328,7 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
             return ERR_NUMBER(flag);
         }
     }
-    else if (op = is_address_method_for_jump_command(line[index_op], indexC))
+    else if ((op = is_address_method_for_jump_command(line[index_op], indexC)))
     {
         if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
         {
@@ -340,7 +340,7 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
         }
             
     }
-    else if (op = is_label_valid(line[index_op],indexC))
+    else if ((op = is_label_valid(line[index_op],indexC)))
     {
         if (active_search_address_method_table(line[indexR], indexC, op, flag) == OK)
         {

@@ -32,9 +32,8 @@ int firstPass(FILE* pfile)
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
-		int index = 0;
-		
-		index_command,outcome = 0;
+		index_command = 0;
+	    outcome = 0;
 		flag_label = FALSE;
 		
 		/* check is a comment or blank line*/
@@ -78,16 +77,11 @@ int firstPass(FILE* pfile)
     	}
 
 
-
 		/*TODO: count ic and dc */
 
-		if (is_label_definition(line, START_LINE))
+		if (flag_label)
 		{
-			if (is_legal_label_definition(line, START_LINE) == FALSE)
-			{
-				/*TODO:  print error and jump to the next line - flag dont do second pass*/
-				continue;
-			}
+
 			type = get_type(line, START_LINE);
 			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
 			get_label_name(line, name);
@@ -98,7 +92,7 @@ int firstPass(FILE* pfile)
 			{
 				/*TODO: ERROR*/
 			}
-			push_symbol(new_symbol);
+			push_symbol(new_symbol);/*TODO: GET ERROT ANSWER */
 		}
 
 		calc_dc_counter(line, index);
@@ -174,6 +168,8 @@ void calc_dc_counter(char* str, int index)
 		index++; /*the string start with char ["] */
 		while (str[index++] != '"')
 			count_data++;
+
+		count_data++; /*For the last char '\0' */
 	}
 
 	DC += count_data;
