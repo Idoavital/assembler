@@ -129,6 +129,7 @@ int is_number (char* op, int index, int flag)
 }
 
 
+
 int is_legal_number(char* op, int index) 
 {
     int i;
@@ -158,8 +159,35 @@ int is_legal_number(char* op, int index)
                 temp_digit = atoi(temp_str);
                 if (strcmp(&temp_str[0],"0") != 0  && temp_digit == 0)
                 {
-                    flag_num = FALSE;
-                    break;
+                    if ( strcmp(&temp_str[0],"-") == 0 ||  strcmp(&temp_str[0],"+") == 0 )/*if the char is '-'/'+'*/
+                    {                                                                    /* we will check if the next char is a number*/
+                        if (op[i+1] != '\0')
+                        {
+                            temp_str[0] = op[i+1];
+                            temp_digit = atoi(temp_str);
+                            if (strcmp(&temp_str[0],"0") != 0  && temp_digit == 0)
+                            {
+                                 flag_num = FALSE;
+                                 break;
+                            }
+                            else
+                            {   
+                                i++;  /*here the test completed. and the next char was a number, so we can skip him because we already checked.*/
+                                continue;
+                            } 
+                            
+                        }
+                        else
+                        {
+                            flag_num = FALSE;
+                            break;
+                        }                                                                                        
+                    }
+                    else
+                    {
+                        flag_num = FALSE;
+                        break;
+                    }  
                 } 
             } 
         } 
@@ -172,6 +200,9 @@ int is_legal_number(char* op, int index)
     return METHOD_ADDRESS0;
 
 }
+
+
+
 
 
 int is_register (char* op, int index)
@@ -441,3 +472,74 @@ int template0 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
     return amount_memory;
 }
 
+
+int template_entry_extern (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
+{   int index_label = indexR+1; /*indexR points to the row that contains the '.entry', so if we move +1 we will point to the label.*/
+    int index_exstra_text = indexR+2;/*in this row there should be no text, that mean that in this point the command need to end*/
+    
+    if (is_there_extra_text(line[index_exstra_text],indexC))
+    {
+        return ERR_EXTRA_TEXT;
+    }
+    
+    if (is_operator_missing(line[index_label],indexC) == ERR_MISSING_OPERATOR)
+    {
+        return ERR_MIISING_LABEL;
+    }
+    if (!is_label_valid(line[index_label],indexC))
+    {
+        return ERR_ILLEGAL_LABEL;
+    }
+    
+    return OK;
+}
+
+
+int template_data (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
+{   
+    int i = indexR+1;/*indexR points to the row that contains the '.data', so if we move +1 we will point to the first number.*/
+
+    for ( ; line[i][indexC] != '\0'; i++)
+    {
+        if (is_number(line[i],indexC,DATA_NUMBER) == NOT_NUM)
+        {
+            return ERR_NUMBER_DATA; 
+        }
+    }
+    
+    return OK; 
+}
+
+
+int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
+{
+    int i  = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
+    int j = indexC;
+
+    if (line[i][j] == '*')
+    {
+        for ( ; line[i][j] != '\0'; i++)
+        {
+            for ( ;  line[i][j] != '\0' ; j++)
+            {
+                 if (!isprint(line[i][j]))
+                 {
+                     return ERR_STRING;
+                 } 
+
+                 indexC = j; /*before we finish the loop, we will save the index of the last char.*/
+            }
+            indexR = i; /*before we finish the loop, we will save the index of the last row(string).*/
+            j = 0;
+        }
+        if (line[indexR][indexC] != '*') 
+        {
+            return ERR_STRING;
+        }
+
+        return OK;
+    }
+    
+    return ERR_STRING;
+
+}

@@ -79,6 +79,18 @@ int print_err(enum eERROR err_type)
 	case ERR_MISSING_TARGET:
 		printf("the target operator is missing.");
 		break;
+	case ERR_NUMBER_DATA:
+		printf("one of the numbers that was entered is incorrect.");
+		break;
+	case ERR_STRING:
+		printf("the string that was entered is incorrect.");
+		break;
+	case ERR_ILLEGAL_LABEL:
+		printf("the label that was entered is incorrect.");
+		break;
+	case ERR_MIISING_LABEL:
+		printf("the commands .entry and .extern should have a label after the command.");
+		break;
 	default:
 		printf("UNDEFINE ERROR\n");
 		break;
