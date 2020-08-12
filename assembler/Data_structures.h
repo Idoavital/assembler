@@ -56,7 +56,8 @@ typedef struct _symbol *pSymbole;
 typedef struct _symbol {
 	char    name[MAX_LABEL_LEN]; 
 	int     address;			/* The value of Instruction counter or Data counter*/
-	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN, ENTRY  */
+	int     type;               /* type can be : CODE ,DATA, STRING, EXTERN   */
+	int		isEntry;			/*  if it's entry type */
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
 
@@ -76,6 +77,8 @@ extern pSymbole pSymbole_Head;
 extern int IC;
 /*The Data counter*/
 extern int DC;
+/*Flag for error*/
+extern int err_num;
 
 /*the address mathod table that contains the legal methods for each command*/
 extern address_method_table method_table[16];

@@ -168,6 +168,17 @@ int is_comment_or_blank_line(char* str, int index)
 	return (str[index] == ';' || is_end_of_line(str[index]));
 }
 
+int is_extern(char* str, int index)
+{
+	char word[MAX_LABEL_LEN];
+	sscanf(&str[index], "%s", word);
+
+	if (strcmp(word, ".extern") == 0)
+		return TRUE;
+
+	return FALSE;
+}
+
 int get_next_comma_pos(char* str, int index)
 {
 	while (str[index] != COMMA && !is_end_of_line(str[index]))

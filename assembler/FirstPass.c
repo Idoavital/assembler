@@ -12,16 +12,14 @@ int firstPass(FILE* pfile)
 {
 	char name[MAX_LABEL_LEN];
 	char line[MAX_LINE_LEN];
-	int  index = START_LINE;
-
 	enum Esymbole_type type;
 	int address				= 0;
-
 	pSymbole new_symbol     = NULL;
 
 	int index_command = 0;
     int outcome =  0;
     int flag_label = FALSE;
+
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
 	{ template0,  template0,  template0, template0, template2, template2, template2, template2, template2, template1, template1,
@@ -77,29 +75,35 @@ int firstPass(FILE* pfile)
     	}
 
 
-		/*TODO: count ic and dc */
-
-		if (flag_label)
+		
+		/*  if we a label in the table we push the label to symbol table */
+		if (flag_label || is_extern(line, START_LINE))
 		{
 
-			type = get_type(line, START_LINE);
-			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-			get_label_name(line, name);
+			type		= get_type(line, START_LINE);
+			address		= (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
+			get_label_name(line, name, type);
 
-			/*TODO: add to symbloe table*/
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
 			{
-				/*TODO: ERROR*/
+				print_err(ERR_SYMBOL_ALLOCATION);
 			}
-			push_symbol(new_symbol);/*TODO: GET ERROT ANSWER */
+
+			if (push_symbol(new_symbol) == PUSH_ERROR)
+			{
+				print_err(ERR_PUSH_TABLE);
+				free(new_symbol);
+			}
 		}
 
-		calc_dc_counter(line, index);
+		/*Update ic and dc */
+		IC += outcome;
+		calc_dc_counter(line, START_LINE);
 		
 
 	}
-	return 0;
+	return err_num;
 }
 
 void init_globals()
@@ -111,33 +115,48 @@ void init_globals()
 
 int get_type(char* str, int index)
 {
-	int i = 0;  /*loop index (also type index)*/
 
 	char label_type[MAX_LINE_LEN];
 	/*Read label*/
 	index = label_position(str ,index);
 	/*Read the type of the word*/
 	sscanf(&str[index], "%s", label_type);
-	
-	for (i = 0; i < MAX_LABEL_TYPE; i++)
-	{
-		if (strcmp(label_type, g_keywords[i]) == 0)
-		{
-			return i; /* return the type number */
-		}
-	}
+
+	if (strcmp(label_type, ".extern") == 0)
+		return ST_EXTERN;
+
+	else if (strcmp(label_type, ".data") == 0)
+		return ST_DATA;
+
+	else if (strcmp(label_type, ".string") == 0)
+		return ST_DATA;
+
+	else if (strcmp(label_type, ".string") == 0)
+		return ST_DATA;
+
 
 	/*else return CODE TYPE*/
-	return i;
+	return ST_CODE;
 }
 
-void get_label_name(__IN char* str_in, __OUT char* name)
+void get_label_name(__IN char* str_in, __OUT char* name, int type)
 {
-	
-	sscanf(str_in, "%s", name);
-	while (*name != ':')
-		name++;
-	*name = '\0';
+	if (type == ST_EXTERN) /*take the second word , the label name is after the type*/
+	{
+		int index = 0;
+		index = clear_white_space(str_in,START_LINE);
+		index = clear_word(str_in, index);
+		sscanf(str_in, "%s", name);
+		
+	}
+	else /* the label name is before the type*/
+	{
+		sscanf(str_in, "%s", name);
+		while (*name != ':')
+			name++;
+		*name = '\0';  /*delet the ':' colon sign */
+	}
+
 }
 
 void calc_dc_counter(char* str, int index)
@@ -165,6 +184,11 @@ void calc_dc_counter(char* str, int index)
 
 		index += strlen(".string");
 		index = clear_white_space(str, index);
+
+		/*check if it's not a empty string*/
+		if (is_end_of_line(str[index]))
+			return;
+
 		index++; /*the string start with char ["] */
 		while (str[index++] != '"')
 			count_data++;
@@ -186,9 +210,9 @@ pSymbole create_symbol(char* pName, int address, int type)
 		return NULL;
 	}
 	strcpy(psym->name, pName);
-	psym->address = address;
-	psym->type = type;
-
+	psym->address	= address;
+	psym->type		= type;
+	psym->isEntry   = FALSE;
 	return psym;
 }
 
