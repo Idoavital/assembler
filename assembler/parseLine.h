@@ -54,17 +54,16 @@ int is_keyword(char *str, int index, int flag);
 * @param index	- the position of the operator
 * @param flag - indicate if the check is for a number in an instruction command or a data command.
 * @return the function returns the number of the method address of a number operator, if the operator is a number
-          otherwise returns NO_NUM. 
+          otherwise returns NO_NUM.
 */
 int is_number (char* op, int index, int flag);
-
 
 /**
 * this function checks if the operator is a valid number. 
 * @param op	- points to the operator that is tested as a number
 * @param index	- the position of the operator
 * @return the function returns the number of the method address of a number operator, if the operator is a number
-          otherwise returns NO_NUM. 
+          otherwise returns NO_NUM.
 */
 int is_legal_number(char* op, int index);
 
@@ -176,6 +175,37 @@ int template1 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR ,int indexC);
 * @return the function returns the specific ERROR if there was any error, otherwise it will return the amount of memory that the command need.
 */
 int template0 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
+
+
+
+/**
+* this function checks an entry/extern command.
+* @param line	- a matrix that contains the split sentence, in a way that in every row there is a word.
+* @param indexR - index of a row that contains the data command '.entry'/'.extern.
+* @param indexC - the position of the data command.
+* @return the function returns error if there was an error otherwise returns ok.
+*/
+int template_entry_extern (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
+
+/**
+* this function checks if each number is valid.
+* @param line	- a matrix that contains the split sentence, in a way that in every row there is a word.
+* @param indexR - index of a row that contains the data command '.data'.
+* @param indexC - the position of the data command.
+* @return the function returns error is there  is a number that is'nt valid, otherwise returns ok.
+*/
+int template_data (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
+
+
+
+/**
+* this function checks if the string is valid.
+* @param line	- a matrix that contains the split sentence, in a way that in every row there is a word.
+* @param indexR - index of a row that contains the data command '.string'.
+* @param indexC - the position of the data command.
+* @return the function returns error is the string is not valid, otherwise returns ok.
+*/
+int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
 
 
 #endif /* !__PARSE_LINE_H__ */

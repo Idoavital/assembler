@@ -50,7 +50,7 @@ int firstPass(FILE* pfile)
 
 		/*check line error*/
 
-		split_line(line,START_LINE);
+		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);
 
 		if (is_label_definition(splitLine[START_LINE],START_LINE))
     	{

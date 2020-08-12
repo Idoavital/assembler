@@ -42,6 +42,8 @@
 #define NUMBER 2
 #define ADDRESS_LABEL 3
 #define LABEL 4
+#define STRING 4 /*string is in index 4 in g_keybords*/
+#define NOT_STRING 5 
 
 #define INS_NUMBER 5/*ins: instruction*/
 #define DATA_NUMBER 6

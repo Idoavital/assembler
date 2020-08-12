@@ -20,13 +20,15 @@
 
 int check_legal_comma(char* str, int index);
 
+
 /**
 * This function devied the line an a way that each row in the matrix splitLine contains a word from the sentence. 
 * @param str	- a pointer to beginnig of the line.
 * @param index	- the postion of the line
+* @param flag- this flag indicate whether the command is '.string' or the rest of the commands. if its a .string, we'll split
+*the line in a way that the '.string' will be in one row in the metrix, and the actual string will be in the next row. 8888NEED TO UPDTAE8888
 */
-void split_line(char* str, int index);
-
+void split_line(char* str, int index,int flag);
 
 /**
 * This function check if the next char  is a comma (ignore white space).

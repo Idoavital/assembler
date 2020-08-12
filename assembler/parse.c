@@ -83,22 +83,33 @@ int check_legal_comma(char* str, int index)
 }
 
 
-void split_line(char* str, int index)
+void split_line(char* str, int index,int flag)
 {
     char temp_str[MAX_LINE_LEN];
     int row_index = 0;
     int column_index = 0;
     int start_word;
     int last_word = FALSE;
-    strcpy(&temp_str[index],&str[index]);  
-    
-    while (last_word == FALSE)
+    strcpy(&temp_str[index],&str[index]); 
+
+    if (flag == STRING)
     {
+        if (!is_end_of_line(str[index]))
+            sscanf(&str[index],"%s",&splitLine[row_index++][column_index]);
+        index = clear_word(str,index);
+        index = clear_white_space(str, index);
+        if (!is_end_of_line(str[index]))
+            strcpy(&splitLine[row_index][column_index],&str[index]);    
+    }
+    else
+    {
+        while (last_word == FALSE)
+        {
         if (is_space(temp_str[index]))
 		{
-	    index = clear_white_space(temp_str, index);
-        if (is_end_of_line(temp_str[index]))
-		break;
+	        index = clear_white_space(temp_str, index);
+            if (is_end_of_line(temp_str[index]))
+		        break;
 		}
         if (temp_str[index] == ',')
         {
@@ -111,11 +122,11 @@ void split_line(char* str, int index)
         temp_str[index] = '\0';
         strcpy(&splitLine[row_index++][column_index], &temp_str[start_word]);    
         index++;
-      
-        
+
+        }
     }
-    
 }
+
 
 
 
