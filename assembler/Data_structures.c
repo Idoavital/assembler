@@ -19,6 +19,8 @@ int Line_number;
 int IC;
 /*The Data counter*/
 int DC;
+/*Global error number */
+int err_num;
 /*The head of symbole table link list */
  pSymbole pSymbole_Head;
  /*the address mathod table that contains the legal methods for each command*/

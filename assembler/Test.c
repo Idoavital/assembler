@@ -6,6 +6,7 @@
 #include  "parse.h"
 #include  "FirstPass.h"
 #include  "Data_structures.h"
+#include "parseLine.h"
 
 /***************************************************************************/
 							/* Functions Definitions */
@@ -15,7 +16,10 @@ int test_comma();
 int test_symbol();
 int test_comment();
 int test_calc_dc();
+int test_symbol_list();
 
+
+void print_sym(pSymbole symbol);
 /***************************************************************************/
 							/* main function */
 /***************************************************************************/
@@ -23,6 +27,9 @@ int Test()
 {
 
 	init_globals();
+
+
+	test_symbol_list();
 
 	test_calc_dc();
 	test_comma();
@@ -61,7 +68,7 @@ int test_comma()
 	error += check_legal_comma(line_8,	START_LINE);
 
 
-	get_label_name(line_5, name);
+	get_label_name(line_5, name ,0);
 
 	return 0;
 }
@@ -160,4 +167,71 @@ int test_calc_dc()
 	printf("dc after line 3= %d\n", DC);
 
 	return 0;
+}
+
+int test_symbol_list()
+{
+	pSymbole symbol = pSymbole_Head;
+	int i ;
+	char line_[10][80];
+
+	strcpy(line_[0], "  LABEL:		DIR R2 , R2 ,");
+	strcpy(line_[1], "  .data 10, 20, 30, -40");
+	strcpy(line_[2], " LABEL: MOV R2, R2 \n");
+	strcpy(line_[3], "  LABEL2: MOV  R2, R2	");
+	strcpy(line_[4], "  .extern W 	");
+	strcpy(line_[5], "  LABEL3: .data 3 , 4, -9 , 10 \n");
+	strcpy(line_[6], "  .extern W ");
+	strcpy(line_[7], " LABEL4 :   \n");
+	strcpy(line_[8], ".string   \n");
+	strcpy(line_[9], " LABEL5:	.string \"iGotThePower\"");
+
+
+
+	for(i =0 ; i<=9; i++)
+	{
+
+		char name[MAX_LABEL_LEN];
+		char line[MAX_LINE_LEN];
+		enum Esymbole_type type;
+		pSymbole new_symbol = NULL;
+		int address = 0;
+
+		strcpy(line, line_[i]);
+
+
+		if (is_label_definition(line, START_LINE) || is_extern(line, START_LINE))
+		{
+			type = get_type(line, START_LINE);
+			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
+			get_label_name(line, name, type);
+
+			/*TODO: add to symbloe table*/
+			new_symbol = create_symbol(name, address, type);
+			if (new_symbol == NULL)
+			{
+				/*TODO: ERROR*/
+			}
+			push_symbol(new_symbol);/*TODO: GET ERROT ANSWER */
+		}
+
+
+		calc_dc_counter(line, START_LINE);
+	}
+	symbol = pSymbole_Head;
+	printf("\n");
+	while (symbol)
+	{
+
+		 print_sym(symbol);
+		 symbol = symbol->next;
+
+	}
+	clear_list();
+	return 0;
+}
+
+void print_sym(pSymbole symbol)
+{
+	printf("name: %s    type: %d,    address: %d	IC:%d	DC:%d\n", symbol->name, symbol->type, symbol->address,IC, DC);
 }

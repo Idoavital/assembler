@@ -82,6 +82,14 @@ int clear_word(char* str, int index);
 int is_comment_or_blank_line(char* str, int index);
 
 /**
+* This function check if a the line is extern label.
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the position of the line.
+* @return true if the line is extern label.
+*/
+int is_extern(char* str, int index);
+
+/**
 * This function return the index in line after the comma.
 * @param str	- a pointer to beginnig of the line.
 * @param index	- the position of the line.
