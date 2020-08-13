@@ -82,6 +82,18 @@ int print_err(enum eERROR err_type)
 		break;
 	case ERR_PUSH_TABLE:
 		printf("can't push symbol to table, becuase the symbol is already in the table or the symbol is illegal.");
+      break;
+	case ERR_NUMBER_DATA:
+		printf("one of the numbers that was entered is incorrect.");
+		break;
+	case ERR_STRING:
+		printf("the string that was entered is incorrect.");
+		break;
+	case ERR_ILLEGAL_LABEL:
+		printf("the label that was entered is incorrect.");
+		break;
+	case ERR_MIISING_LABEL:
+		printf("the commands .entry and .extern should have a label after the command.");
 		break;
 	default:
 		printf("UNDEFINE ERROR\n");

@@ -44,7 +44,11 @@ extern int Line_number;
 /***************************************************************************/
 enum eERROR
 {
-	ERR_MISSING_TARGET = -14,
+	ERR_MIISING_LABEL  = -18,
+	ERR_ILLEGAL_LABEL,
+	ERR_STRING,
+	ERR_NUMBER_DATA,
+	ERR_MISSING_TARGET,
    	ERR_MISSING_SOURCE,
    	ERR_MISSING_OPERATOR,
    	ERR_EXTRA_TEXT,
