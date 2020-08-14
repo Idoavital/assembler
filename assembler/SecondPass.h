@@ -27,6 +27,17 @@ int SecondPass(FILE* pfile);
 */
 int check_and_set_entry(char* line, int index);
 
+/*
+* The function initialize the IC and DC contres to start position
+*/
 void init_counter();
+
+/*
+* The function read the the data from line and inset the data to data_table
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the postion in the line.
+* @return	    - return TRUE if seccuss read and push all data, else return FALSE
+*/
+int read_data(char* str, int index);
 
 #endif /* !_SECOND_PASS_H__*/

@@ -46,6 +46,7 @@ typedef struct st_addresses {
 /*Struct for binary code, can Represent binary address or binary machine instruction code*/
 typedef union un_words
 {
+	int				 data;
 	st_address       b_address;
 	st_machine_word  b_code;
 }un_word;

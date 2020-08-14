@@ -1,5 +1,6 @@
 
 #include <string.h>
+#include <stdlib.h>
 
 #include "SecondPass.h"
 #include "FirstPass.h"
@@ -25,7 +26,7 @@ int SecondPass(FILE* pfile)
 		
 		if (is_data(line, START_LINE))
 		{
-
+			read_data(line, START_LINE);
 		}
 	}
 
@@ -49,4 +50,49 @@ int check_and_set_entry(char* line, int index)
 	}
 
 	return FALSE;
+}
+
+void init_counter()
+{
+	DC = START_DC;
+	IC = START_IC;
+}
+
+int read_data(char* str, int index)
+{
+
+	char data[MAX_COMMAND_NAME];
+	
+	/*no need to read label if exisiting*/
+	index = label_position(str, index);
+	index = clear_white_space(str, index);
+
+	sscanf(&str[index], "%s", data);
+
+	index = clear_word(str, index);
+	index = clear_white_space(str, index);
+
+	if (strcmp(".data", data) == 0)
+	{
+		
+		while (index >= 0)
+		{
+			data_table[DC].address   = DC;
+			data_table[DC].word.data = atoi(&str[index]);
+			index = get_next_comma_pos(str, index);
+			DC++;
+		}
+
+	}
+	else if (strcmp(".string", data) == 0)
+	{
+
+		/*check if it's not a empty string*/
+		if (is_end_of_line(str[index]))
+			return 0;
+
+	}
+
+
+	return 0;
 }
