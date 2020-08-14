@@ -238,17 +238,16 @@ int test_read_data()
 	int i;
 	char line_[10][80];
 	char str[100];
-	char cmd[30];
 	int index = 0;
 
 	strcpy(line_[0], "   .data 1, 2, 3, -4	");
 	strcpy(line_[1], "  .data 21, -21, 22,27");
 	strcpy(line_[2], " LABEL:   .data 310, 320, 330, -340");
-	strcpy(line_[3], "  LABEL2:   .data 410,20	,30, -40	");
+	strcpy(line_[3], "  LABEL2:   .string  \"abcd\"	");
 	strcpy(line_[4], "   .data 510, 520, 530, -540	");
 	strcpy(line_[5], "  LABEL3: .data 63 , 64, -69 , 610 \n");
-	strcpy(line_[6], "    .data 710, 720, 730, -740 ");
-	strcpy(line_[7], "   .data 810, 820, 830,- 840");
+	strcpy(line_[6], "     .string  \"abcd\"	 ");
+	strcpy(line_[7], "   .data 810, 820, 830, -840");
 	strcpy(line_[8], ".data 910,920, 930, -940");
 	strcpy(line_[9], ".data 1010, 1020, 1030, -1040");
 
@@ -256,6 +255,9 @@ int test_read_data()
 	{
 		
 		char data[100];
+
+		printf("DC = %d\n", DC);
+
 		index = 0;
 		strcpy(str, line_[i]);
 
@@ -277,9 +279,27 @@ int test_read_data()
 			}
 
 		}
-		else if (strcmp(".string", cmd) == 0)
+		else if (strcmp(".string", data) == 0)
 		{
 
+			/*check if it's not a empty string*/
+			if (is_end_of_line(str[index]))
+				return 0;
+
+			if (str[index] == '"') /* data string start with " (qoute char)*/
+				index++;
+
+			while (str[index] != '"')
+			{
+				data_table[DC].address = DC;
+				data_table[DC].word.data = str[index];
+				DC++;
+				index++;
+			}
+			data_table[DC].address = DC;
+			data_table[DC].word.data = '\0';
+			DC++;
+			;
 		}
 
 		
@@ -289,8 +309,10 @@ int test_read_data()
 	{
 		printf("the data in place %d = %d \n",i , data_table[i].word.data);
 	}
+
+	printf("DC = %d\n",DC);
 	DC = 0;
-	printf("\n");
+
 	return 0;
 }
 void print_sym(pSymbole symbol)

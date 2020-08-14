@@ -91,6 +91,20 @@ int read_data(char* str, int index)
 		if (is_end_of_line(str[index]))
 			return 0;
 
+		if (str[index] == '"') /* data string start with " (qoute char)*/
+			index++;
+
+		while (str[index] != '"')
+		{
+			data_table[DC].address   = DC;
+			data_table[DC].word.data = str[index];
+			DC++;
+			index++;
+		}
+		data_table[DC].address   = DC;  /* End of string add null terminator*/
+		data_table[DC].word.data ='\0';
+		DC++;
+;
 	}
 
 
