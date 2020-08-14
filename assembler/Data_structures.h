@@ -95,9 +95,12 @@ extern int IC;
 extern int DC;
 /*Flag for error*/
 extern int err_num;
-
 /*the address mathod table that contains the legal methods for each command*/
 extern address_method_table method_table[16];
+/*The Table code list of binary instructions code*/
+extern st_memory code_table[MAX_TABLE_SIZE];
+/*The Table data list of binary data code*/
+extern st_memory data_table[MAX_TABLE_SIZE];
 
 /***************************************************************************/
 				/*/*Founctoin Declaration*/

@@ -56,5 +56,7 @@
 #define __OUT
 
 #define NO_SYMBOL  -1
+
+#define MAX_TABLE_SIZE 300
 #endif /* !__DEFINES_H__*/
 
