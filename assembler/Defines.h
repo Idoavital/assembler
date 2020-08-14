@@ -55,5 +55,6 @@
 #define __IN
 #define __OUT
 
+#define NO_SYMBOL  -1
 #endif /* !__DEFINES_H__*/
 
