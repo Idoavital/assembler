@@ -11,6 +11,7 @@ int SecondPass(FILE* pfile)
 {
 	char line[MAX_LINE_LEN];
 
+	init_counter();
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{

@@ -228,7 +228,7 @@ int is_end_of_line(char c)
 	return (c == '\n' || c == '\0' || c == EOF);
 }
 
-void print_hex(st_mem_word word)
+void print_hex(st_machine_word word)
 {
 	printf("%06x", *((unsigned int*)&word));
 }

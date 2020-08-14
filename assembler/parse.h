@@ -124,7 +124,7 @@ int is_end_of_line(char c) ;
 * This function print the 24 bit word in hex
 * @word - 24bit word to print
 */
-void print_hex(st_mem_word word);
+void print_hex(st_machine_word word);
 
 
 

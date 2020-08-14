@@ -27,4 +27,6 @@ int SecondPass(FILE* pfile);
 */
 int check_and_set_entry(char* line, int index);
 
+void init_counter();
+
 #endif /* !_SECOND_PASS_H__*/
