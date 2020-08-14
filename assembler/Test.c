@@ -233,5 +233,5 @@ int test_symbol_list()
 
 void print_sym(pSymbole symbol)
 {
-	printf("name: %s    type: %d,    address: %d	IC:%d	DC:%d\n", symbol->name, symbol->type, symbol->address,IC, DC);
+	printf("name: %s\ttype: %d,\taddress: %d\tIC:%d	DC:%d\n", symbol->name, symbol->type, symbol->address,IC, DC);
 }
