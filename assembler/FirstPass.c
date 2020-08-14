@@ -45,7 +45,7 @@ int firstPass(FILE* pfile)
 		}
 		printf(P_DEBUG"%s", line);;
 
-		/*check line error*/
+		/*Check line error*/
 
 		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);
 

@@ -43,7 +43,7 @@ void get_label_name(__IN char* str_in, __OUT char* name, int type);
 /*
 * This function update the dc counter.
 * @param str	- a pointer to beginnig of the line.
-* @param index	- the postion of the line
+* @param index	- the postion in the line
 * 
 */
 void calc_dc_counter(char* str, int index);

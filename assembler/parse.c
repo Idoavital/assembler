@@ -190,6 +190,28 @@ int is_extern(char* str, int index)
 	return FALSE;
 }
 
+int is_entry(char* str, int index)
+{
+	char word[MAX_LABEL_LEN];
+	sscanf(&str[index], "%s", word);
+
+	if (strcmp(word, ".entry") == 0)
+		return TRUE;
+
+	return FALSE;
+}
+
+int is_data(char* str, int index)
+{
+	char cmd[MAX_COMMAND_NAME];
+	sscanf(&str[index], "%s", cmd);
+
+	if (strcmp(cmd, ".data") == 0 || strcmp(cmd, ".sring") == 0)
+		return TRUE;
+
+	return 0;
+}
+
 int get_next_comma_pos(char* str, int index)
 {
 	while (str[index] != COMMA && !is_end_of_line(str[index]))

@@ -95,6 +95,7 @@
     <ClCompile Include="FirstPass.c" />
     <ClCompile Include="parse.c" />
     <ClCompile Include="parseLine.c" />
+    <ClCompile Include="SecondPass.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
@@ -108,7 +109,7 @@
     <ClInclude Include="FirstPass.h" />
     <ClInclude Include="parse.h" />
     <ClInclude Include="parseLine.h" />
-    <ClInclude Include="SeconePass.h" />
+    <ClInclude Include="SecondPass.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
