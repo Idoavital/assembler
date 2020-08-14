@@ -82,6 +82,12 @@ int free_symbol(pSymbole pSymbole_node);
 */
 int get_symbol_address(char *name);
 
+/* the function return the symbol type.
+* @param name	- the symbol name. (NOTE: the name have to finish with null terminator '\0')
+* @return		- return the symbol address, if the symbol is not in the table
+*				  the function return NO_SYMBOL (number that is less then 0) .
+*/
+int get_symbol_type(char* name);
 /* the function set the symbol to entry type.
 * @param name	- the symbol name. (NOTE: the name have to finish with null terminator '\0')
 * @return		- return true if seccuss to set the symbol, if the symbol not in the list return NO_SYMBOL  (number that is less then 0).

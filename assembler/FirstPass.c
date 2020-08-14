@@ -269,6 +269,24 @@ int get_symbol_address(char* name)
 	return NO_SYMBOL;
 }
 
+int get_symbol_type(char* name)
+{
+
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(name, pCurrent_symbol->name) == 0)
+		{
+			return pCurrent_symbol->type;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
+	return NO_SYMBOL;
+}
+
 int set_symbol_to_entry(char* name)
 {
 
