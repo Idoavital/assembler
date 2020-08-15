@@ -45,7 +45,7 @@ int firstPass(FILE* pfile)
 		}
 		printf(P_DEBUG"%s", line);;
 
-		/*check line error*/
+		/*Check line error*/
 
 		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);
 
@@ -249,6 +249,79 @@ int free_symbol(pSymbole pSymbole_node)
 {
 	free (pSymbole_node);
 	return 0;
+}
+
+int get_symbol_address(char* name)
+{
+
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(name, pCurrent_symbol->name) == 0)
+		{
+			return pCurrent_symbol->address;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
+	return NO_SYMBOL;
+}
+
+int get_symbol_type(char* name)
+{
+
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(name, pCurrent_symbol->name) == 0)
+		{
+			return pCurrent_symbol->type;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
+	return NO_SYMBOL;
+}
+
+int set_symbol_to_entry(char* name)
+{
+
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(name, pCurrent_symbol->name) == 0)
+		{
+			pCurrent_symbol->isEntry = TRUE;
+			return TRUE;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
+	return NO_SYMBOL;
+}
+
+
+pSymbole get_symbol(char* name)
+{
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (strcmp(name, pCurrent_symbol->name) == 0)
+		{
+			return pCurrent_symbol;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
+	return NULL;
 }
 
 int clear_list()

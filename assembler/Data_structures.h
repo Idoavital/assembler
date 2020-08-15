@@ -23,7 +23,8 @@ enum Esymbole_type { ST_EXTERN, ST_ENTRY, ST_DATA, ST_STRING,  ST_CODE }; /* Sym
 							/* Structures */
 /***************************************************************************/
 
-typedef struct _st_mem_word {
+/*Represent the machine binary instruction word code*/
+typedef struct st_machine_words {
 	unsigned int E			: 1;
 	unsigned int R			: 1;
 	unsigned int A			: 1;
@@ -34,7 +35,28 @@ typedef struct _st_mem_word {
 	unsigned int adrs_source: 2;
 	unsigned int opcode		: 6;
 
-}st_mem_word;
+}st_machine_word;
+
+/*Represent the machine binary address code*/
+typedef struct st_addresses {
+	unsigned int are     : 3;
+	unsigned int address : 21;
+}st_address;
+
+/*Struct for binary code, can Represent binary address or binary machine instruction code*/
+typedef union un_words
+{
+	int				 data;
+	st_address       b_address;
+	st_machine_word  b_code;
+}un_word;
+
+/*Struct for global binary word represent the binary machine code and the address(decimal) of the code*/
+typedef struct memory
+{
+	int     address;
+	un_word word;
+}st_memory;
 
 /*the address mathod table that contains the legal methods for each command*/
 typedef struct address_method_table
@@ -44,11 +66,6 @@ typedef struct address_method_table
 	int legal_target[NUM_METHOD];
 
 }address_method_table;
-
-typedef union _memroy {
-	int			 data;
-	st_mem_word  bit_word;
-}memory;
 
 
 /* symbole node type for symbol table */
@@ -79,9 +96,12 @@ extern int IC;
 extern int DC;
 /*Flag for error*/
 extern int err_num;
-
 /*the address mathod table that contains the legal methods for each command*/
 extern address_method_table method_table[16];
+/*The Table code list of binary instructions code*/
+extern st_memory code_table[MAX_TABLE_SIZE];
+/*The Table data list of binary data code*/
+extern st_memory data_table[MAX_TABLE_SIZE];
 
 /***************************************************************************/
 				/*/*Founctoin Declaration*/
