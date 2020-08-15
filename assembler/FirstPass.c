@@ -22,8 +22,9 @@ int firstPass(FILE* pfile)
 
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
-	{ template0,  template0,  template0, template0, template2, template2, template2, template2, template2, template1, template1,
-	template1, template1, template1, template1, template1, template1, template1, template0, template0};
+	{ template_entry_extern,  template_entry_extern,  template_data, template_string , template2, template2,
+	  template2, template2, template2, template1, template1, template1, template1, template1, template1,
+	  template1, template1, template1, template0, template0};
 	
 	init_globals();
 	initialize_address_mathod_table();
