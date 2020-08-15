@@ -95,12 +95,22 @@ int print_err(enum eERROR err_type)
 	case ERR_MIISING_LABEL:
 		printf("the commands .entry and .extern should have a label after the command.");
 		break;
+	case ERR_FIRST_PASS_FIALED:
+		printf("Can't complete the first pass.");
+		break;
+	case ERR_SECOND_PASS_FIALED:
+		printf("Can't complete the second pass.");
+		break;
+	case ERR_WRITE_FILES_FIALED:
+		printf("Can't write assembly files.");
+		break;
 	default:
 		printf("UNDEFINE ERROR\n");
 		break;
 
 	}
 
+		
 	printf(RESET"\n");
 	return 0;
 }

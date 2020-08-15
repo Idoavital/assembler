@@ -40,4 +40,38 @@ void init_counter();
 */
 int read_data(char* str, int index);
 
+/*
+* Create and write assembly machine code files.
+* @param fName	- the file name.
+* @return		- NO_ERROR if success to create and write to files else return error number.
+*/
+int write_files(char* fName);
+
+/*
+* The function write assembly object machine code file.
+* @param fName	- the file name.
+* @return		- true if write to files else return false.
+*/
+int write_obj_file(char* fName);
+
+/*
+* The function write assembly object machine code file.
+* @param fName	- the file name.
+* @return		- true if write to files else return false.
+*/
+int write_entry_file(char* fName);
+
+/*
+* The function write assembly object machine code file.
+* @param fName	- the file name.
+* @return		- true if write to files else return false.
+*/
+int write_exteren_file(char* fName);
+
+/* The function convert st_machine_word to unsigned.
+* @param word	-  the macine word to convert.
+* @return		- return unsignd int that represent the binary code.
+*/
+unsigned int code_to_unsigned(st_machine_word  word);
+
 #endif /* !_SECOND_PASS_H__*/

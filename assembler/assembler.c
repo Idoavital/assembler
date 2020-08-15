@@ -37,11 +37,24 @@ int main(int argc, char* argv[])
 		}
 
 		if (firstPass(pFile) != NO_ERROR) /*if there is error in first pass no need to pass to second pass*/
-			continue; 
+		{
+
+			fclose(pFile); /* closes the file */
+			continue;
+		}
+			
 
 		if (SecondPass(pFile) != NO_ERROR) /*if there is error in second pass no need to print assembly files*/
+		{
+			fclose(pFile); /* closes the file */
 			continue;
+		}
 
+		if (write_files(argv[i]) != NO_ERROR)
+		{
+			fclose(pFile); /* closes the file */
+			continue;
+		}
 		/*TODO: print files*/
 		fclose(pFile); /* closes the file */
 	}
