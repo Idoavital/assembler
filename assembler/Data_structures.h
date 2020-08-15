@@ -6,8 +6,22 @@
 /***************************************************************************/
 							/* Defines */
 /***************************************************************************/
-#define JSR_METHOD_TABEL 11
-#define DEC_METHOD_TABEL 8
+#define MOV 0
+#define CMP 1
+#define ADD 2
+#define SUB 3
+#define LEA 4
+#define CLR 5
+#define NOT 6
+#define INC 7
+#define DEC 8
+#define JMP 9
+#define BNE 10
+#define JSR 11
+#define RED 12
+#define PRN 13
+#define RTS 14
+#define STOP 15
 
 
 /***************************************************************************/
@@ -78,6 +92,15 @@ typedef struct _symbol {
 	pSymbole next;              /* The pointer for link list  */
 }symbol ;
 
+
+typedef struct opcode_table
+{
+    char command_name [4];
+    int opcode;
+    int funct;
+
+}opcode_table;
+
 /***************************************************************************/
 							/* Gloabls */
 /***************************************************************************/
@@ -97,11 +120,13 @@ extern int DC;
 /*Flag for error*/
 extern int err_num;
 /*the address mathod table that contains the legal methods for each command*/
-extern address_method_table method_table[16];
+extern address_method_table method_table[MAX_METHOD_TABLE];
 /*The Table code list of binary instructions code*/
 extern st_memory code_table[MAX_TABLE_SIZE];
 /*The Table data list of binary data code*/
 extern st_memory data_table[MAX_TABLE_SIZE];
+/*the opcode-funct table */
+extern opcode_table opcode_funct_table [MAX_COMMAND];
 
 /***************************************************************************/
 				/*/*Founctoin Declaration*/
@@ -111,6 +136,10 @@ extern st_memory data_table[MAX_TABLE_SIZE];
 * this function updates data into the address method table.
 */
 void initialize_address_mathod_table ();
+/**
+* this function updates data into the opcode-funct table. 
+*/
+void initialize_opcode_funct_table ();
 
 
 #endif /* !__DATA_STRUCTURES_H__ */

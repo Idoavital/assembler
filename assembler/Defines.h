@@ -22,6 +22,7 @@
 #define MAX_KEYWORDS  28  
 #define MAX_COMMAND_NAME 20
 #define MAX_METHOD_TABLE 16
+#define MAX_COMMAND 16
 #define START_COMMAND_NAME 4 
 
 #define CHECK_LABLE -3
