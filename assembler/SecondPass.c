@@ -220,3 +220,12 @@ unsigned int code_to_unsigned(st_machine_word word)
 
 }
 
+void clean(FILE* pFile)
+{
+
+	clear_list();   /*delet the symbol table and clean the memory of all the symbol*/
+	IC = START_IC;  /* set counter to next files*/
+	DC = START_DC;  /* set counter to next files*/
+	fclose(pFile);  /* free the assembly code file*/
+}
+

@@ -74,4 +74,9 @@ int write_exteren_file(char* fName);
 */
 unsigned int code_to_unsigned(st_machine_word  word);
 
+/* The function clean all memory , structures and globals 
+* @param pFile	- pointer to assembler code file
+*/
+void clean(FILE* pFile);
+
 #endif /* !_SECOND_PASS_H__*/

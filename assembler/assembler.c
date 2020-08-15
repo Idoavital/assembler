@@ -56,7 +56,8 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		/*TODO: print files*/
-		fclose(pFile); /* closes the file */
+		/*Clean list and structures and set them to next file */
+		/* closes the file */
 	}
 
 #endif /* DEBUG*/
