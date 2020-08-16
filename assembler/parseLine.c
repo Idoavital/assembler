@@ -233,9 +233,6 @@ int is_there_extra_text (char* line, int index)
 
 int is_address_method_for_jump_command (char* label, int index)
 {
-    char label_test [31];
-    strcpy(label_test,label);
-
     if(label[index] == '&' && is_label_valid(label,index+1))
        return METHOD_ADDRESS2;
 
