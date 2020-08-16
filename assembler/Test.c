@@ -62,7 +62,7 @@ int test_read_code()
 	pSymbole sym1;
 	pSymbole sym2;
 	pSymbole sym3;
-	pSymbole sym4;
+	
 
 
 	sym = create_symbol(name, address, type);
@@ -105,6 +105,7 @@ int test_read_code()
 	read_code(splitLine,0,0);
 	clear_list();
 
+	return 0;
 }	
 
 int test_comma()
