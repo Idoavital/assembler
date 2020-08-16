@@ -1,16 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifndef f1
-#define f1
-#include "Data_structures.c"
-#include "Error.c"
-#include "FirstPass.c"
-#include "parse.c"
-#include "parseLine.c"
-#include "SecondPass.c"
-#include "Test.c"
-#endif
 
 #include "parse.h"
 #include "Data_structures.h"
@@ -23,13 +13,13 @@ extern int test_read_code();
 int main(int argc, char* argv[])
 {
 	/*TODO: only for debug - delete leater*/
-//#define _DEBUG
-//#ifdef _DEBUG
+#define _DEBUG
+#ifdef _DEBUG
 
-	//test_read_code();
-	//Test(); /*debug*/
+	test_read_code();
+	/* Test(); debug */
 
-//#else
+#else
 	
 	char  file_name[MAX_FILE_NAME];
 	FILE* pFile;
@@ -59,7 +49,7 @@ int main(int argc, char* argv[])
 		fclose(pFile); /* closes the file */
 	}
 
-//#endif /* DEBUG*/
+#endif /* DEBUG*/
 
 	return 0;
 }

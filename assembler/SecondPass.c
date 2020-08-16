@@ -47,11 +47,11 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
 	int first_memory = IC-100;
 	int second_memory = 0;	
-	//int third_memory = 0;
-	//int label_address = 0;
+	/*//int third_memory = 0;*/
+	/*//int label_address = 0;*/
 	int outcome = 0;
 	int i;
-	//int num;
+	/*//int num;*/
 	int method_address = 0;;
 	if (is_label_definition(line[START_LINE],START_LINE))
 	{
@@ -102,7 +102,7 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag)
 {
 	int i = 0;
-	int num = 0;;
+	int num = 0;
 	int label_address = 0;
 
 	if (method_address == METHOD_ADDRESS3)/*register*/
@@ -170,11 +170,11 @@ int which_type (char* line, int index)
 {
 	int outcome;
 
-	if (outcome = is_register(line,index))
+	if ((outcome = is_register(line,index)))
 		return outcome;
 	if ((outcome = is_number(line, index, INS_NUMBER)) != NOT_NUM)
 		return outcome;
-	if (outcome = is_address_method_for_jump_command(line,index))
+	if ((outcome = is_address_method_for_jump_command(line,index)))
 		return outcome;
  
 	return METHOD_ADDRESS1;
