@@ -10,6 +10,11 @@
 						/* Second pass functions */
 /***************************************************************************/
 
+int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
+
+int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag);
+
+int which_type (char* line, int index);
 
 /*
 * the seconed pass in assembler process - create the machine code and print binary files,

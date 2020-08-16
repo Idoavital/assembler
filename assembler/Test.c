@@ -8,6 +8,7 @@
 #include  "FirstPass.h"
 #include  "Data_structures.h"
 #include  "parseLine.h"
+#include  "SecondPass.h"
 
 /***************************************************************************/
 							/* Functions Definitions */
@@ -19,12 +20,14 @@ int test_comment();
 int test_calc_dc();
 int test_symbol_list();
 int test_read_data();
+int test_read_code();
 
 
 void print_sym(pSymbole symbol);
 /***************************************************************************/
 							/* main function */
 /***************************************************************************/
+
 int Test()
 {
 
@@ -45,6 +48,65 @@ int Test()
 /***************************************************************************/
 							/* Functions Declarations */
 /***************************************************************************/
+int test_read_code()
+{	char* test1 = "mov r1,r2";
+	char* test2 = "cmp #4,r1";
+	char* test3 = "jmp &MAIN";
+	char* test4 = "sub r1,Y";
+
+	char name[10] = "W";
+	int address = 100;
+	enum Esymbole_type type = ST_STRING;
+
+	pSymbole sym;
+	pSymbole sym1;
+	pSymbole sym2;
+	pSymbole sym3;
+	pSymbole sym4;
+
+
+	sym = create_symbol(name, address, type);
+
+	strcpy(name, "Y");
+	address = 120;
+	type = ST_CODE;
+	sym1 = create_symbol(name, address, type);
+
+	strcpy(name, "LIST");
+	address = 122;
+	type = ST_CODE;
+	sym2 = create_symbol(name, address, type);
+
+	strcpy(name, "MAIN");
+	address = 130;
+	type = ST_EXTERN;
+	sym3 = create_symbol(name, address, type);
+
+	push_symbol(sym);
+	push_symbol(sym1);
+	push_symbol(sym2);
+	push_symbol(sym3);
+
+	
+
+	
+	IC = 100;
+	initialize_opcode_funct_table();
+	split_line(test1,0,NOT_STRING);
+	read_code(splitLine,0,0);
+
+	split_line(test2,0,NOT_STRING);
+	read_code(splitLine,0,0);
+
+	split_line(test3,0,NOT_STRING);
+	read_code(splitLine,0,0);
+
+	split_line(test4,0,NOT_STRING);
+	read_code(splitLine,0,0);
+	clear_list();
+
+}	
+
 int test_comma()
 {
 	char name[50];

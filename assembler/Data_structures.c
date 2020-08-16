@@ -19,6 +19,8 @@ int Line_number;
 int IC;
 /*The Data counter*/
 int DC;
+/*the extern label counter*/
+int index_extern;
 /*Global error number */
 int err_num;
 /*The head of symbole table link list */
@@ -31,7 +33,8 @@ int err_num;
  st_memory data_table[MAX_TABLE_SIZE];
  /*the opcode-funct table */
  opcode_table opcode_funct_table [MAX_COMMAND];
-
+/*an array that contains all the extern labels*/
+extern_table extern_label [MAX_TABLE_SIZE];
 /***************************************************************************/
 
 

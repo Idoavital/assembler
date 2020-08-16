@@ -6,22 +6,6 @@
 /***************************************************************************/
 							/* Defines */
 /***************************************************************************/
-#define MOV 0
-#define CMP 1
-#define ADD 2
-#define SUB 3
-#define LEA 4
-#define CLR 5
-#define NOT 6
-#define INC 7
-#define DEC 8
-#define JMP 9
-#define BNE 10
-#define JSR 11
-#define RED 12
-#define PRN 13
-#define RTS 14
-#define STOP 15
 
 
 /***************************************************************************/
@@ -29,7 +13,7 @@
 /***************************************************************************/
 
 
-
+enum commands {MOV = 0,CMP ,ADD ,SUB ,LEA ,CLR ,NOT ,INC ,DEC ,JMP ,BNE ,JSR ,RED ,PRN ,RTS ,STOP };
 
 enum Esymbole_type { ST_EXTERN, ST_ENTRY, ST_DATA, ST_STRING,  ST_CODE }; /* Symbols Types, for symbol table */
 
@@ -53,8 +37,11 @@ typedef struct st_machine_words {
 
 /*Represent the machine binary address code*/
 typedef struct st_addresses {
-	unsigned int are     : 3;
 	unsigned int address : 21;
+	unsigned int A    : 1;
+	unsigned int R    : 1;
+	unsigned int E    : 1;
+	
 }st_address;
 
 /*Struct for binary code, can Represent binary address or binary machine instruction code*/
@@ -101,6 +88,13 @@ typedef struct opcode_table
 
 }opcode_table;
 
+typedef struct extern_table
+{
+	char name[MAX_LABEL_LEN];
+	int addrerss;
+}extern_table;
+
+
 /***************************************************************************/
 							/* Gloabls */
 /***************************************************************************/
@@ -117,6 +111,8 @@ extern pSymbole pSymbole_Head;
 extern int IC;
 /*The Data counter*/
 extern int DC;
+/*the extern label counter*/
+extern int index_extern;
 /*Flag for error*/
 extern int err_num;
 /*the address mathod table that contains the legal methods for each command*/
@@ -127,6 +123,8 @@ extern st_memory code_table[MAX_TABLE_SIZE];
 extern st_memory data_table[MAX_TABLE_SIZE];
 /*the opcode-funct table */
 extern opcode_table opcode_funct_table [MAX_COMMAND];
+/*an array that contains all the extern labels*/
+extern extern_table extern_label [MAX_TABLE_SIZE];
 
 /***************************************************************************/
 				/*/*Founctoin Declaration*/
