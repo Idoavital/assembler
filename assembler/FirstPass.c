@@ -123,7 +123,7 @@ void initialize_splitLine ()
 	int i,j;
 	for ( i = 0; i < MAX_LINE_LEN; i++)
 	{
-		for (j = 0; i < MAX_LINE_LEN; j++)
+		for (j = 0; j < MAX_LINE_LEN; j++)
 		{
 			splitLine[i][j] = '\0';
 		}	
