@@ -5,6 +5,9 @@
 #define FALSE 0
 #define TRUE  1
 
+#define START_DC 0
+#define START_IC 100
+
 #define START_LINE	  0
 #define MAX_LABEL_LEN 31
 #define MAX_LINE_LEN 81
@@ -19,6 +22,7 @@
 #define MAX_KEYWORDS  28  
 #define MAX_COMMAND_NAME 20
 #define MAX_METHOD_TABLE 16
+#define MAX_COMMAND 16
 #define START_COMMAND_NAME 4 
 
 #define CHECK_LABLE -3
@@ -54,6 +58,12 @@
 
 #define __IN
 #define __OUT
+
+#define NO_SYMBOL  -1
+
+#define MAX_TABLE_SIZE 300
+#define NO_ERROR 0
+
 
 #endif /* !__DEFINES_H__*/
 

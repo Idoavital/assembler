@@ -21,7 +21,7 @@ extern int Line_number;
 
 #define YELLOW " "		/*Yellow color*/
 #define GREEN  " "		/*Green color*/
-#define RED    " "		/*Red color*/
+#define RED1    " "		/*Red color*/
 #define RESET  " "		/*Reset to defualt color*/
 
 #endif
@@ -30,7 +30,7 @@ extern int Line_number;
 						/* Define */
 /***************************************************************************/
 
-#define P_ERROR RED"[ERROR] "
+#define P_ERROR RED1"[ERROR] "
 #define P_DEBUG GREEN"[DEBUG] "
 
 #define COMMA_OK		0
@@ -70,8 +70,13 @@ enum eERROR
 	ERR_MISSING_COMMA,
 	ERR_ILLEGAL_DEF_LABEL,
 	ERR_NO_MATCH,
-	ERR_COMMAND_NAME
+	ERR_COMMAND_NAME,
 
+	ERR_PUSH_TABLE,
+	ERR_SYMBOL_ALLOCATION,
+	ERR_SYMBOL_NOT_FOUND,
+	ERR_UNDEFINED_LABEL,
+	ERR_ADDRESS_EXTREN_LABEL
 };
 
 

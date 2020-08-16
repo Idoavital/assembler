@@ -1,7 +1,7 @@
 
 #include <stdio.h> /* printf */
 #include "Error.h"
-
+#include "Data_structures.h"
 
 /*	  EXAMLE TODO: delete this commit
 	 case NAME:
@@ -11,7 +11,8 @@
 
 int print_err(enum eERROR err_type)
 {
-	printf(P_ERROR"In line number [%d] ", Line_number);
+	err_num = err_type;
+	printf/*P_ERROR*/("In line number [%d] ", Line_number);
 	switch (err_type)
 	{
 	case ERR_COMMA_AFTER_CMD:
@@ -79,6 +80,9 @@ int print_err(enum eERROR err_type)
 	case ERR_MISSING_TARGET:
 		printf("the target operator is missing.");
 		break;
+	case ERR_PUSH_TABLE:
+		printf("can't push symbol to table, becuase the symbol is already in the table or the symbol is illegal.");
+      break;
 	case ERR_NUMBER_DATA:
 		printf("one of the numbers that was entered is incorrect.");
 		break;
@@ -94,6 +98,7 @@ int print_err(enum eERROR err_type)
 	default:
 		printf("UNDEFINE ERROR\n");
 		break;
+
 	}
 
 	printf(RESET"\n");

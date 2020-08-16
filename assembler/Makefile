@@ -6,8 +6,8 @@ CFALG   = -g -Wall -ansi -pedantic -std=c90
 LDFLAG  = -lm
 INCLUDE = -I.
 
-DEPS    = parse.h Definitions.h Error.h Data_structures.h FirstPass.h parseLine.h
-OBJ     = assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o Test.o
+DEPS    = parse.h Definitions.h Error.h Data_structures.h FirstPass.h parseLine.h SecondPass.h
+OBJ     = assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o
 
 
 #################################################

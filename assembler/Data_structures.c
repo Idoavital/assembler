@@ -19,11 +19,22 @@ int Line_number;
 int IC;
 /*The Data counter*/
 int DC;
+/*the extern label counter*/
+int index_extern;
+/*Global error number */
+int err_num;
 /*The head of symbole table link list */
  pSymbole pSymbole_Head;
  /*the address mathod table that contains the legal methods for each command*/
- address_method_table method_table[16];
-
+ address_method_table method_table[MAX_METHOD_TABLE];
+ /*The Table code list of binary instructions code*/
+ st_memory code_table[MAX_TABLE_SIZE];
+ /*The Table data list of binary data code*/
+ st_memory data_table[MAX_TABLE_SIZE];
+ /*the opcode-funct table */
+ opcode_table opcode_funct_table [MAX_COMMAND];
+/*an array that contains all the extern labels*/
+extern_table extern_label [MAX_TABLE_SIZE];
 /***************************************************************************/
 
 
@@ -53,7 +64,7 @@ void initialize_address_mathod_table ()
     }
     
     /*initialize source method for commands: mov, cmp, add, sub */
-    for ( i = 0; i < 4; i++)
+    for ( i = MOV; i < LEA; i++)
     {
        method_table[i].legal_source[0] =METHOD_ADDRESS0;
        method_table[i].legal_source[1] =METHOD_ADDRESS1;
@@ -61,17 +72,17 @@ void initialize_address_mathod_table ()
     }
 
     /*initialize source method for command: lea*/
-    method_table[4].legal_source[0]=METHOD_ADDRESS1;
+    method_table[LEA].legal_source[0]=METHOD_ADDRESS1;
 
     /*initialize target method for commands: mov, cmp, add, sub, lea, clr, not, inc, dec,red, prn*/
-    for ( i = 0; i < 14; i++)
+    for ( i = MOV; i < RTS; i++)
     {
         method_table[i].legal_target[0]=METHOD_ADDRESS1;
         method_table[i].legal_target[1]=METHOD_ADDRESS3;
-        i = (i == DEC_METHOD_TABEL ? JSR_METHOD_TABEL : i); /*here we jump to commands red and prn*/
+        i = (i == DEC ? JSR : i); /*here we jump to commands red and prn*/
     }
     /*initialize target method for command: cmp*/
-    method_table[1].legal_target[2]=METHOD_ADDRESS0;
+    method_table[CMP].legal_target[2]=METHOD_ADDRESS0;
     
     /*initialize target method for commands: jmp, bne, jsr*/
     for ( i = 9; i < 12; i++)
@@ -81,6 +92,73 @@ void initialize_address_mathod_table ()
     }
 
     /*initialize target method for command: prn*/
-    method_table[13].legal_target[2]=METHOD_ADDRESS0;
+    method_table[PRN].legal_target[2]=METHOD_ADDRESS0;
       
+}
+
+
+/**
+* this function updates data into the opcode-funct table. 
+*/
+void initialize_opcode_funct_table ()
+{
+    int i=0;
+    int command_name = START_COMMAND_NAME;
+    /*copying the name command to the table */
+    for (i = 0 ; i < MAX_COMMAND; i++)
+    {
+       strcpy(opcode_funct_table[i].command_name , g_keywords[command_name++] );
+    }
+
+    /*initialize opcode for command: mov,cmp*/
+    for ( i = MOV; i < ADD; i++)
+    {
+        opcode_funct_table[i].opcode = i;
+    }
+    
+    /*initialize opcode for commands: add,sub*/
+    for ( i = ADD; i < LEA; i++)
+    {
+       opcode_funct_table[i].opcode = 2;
+    }
+    /*initialize opcode for command: lea */
+    opcode_funct_table[LEA].opcode = 4;
+    /*initialize opcode for commands: clr, not, inc, dec  */
+    for ( i = CLR; i < JMP; i++)
+    {
+        opcode_funct_table[i].opcode = 5;
+    }
+    /*initialize opcode for commands: jmp, bne, jsr*/
+    for ( i = JMP; i < RED; i++)
+    {
+        opcode_funct_table[i].opcode = 9;
+    }
+    /*initialize opcode for command: red,prn,rts,stop*/
+    for ( i = RED; i < MAX_COMMAND; i++)
+    {
+        opcode_funct_table[i].opcode = i;
+    }
+    /*initialize funct for commands: add, clr, jmp */
+    for ( i = ADD; i < BNE; i++)
+    {
+        opcode_funct_table[i].funct = 1;
+        i = i == ADD? LEA: i; /*here we jump to clr*/
+        i = i == CLR? DEC: i; /*here we jump to jmp*/
+    }
+    /*initialize funct for commands: sub,not,bne */
+    for ( i = SUB; i < JSR; i++)
+    {
+        opcode_funct_table[i].funct = 2;
+        i = i == SUB? CLR: i; /*here we jump to not*/
+        i = i == NOT? JMP: i; /*here we jump to bne*/
+    }
+    /*initialize funct for commands: inc,jsr */
+    for ( i = INC; i < RED; i++)
+    {
+        opcode_funct_table[i].funct = 3;
+        i = i == INC? BNE: i; /*here we jump to jsr*/
+    }
+    /*initialize funct for command: dec*/
+    opcode_funct_table[DEC].funct = 4;
+    
 }
