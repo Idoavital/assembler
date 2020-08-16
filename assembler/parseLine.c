@@ -7,6 +7,7 @@
 #include "Data_structures.h"
 #include "Error.h"
 #include "parseLine.h"
+#include "parse.h"
 
 
 
@@ -85,7 +86,7 @@ int is_keyword(char* str, int index, int flag)
 
     if (flag == CHECK_LABLE) /*in order to compare between a keyword and the label, we need to remove the ':'*/
     {
-        while (temp_str[temp_index] != ':')
+        while (temp_str[temp_index] != ':' && !is_end_of_line( temp_str[temp_index]))
             temp_index++;
         
         temp_str[temp_index] = '\0';      

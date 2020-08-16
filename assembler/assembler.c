@@ -24,7 +24,7 @@ extern int test_read_code();
 int main(int argc, char* argv[])
 {
 	/*TODO: only for debug - delete leater*/
-
+/*#define _DEBUG*/
 #ifdef _DEBUG
 
 	test_read_code();
