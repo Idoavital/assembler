@@ -4,14 +4,16 @@
 #include "parse.h"
 #include "Data_structures.h"
 #include "FirstPass.h"
+#include "SecondPass.h"
 
 
 extern int Test();
+extern void print_sym(pSymbole symbol);
 
 int main(int argc, char* argv[])
 {
 	/*TODO: only for debug - delete leater*/
-#define _DEBUG
+/*#define _DEBUG*/
 #ifdef _DEBUG
 
 	Test(); /*debug*/
@@ -43,7 +45,20 @@ int main(int argc, char* argv[])
 			continue;
 		}
 			
+		/*DEBUG*/
+		{
+			pSymbole symbol = pSymbole_Head;
+			symbol = pSymbole_Head;
+			printf("\n");
+			while (symbol)
+			{
 
+				print_sym(symbol);
+				symbol = symbol->next;
+
+			}
+		}
+		/*END DEBUG*/
 		if (SecondPass(pFile) != NO_ERROR) /*if there is error in second pass no need to print assembly files*/
 		{
 			fclose(pFile); /* closes the file */
