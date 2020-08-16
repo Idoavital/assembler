@@ -23,6 +23,8 @@ int firstPass(FILE* pfile);
 * The function initialize of the global variable.
 */
 void init_globals();
+/*TODO*/
+void initialize_splitLine ();
 
 /*
 * The function check the type of the label.

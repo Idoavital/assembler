@@ -65,8 +65,12 @@ int firstPass(FILE* pfile)
 		
     	if ( (index_command = is_keyword(splitLine[flag_label],START_LINE,CHECK_COMMAND_NAME)) == FALSE)
     	{
-      	  	print_err(ERR_COMMAND_NAME);
-		  	break;
+			if (strcmp(&splitLine[flag_label][START_LINE],".extern") != 0)
+			{
+				print_err(ERR_COMMAND_NAME);
+		  		break;
+			}
+      	  	
     	}
 
 		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
@@ -113,6 +117,19 @@ void init_globals()
 	IC			  = IC_BEGIN;
 	DC			  = DC_BEGIN;
 }
+/*TODO: need to add explanation*/
+void initialize_splitLine ()
+{
+	int i,j;
+	for ( i = 0; i < MAX_LINE_LEN; i++)
+	{
+		for (j = 0; i < MAX_LINE_LEN; j++)
+		{
+			splitLine[i][j] = '\0';
+		}	
+	}
+}
+
 
 int get_type(char* str, int index)
 {
