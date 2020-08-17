@@ -320,7 +320,7 @@ int write_obj_file(char* fName)
 	}
 
      /*In the first of the file, print the number instruction and data numbers*/
-	fprintf(pObjFile, "\t%d %d\n", IC, DC); 
+	fprintf(pObjFile, "\t%d %d\n", IC-START_IC , DC);
 
 	for (i=START_IC ; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
 		fprintf(pObjFile, "%06d %06x\n", code_table[i-START_IC].address , code_to_unsigned(code_table[i-START_IC].word.b_code)); /* prints instruction macine code */

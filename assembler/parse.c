@@ -10,12 +10,52 @@
 
 int check_legal_comma(char* str, int index)
 {
+	char cmd[MAX_COMMAND];
 	int comma_flag = OFF;
 	int first_word = TRUE;
 	int first_op   = TRUE;
 
 	index = label_position(str, index);
 
+
+	sscanf(str,"%s", cmd);
+
+	if (strcmp(cmd,".string") ==0 )
+	{
+		index = clear_white_space(str, index);
+		index = clear_word(str, index);
+		index = clear_white_space(str, index);
+
+		if (str[index] != '"')
+		{
+			print_err(ERR_STRING);
+			return  COMMA_ERROR;
+		}
+			
+		index++;   /*increase after " sign*/
+
+		while (!is_end_of_line(str[index]) && str[index] != '"')
+		{
+			index++;
+		}
+
+		if (is_end_of_line(str[index]))
+		{
+			print_err(ERR_EXTRA_TEXT);
+			return  COMMA_ERROR;
+		}
+
+		index++;
+		index = clear_white_space(str, index);
+		/*check if there is extra text after string */
+		if (!is_end_of_line(str[index]))
+		{
+			print_err(ERR_EXTRA_TEXT);
+			return  COMMA_ERROR;
+		}
+
+		return COMMA_OK;
+	}
 
 	while ( !is_end_of_line(str[index]) )
 	{
@@ -49,7 +89,7 @@ int check_legal_comma(char* str, int index)
 		if (str[index] != COMMA )
 		{
 
-			/*TODO: ask Shachar if it better to check here if the word is insturction word */
+
 			if (first_word == TRUE)
 				first_word = FALSE;
 				
@@ -219,9 +259,12 @@ int is_entry(char* str, int index)
 int is_data(char* str, int index)
 {
 	char cmd[MAX_COMMAND_NAME];
+
+	index = label_position(str, index);
+
 	sscanf(&str[index], "%s", cmd);
 
-	if (strcmp(cmd, ".data") == 0 || strcmp(cmd, ".sring") == 0)
+	if (strcmp(cmd, ".data") == 0 || strcmp(cmd, ".string") == 0)
 		return TRUE;
 
 	return 0;

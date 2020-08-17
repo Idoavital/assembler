@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 		if (SecondPass(pFile) != NO_ERROR) /*if there is error in second pass no need to print assembly files*/
 		{
 			fclose(pFile); /* closes the file */
-			continue;
+			/*continue;*/
 		}
 
 		if (write_files(argv[i]) != NO_ERROR)
