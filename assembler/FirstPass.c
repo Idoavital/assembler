@@ -17,8 +17,9 @@ int firstPass(FILE* pfile)
 	pSymbole new_symbol     = NULL;
 
 	int index_command = 0;
-    int outcome =  0;
-    int flag_label = FALSE;
+    int outcome		  =  0;
+    int flag_label    = FALSE;
+	int ic_line	       = 0;
 
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
@@ -31,9 +32,10 @@ int firstPass(FILE* pfile)
 
 	for (Line_number = 1; fgets(line, MAX_LINE_LEN, pfile); Line_number++) /* Scanning through each line of the file */
 	{
-		index_command = 0;
-	    outcome = 0;
-		flag_label = FALSE;
+		ic_line = 0;
+		index_command	= 0;
+	    outcome			= 0;
+		flag_label		= FALSE;
 		
 		/* check is a comment or blank line*/
 		if(is_comment_or_blank_line(line, START_LINE))
@@ -45,7 +47,7 @@ int firstPass(FILE* pfile)
 			printf(P_DEBUG"comma problem !!!\n");
 			continue;
 		}
-		/*printf(P_DEBUG"%s", line);;*/
+
 
 		/*Check line error*/
 		initialize_splitLine();
@@ -88,6 +90,10 @@ int firstPass(FILE* pfile)
 		/*  if we a label in the table we push the label to symbol table */
 		if (flag_label || is_extern(line, START_LINE))
 		{
+			if (ic_line != BIG_ERROR && ic_line > SMALL_ERROR)
+				ic_line = outcome;
+			else
+				ic_line = 0;
 
 			type		= get_type(line, START_LINE);
 			address		= (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
@@ -106,10 +112,9 @@ int firstPass(FILE* pfile)
 			}
 		}
 
-
 		/*Update ic and dc */
-		if(outcome <4 && outcome >=0)
-			IC += outcome;
+			IC += ic_line;
+
 		calc_dc_counter(line, START_LINE);
 		
 

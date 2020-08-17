@@ -1,4 +1,4 @@
-.string "\t   \t   gg"
+.string "\t		\t	gg"
 .string "ggg"
 
 .string "hfhf       "

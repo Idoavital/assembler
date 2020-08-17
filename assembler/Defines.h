@@ -2,6 +2,9 @@
 #define __DEFINES_H__
 
 #define OK 100
+#define BIG_ERROR  100
+#define SMALL_ERROR 0
+
 #define FALSE 0
 #define TRUE  1
 

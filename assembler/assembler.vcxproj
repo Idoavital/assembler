@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="file.as" />
+    <None Include="file1.as" />
+    <None Include="file2.as" />
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
