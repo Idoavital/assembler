@@ -85,15 +85,15 @@ int firstPass(FILE* pfile)
         	continue;
     	}
 
-
+		/*calc the for ic counter*/
+		if (outcome != BIG_ERROR && outcome > SMALL_ERROR)
+			ic_line = outcome;
+		else
+			ic_line = 0;
 		
 		/*  if we a label in the table we push the label to symbol table */
 		if (flag_label || is_extern(line, START_LINE))
 		{
-			if (ic_line != BIG_ERROR && ic_line > SMALL_ERROR)
-				ic_line = outcome;
-			else
-				ic_line = 0;
 
 			type		= get_type(line, START_LINE);
 			address		= (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
@@ -113,7 +113,8 @@ int firstPass(FILE* pfile)
 		}
 
 		/*Update ic and dc */
-			IC += ic_line;
+
+		IC += ic_line;
 
 		calc_dc_counter(line, START_LINE);
 		
