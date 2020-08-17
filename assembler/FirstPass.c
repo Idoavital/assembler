@@ -43,8 +43,9 @@ int firstPass(FILE* pfile)
 		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
 		{
 			printf(P_DEBUG"comma problem !!!\n");
+			continue;
 		}
-		printf(P_DEBUG"%s", line);;
+		/*printf(P_DEBUG"%s", line);;*/
 
 		/*Check line error*/
 		initialize_splitLine();
@@ -55,7 +56,7 @@ int firstPass(FILE* pfile)
         	if (!is_legal_label_definition(splitLine[START_LINE],START_LINE))
         	{
         	    print_err(ERR_ILLEGAL_DEF_LABEL);
-				break;
+				continue;
         	}	 
         	else
         	{
@@ -68,7 +69,7 @@ int firstPass(FILE* pfile)
 			if (strcmp(&splitLine[flag_label][START_LINE],".extern") != 0)
 			{
 				print_err(ERR_COMMAND_NAME);
-		  		break;
+		  		continue;
 			}
       	  	
     	}
@@ -76,7 +77,7 @@ int firstPass(FILE* pfile)
 		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
     	{                                                                                   /*to the first row in spiltLine or the second.*/
       		print_err(outcome);                                                             /*that depends if there is a definition of a label.*/
-        	break;
+        	continue;
     	}
 
 

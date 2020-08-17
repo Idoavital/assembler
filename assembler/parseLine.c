@@ -517,7 +517,7 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
     int i  = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
     int j = indexC;
 
-    if (line[i][j] == '*')
+    if (line[i][j] == '"')
     {
         for ( ; line[i][j] != '\0'; i++)
         {
@@ -533,7 +533,7 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
             indexR = i; /*before we finish the loop, we will save the index of the last row(string).*/
             j = 0;
         }
-        if (line[indexR][indexC] != '*') 
+        if (line[indexR][indexC] != '"') 
         {
             return ERR_STRING;
         }
