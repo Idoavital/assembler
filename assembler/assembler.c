@@ -8,7 +8,7 @@
 
 
 extern int Test();
-extern int test_read_code();
+extern void print_sym(pSymbole symbol);
 
 int main(int argc, char* argv[])
 {
@@ -16,8 +16,7 @@ int main(int argc, char* argv[])
 /*#define _DEBUG*/
 #ifdef _DEBUG
 
-	test_read_code();
-	/* Test(); debug */
+	Test(); /*debug*/
 
 #else
 	
@@ -41,12 +40,37 @@ int main(int argc, char* argv[])
 
 		if (firstPass(pFile) != NO_ERROR) /*if there is error in first pass no need to pass to second pass*/
 		{
+			/*DEBUG*/
+			{
+				pSymbole symbol = pSymbole_Head;
+				symbol = pSymbole_Head;
+				printf("\n");
+				while (symbol)
+				{
 
+					print_sym(symbol);
+					symbol = symbol->next;
+
+				}
+			}
 			fclose(pFile); /* closes the file */
 			continue;
 		}
 			
+		/*DEBUG*/
+		{
+			pSymbole symbol = pSymbole_Head;
+			symbol = pSymbole_Head;
+			printf("\n");
+			while (symbol)
+			{
 
+				print_sym(symbol);
+				symbol = symbol->next;
+
+			}
+		}
+		/*END DEBUG*/
 		if (SecondPass(pFile) != NO_ERROR) /*if there is error in second pass no need to print assembly files*/
 		{
 			fclose(pFile); /* closes the file */

@@ -106,8 +106,10 @@ int firstPass(FILE* pfile)
 			}
 		}
 
+
 		/*Update ic and dc */
-		IC += outcome;
+		if(outcome <4 && outcome >=0)
+			IC += outcome;
 		calc_dc_counter(line, START_LINE);
 		
 
@@ -169,7 +171,7 @@ void get_label_name(__IN char* str_in, __OUT char* name, int type)
 		int index = 0;
 		index = clear_white_space(str_in,START_LINE);
 		index = clear_word(str_in, index);
-		sscanf(str_in, "%s", name);
+		sscanf(&str_in[index], "%s", name);
 		
 	}
 	else /* the label name is before the type*/
@@ -250,10 +252,20 @@ int push_symbol(pSymbole pSymbole_node)
 	}
 	
 	/*check if the symbol is already in the table */
-	while (pCurrent_symbol != NULL)
+	while (pCurrent_symbol != NULL )
 	{
 		if (strcmp(pCurrent_symbol->name, pSymbole_node->name) == 0)
+		{
+			/*if extern symbol is already in the table, no need to push again, but this is not an error */
+			if (pCurrent_symbol->type == ST_EXTERN) 
+			{
+				free(pSymbole_node);
+				return PUSH_OK;
+			}
+
 			return PUSH_ERROR;
+		}
+			
 
 		/*if is the last symbol in the list, add the new symbol*/
 		if (pCurrent_symbol->next == NULL)

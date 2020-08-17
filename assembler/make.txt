@@ -1,0 +1,57 @@
+assembler: assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o
+	gcc -g -ansi -Wall -pedantic -std=c90 assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o -o assembler -lm
+
+assembler.o: assembler.c parse.h Data_structures.h FirstPass.h Error.h 
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o assembler.o
+
+parse.o: parse.c parse.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o parse.o
+
+parseLine.o: parseLine.c parseLine.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o parseLine.o
+
+FirstPass.o: FirstPass.c FirstPass.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o FirstPass.o
+
+SecondPass.o: SecondPass.c SecondPass.h parse.h Data_structures.h FirstPass.h Error.h  parseLine.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o SecondPass.o
+
+Error.o: Error.c Error.h Data_structures.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o Error.o
+
+Data_structures.o: Data_structures.c Data_structures.h Defines.h
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o Data_structures.o
+
+Test.o: Test.c 
+	gcc -c -g -ansi -Wall -pedantic -std=c90 -o Test.o
+
+OBJ     = assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o
+
+clean:
+	rm -f $(OBJ)  assembler
+
+
+#TARGET  = assembler
+#CC      = gcc
+#CFALG   = -g -Wall -ansi -pedantic -std=c90 
+#LDFLAG  = -lm
+#INCLUDE = -I.
+#
+#DEPS    = parse.h Definitions.h Error.h Data_structures.h FirstPass.h parseLine.h SecondPass.h
+#OBJ     = assembler.o parse.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o
+#
+#
+##################################################
+## Ruls
+##################################################
+#%.o: %.c $(DEPS)
+#	$(CC) $(CFALG) -c -o $@ $< $(INCLUDE) 
+#
+#$(TARGET): $(OBJ)
+#	$(CC) $(CFALG) $(INCLUDE) -o $@ $^  $(LDFLAG) 
+#
+#.PHONY: clean
+#
+#clean:
+#	rm -f $(OBJ)
+#
