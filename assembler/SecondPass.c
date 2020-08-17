@@ -140,7 +140,7 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 		}
 		else /*the method address is equal to method_adress1, a label.*/
 		{
-			if((label_address = get_symbol_address(&splitLine[indexR][indexC+1])) == NO_SYMBOL)
+			if((label_address = get_symbol_address(&splitLine[indexR][indexC])) == NO_SYMBOL)
 				return ERR_UNDEFINED_LABEL;
 
 			code_table[second_memory].word.b_address.address = label_address;

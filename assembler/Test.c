@@ -79,7 +79,7 @@ int test_read_code()
 
 	strcpy(name, "MAIN");
 	address = 130;
-	type = ST_EXTERN;
+	type = ST_CODE;
 	sym3 = create_symbol(name, address, type);
 
 	push_symbol(sym);
