@@ -13,6 +13,7 @@
 int SecondPass(FILE* pfile)
 {
 	char line[MAX_LINE_LEN];
+	int outcome = 0;
 	initialize_opcode_funct_table();
 
 	init_counter();
@@ -33,7 +34,11 @@ int SecondPass(FILE* pfile)
 		}
 
 		split_line(line,START_LINE, NOT_STRING);
-		read_code (splitLine, START_LINE, START_LINE);
+		if ((outcome = read_code (splitLine, START_LINE, START_LINE)) != OK)
+		{
+			print_err(outcome);
+			continue;
+		}
 	}
 
 
@@ -71,27 +76,41 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 	code_table[first_memory].word.b_code.A = 1;
 	
 	/*checks if we got to the end of the line*/
-	indexR++;
-	if (line[indexR][indexC] == '\0')
+	if (line[++indexR][indexC] == '\0')
+	{
+		IC++;
 		return OK;
-
+	}
+		
 	/*update info for the first operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_source = method_address;
 	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,SOURCE);
 	if (outcome != OK)
+	{
+		IC++;
 		return outcome;
+	}
+		
 	
 	/*checks if we got to the end of the line*/
 	if (splitLine[++indexR][indexC] == '\0')
+	{	
+		IC++;
 		return OK;
+	}
+		
 	
 	/*update info for the second operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_dest = method_address;	
 	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,TARGET);
 	if (outcome != OK)
+	{
+		IC++;
 		return outcome;
+	}
+		
 	IC++;
 	return OK;
 }

@@ -56,6 +56,7 @@ int main(int argc, char* argv[])
 			fclose(pFile); /* closes the file */
 			continue;
 		}
+		fseek(pFile,0,SEEK_SET);
 			
 		/*DEBUG*/
 		{
