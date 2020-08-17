@@ -13,6 +13,7 @@
 int SecondPass(FILE* pfile)
 {
 	char line[MAX_LINE_LEN];
+	int outcome = 0;
 	initialize_opcode_funct_table();
 
 	init_counter();
@@ -33,7 +34,11 @@ int SecondPass(FILE* pfile)
 		}
 
 		split_line(line,START_LINE, NOT_STRING);
-		read_code (splitLine, START_LINE, START_LINE);
+		if ((outcome = read_code (splitLine, START_LINE, START_LINE)) != OK)
+		{
+			print_err(outcome);
+			continue;
+		}
 	}
 
 
@@ -71,27 +76,41 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 	code_table[first_memory].word.b_code.A = 1;
 	
 	/*checks if we got to the end of the line*/
-	indexR++;
-	if (line[indexR][indexC] == '\0')
+	if (line[++indexR][indexC] == '\0')
+	{
+		IC++;
 		return OK;
-
+	}
+		
 	/*update info for the first operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_source = method_address;
 	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,SOURCE);
 	if (outcome != OK)
+	{
+		IC++;
 		return outcome;
+	}
+		
 	
 	/*checks if we got to the end of the line*/
 	if (splitLine[++indexR][indexC] == '\0')
+	{	
+		IC++;
 		return OK;
+	}
+		
 	
 	/*update info for the second operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_dest = method_address;	
 	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,TARGET);
 	if (outcome != OK)
+	{
+		IC++;
 		return outcome;
+	}
+		
 	IC++;
 	return OK;
 }
@@ -304,7 +323,7 @@ int write_obj_file(char* fName)
 	fprintf(pObjFile, "\t%d %d\n", IC, DC); 
 
 	for (i=START_IC ; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
-		fprintf(pObjFile, "%06d %06x\n", code_table[i].address , code_to_unsigned(code_table[i].word.b_code)); /* prints instruction macine code */
+		fprintf(pObjFile, "%06d %06x\n", code_table[i-START_IC].address , code_to_unsigned(code_table[i-START_IC].word.b_code)); /* prints instruction macine code */
 
 	for (i = 0; i < DC; i++)		/*Print data address and data machie code (in hex)*/
 		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address , data_table[i].word.data);
