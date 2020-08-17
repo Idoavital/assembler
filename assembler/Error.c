@@ -12,7 +12,7 @@
 int print_err(enum eERROR err_type)
 {
 	err_num = err_type;
-	printf(P_ERROR"In line number [%d] ", Line_number);
+	printf/*P_ERROR*/("In line number [%d] ", Line_number);
 	switch (err_type)
 	{
 	case ERR_COMMA_AFTER_CMD:

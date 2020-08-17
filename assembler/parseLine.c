@@ -7,6 +7,7 @@
 #include "Data_structures.h"
 #include "Error.h"
 #include "parseLine.h"
+#include "parse.h"
 
 
 
@@ -85,7 +86,7 @@ int is_keyword(char* str, int index, int flag)
 
     if (flag == CHECK_LABLE) /*in order to compare between a keyword and the label, we need to remove the ':'*/
     {
-        while (temp_str[temp_index] != ':')
+        while (temp_str[temp_index] != ':' && !is_end_of_line( temp_str[temp_index]))
             temp_index++;
         
         temp_str[temp_index] = '\0';      
@@ -234,9 +235,8 @@ int is_there_extra_text (char* line, int index)
 int is_address_method_for_jump_command (char* label, int index)
 {
     if(label[index] == '&' && is_label_valid(label,index+1))
-    return METHOD_ADDRESS2;
+       return METHOD_ADDRESS2;
 
-    else
     return FALSE;
 }
 
@@ -517,13 +517,13 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
     int i  = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
     int j = indexC;
 
-    if (line[i][j] == '*')
+    if (line[i][j] == '"')
     {
-        for ( ; line[i][j] != '\0'; i++)
+        for ( ; line[i][j] != '\0' && i <MAX_LINE_LEN ; i++)
         {
-            for ( ;  line[i][j] != '\0' ; j++)
+            for ( ;  line[i][j] != '\0'  && j<MAX_LINE_LEN ; j++)
             {
-                 if (!isprint(line[i][j]))
+                 if (!isprint(line[i][j]) && j+1<MAX_LINE_LEN && line[i][j+1]!= '\0')
                  {
                      return ERR_STRING;
                  } 
@@ -533,8 +533,13 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
             indexR = i; /*before we finish the loop, we will save the index of the last row(string).*/
             j = 0;
         }
-        if (line[indexR][indexC] != '*') 
+        if (line[indexR][indexC] != '"') 
         {
+            if (indexC-1 > 0 && line[indexR][indexC] == '\n' && line[indexR][indexC-1] == '"')
+            {
+                return OK;
+            }
+            
             return ERR_STRING;
         }
 

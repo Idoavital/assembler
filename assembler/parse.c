@@ -115,6 +115,13 @@ void split_line(char* str, int index,int flag)
         {
            index++;
         }
+		
+		 if (is_space(temp_str[index]))
+		{
+	        index = clear_white_space(temp_str, index);
+            if (is_end_of_line(temp_str[index]))
+		        break;
+		}
 
         start_word = index;
         index = clear_word(temp_str,index);
