@@ -259,9 +259,12 @@ int is_entry(char* str, int index)
 int is_data(char* str, int index)
 {
 	char cmd[MAX_COMMAND_NAME];
+
+	index = label_position(str, index);
+
 	sscanf(&str[index], "%s", cmd);
 
-	if (strcmp(cmd, ".data") == 0 || strcmp(cmd, ".sring") == 0)
+	if (strcmp(cmd, ".data") == 0 || strcmp(cmd, ".string") == 0)
 		return TRUE;
 
 	return 0;
