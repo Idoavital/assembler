@@ -255,3 +255,122 @@ int read_data(char* str, int index)
 
 	return 0;
 }
+
+int write_files(char* fName)
+{
+	char objFilesName[MAX_FILE_NAME];
+	char entryFileName[MAX_FILE_NAME];
+	char externFileName[MAX_FILE_NAME];
+
+	/*Crate the assembly files names*/
+	sprintf(objFilesName,	"%s.ob", fName);
+	sprintf(entryFileName,	"%s.ent", fName);
+	sprintf(externFileName, "%s.ext", fName);
+
+
+	if (write_obj_file(objFilesName) == FALSE)
+	{
+		/*TODO: ERROR*/
+		return FILE_ERR;
+	}
+
+	if (write_entry_file(entryFileName) == FALSE)
+	{
+		/*TODO: ERROR*/
+		return FILE_ERR;
+	}
+
+	if (write_exteren_file(externFileName) == FALSE)
+	{
+		/*TODO: ERROR*/
+		return FILE_ERR;
+	}
+	return NO_ERROR;
+}
+
+int write_obj_file(char* fName)
+{
+	FILE* pObjFile;
+	int i = 0;
+
+	pObjFile = fopen(fName, "w");
+	if (pObjFile == NULL)
+	{
+		printf(P_ERROR"Can't open %s file\n", fName);
+		return FILE_ERR;
+	}
+
+     /*In the first of the file, print the number instruction and data numbers*/
+	fprintf(pObjFile, "\t%d %d\n", IC, DC); 
+
+	for (i=START_IC ; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
+		fprintf(pObjFile, "%06d %06x\n", code_table[i].address , code_to_unsigned(code_table[i].word.b_code)); /* prints instruction macine code */
+
+	for (i = 0; i < DC; i++)		/*Print data address and data machie code (in hex)*/
+		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address , data_table[i].word.data);
+
+
+	fclose(pObjFile);
+	return 0;
+}
+
+int write_entry_file(char* fName)
+{
+
+	FILE*    pEntryFile;
+	pSymbole current_sym = pSymbole_Head;
+
+	pEntryFile = fopen(fName, "w");
+	if (pEntryFile == NULL)
+	{
+		printf(P_ERROR"Can't open %s file\n", fName);
+		return FILE_ERR;
+	}
+
+	while (current_sym != NULL)
+	{
+		
+		if(current_sym->isEntry)
+			fprintf(pEntryFile, "%s %d\n",current_sym->name ,current_sym->address );
+
+		current_sym = current_sym->next;
+	}
+
+
+	fclose(pEntryFile);
+	return 0;
+}
+
+int write_exteren_file(char* fName)
+{
+	FILE* pExternFile;
+	
+
+	pExternFile = fopen(fName, "w");
+	if (pExternFile == NULL)
+	{
+		printf(P_ERROR"Can't open %s file\n", fName);
+		return FILE_ERR;
+	}
+
+	/* TODO: print the extern list - shachar format.
+	*/
+	fclose(pExternFile);
+	return 0;
+}
+
+unsigned int code_to_unsigned(st_machine_word word)
+{
+	return (*((unsigned int*)&word));
+
+}
+
+void clean(FILE* pFile)
+{
+
+	clear_list();   /*delet the symbol table and clean the memory of all the symbol*/
+	IC = START_IC;  /* set counter to next files*/
+	DC = START_DC;  /* set counter to next files*/
+	fclose(pFile);  /* free the assembly code file*/
+}
+

@@ -63,6 +63,7 @@
 
 #define MAX_TABLE_SIZE 300
 #define NO_ERROR 0
+#define FILE_ERR -1
 
 
 #endif /* !__DEFINES_H__*/
