@@ -519,11 +519,11 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
 
     if (line[i][j] == '"')
     {
-        for ( ; line[i][j] != '\0'; i++)
+        for ( ; line[i][j] != '\0' && i <MAX_LINE_LEN ; i++)
         {
-            for ( ;  line[i][j] != '\0' ; j++)
+            for ( ;  line[i][j] != '\0'  && j<MAX_LINE_LEN ; j++)
             {
-                 if (!isprint(line[i][j]))
+                 if (!isprint(line[i][j]) && j+1<MAX_LINE_LEN && line[i][j+1]!= '\0')
                  {
                      return ERR_STRING;
                  } 
@@ -535,6 +535,11 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
         }
         if (line[indexR][indexC] != '"') 
         {
+            if (indexC-1 > 0 && line[indexR][indexC] == '\n' && line[indexR][indexC-1] == '"')
+            {
+                return OK;
+            }
+            
             return ERR_STRING;
         }
 
