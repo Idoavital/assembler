@@ -1,21 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
-
-#ifndef f1
-#define f1
-#include "Data_structures.c"
-#include "Error.c"
-#include "FirstPass.c"
-#include "parse.c"
-#include "parseLine.c"
-#include "SecondPass.c"
-#include "Test.c"
-#endif
-
 #include "parse.h"
 #include "Data_structures.h"
 #include "FirstPass.h"
+#include "SecondPass.h"
 
 
 extern int Test();
