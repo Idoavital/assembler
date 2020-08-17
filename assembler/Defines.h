@@ -22,6 +22,7 @@
 #define MAX_KEYWORDS  28  
 #define MAX_COMMAND_NAME 20
 #define MAX_METHOD_TABLE 16
+#define MAX_COMMAND 16
 #define START_COMMAND_NAME 4 
 
 #define CHECK_LABLE -3
@@ -45,7 +46,7 @@
 #define NUMBER 2
 #define ADDRESS_LABEL 3
 #define LABEL 4
-#define STRING 4 /*string is in index 4 in g_keybords*/
+#define STRING 3 /*string is in index 4 in g_keybords*/
 #define NOT_STRING 5 
 
 #define INS_NUMBER 5/*ins: instruction*/

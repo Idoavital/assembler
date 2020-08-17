@@ -24,6 +24,9 @@ int firstPass(FILE* pfile);
 */
 void init_globals();
 
+/*The function initializes the matrix splitLine,for the next sentence*/
+void initialize_splitLine ();
+
 /*
 * The function check the type of the label.
 * @param str	- a pointer to beginnig of the line.

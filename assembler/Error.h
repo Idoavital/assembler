@@ -21,7 +21,7 @@ extern int Line_number;
 
 #define YELLOW " "		/*Yellow color*/
 #define GREEN  " "		/*Green color*/
-#define RED    " "		/*Red color*/
+#define RED1    " "		/*Red color*/
 #define RESET  " "		/*Reset to defualt color*/
 
 #endif
@@ -30,7 +30,7 @@ extern int Line_number;
 						/* Define */
 /***************************************************************************/
 
-#define P_ERROR RED"[ERROR] "
+#define P_ERROR RED1"[ERROR] "
 #define P_DEBUG GREEN"[DEBUG] "
 
 #define COMMA_OK		0
@@ -79,6 +79,9 @@ enum eERROR
 	ERR_FIRST_PASS_FIALED,
 	ERR_SECOND_PASS_FIALED,
 	ERR_WRITE_FILES_FIALED
+
+	ERR_UNDEFINED_LABEL,
+	ERR_ADDRESS_EXTREN_LABEL
 
 };
 
