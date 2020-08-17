@@ -121,7 +121,8 @@ void init_globals()
 	IC			  = IC_BEGIN;
 	DC			  = DC_BEGIN;
 }
-/*TODO: need to add explanation*/
+
+/*The function initializes the matrix splitLine,for the next sentence*/
 void initialize_splitLine ()
 {
 	int i,j;

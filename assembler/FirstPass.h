@@ -23,7 +23,8 @@ int firstPass(FILE* pfile);
 * The function initialize of the global variable.
 */
 void init_globals();
-/*TODO*/
+
+/*The function initializes the matrix splitLine,for the next sentence*/
 void initialize_splitLine ();
 
 /*

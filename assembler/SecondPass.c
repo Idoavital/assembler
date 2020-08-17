@@ -42,7 +42,6 @@ int SecondPass(FILE* pfile)
 
 
 
-
 int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
 	int first_memory = IC-100;
@@ -77,9 +76,7 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 		return OK;
 
 	/*update info for the first operator*/
-	printf("HI\n");
 	method_address = which_type(line[indexR], indexC);
-	printf("hi shachar\n");
 	code_table[first_memory].word.b_code.adrs_source = method_address;
 	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,SOURCE);
 	if (outcome != OK)
@@ -98,6 +95,8 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 	IC++;
 	return OK;
 }
+
+
 
 int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag)
 {
@@ -162,8 +161,6 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 	}
 	return OK;	
 }
-
-
 
 
 int which_type (char* line, int index)
