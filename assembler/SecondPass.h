@@ -10,13 +10,42 @@
 						/* Second pass functions */
 /***************************************************************************/
 
-
 /*
 * the seconed pass in assembler process - create the machine code and print binary files,
 * @pfile - file pointer to assembley code file.
   @return error if there is error in the file code.
 */
 int SecondPass(FILE* pfile);
+
+
+/**
+* This function update the first memory code (opcode,func ..),  if there wasnt an error.
+* @param line	-a matrix that contains the split sentence, in a way that in every row there is a word.
+* @param indexR	-  index of a row that contains the command name.
+* @param indexC -  the position of the command name.
+* @return  the function returns the specific ERROR if there was any error, otherwise it will return OK.
+*/
+int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
+
+
+/**
+* This function update the memory word accroding to the operator, if there wasnt an error.
+* @param line	-a matrix that contains the split sentence, in a way that in every row there is a word.
+* @param indexR	-  index of a row that contains the operator.
+* @param indexC -  the position of the operator.
+* @return  the function returns the specific ERROR if there was any error, otherwise it will return OK.
+*/
+int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag);
+
+
+/**
+* This function checks the type of the operator.
+* @param line	- a pointer to the operator.
+* @param index - the position of the operator.
+* @return  the function returns the method address of the operator.
+*/
+int which_type (char* line, int index);
+
 
 /*
 * The function check if the line is .entry definition , and if it's entry 

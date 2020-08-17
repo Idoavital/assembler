@@ -22,8 +22,9 @@ int firstPass(FILE* pfile)
 
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
-	{ template0,  template0,  template0, template0, template2, template2, template2, template2, template2, template1, template1,
-	template1, template1, template1, template1, template1, template1, template1, template0, template0};
+	{ template_entry_extern,  template_entry_extern,  template_data, template_string , template2, template2,
+	  template2, template2, template2, template1, template1, template1, template1, template1, template1,
+	  template1, template1, template1, template0, template0};
 	
 	init_globals();
 	initialize_address_mathod_table();
@@ -42,19 +43,21 @@ int firstPass(FILE* pfile)
 		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
 		{
 			printf(P_DEBUG"comma problem !!!\n");
+			continue;
 		}
-		printf(P_DEBUG"%s", line);;
+		/*printf(P_DEBUG"%s", line);;*/
 
 		/*Check line error*/
+		initialize_splitLine();
 
-		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);
-
+		split_line(line,START_LINE,NOT_STRING); /*split the line to check if there is a label*/
+	
 		if (is_label_definition(splitLine[START_LINE],START_LINE))
     	{
         	if (!is_legal_label_definition(splitLine[START_LINE],START_LINE))
         	{
         	    print_err(ERR_ILLEGAL_DEF_LABEL);
-				break;
+				continue;
         	}	 
         	else
         	{
@@ -64,14 +67,20 @@ int firstPass(FILE* pfile)
 		
     	if ( (index_command = is_keyword(splitLine[flag_label],START_LINE,CHECK_COMMAND_NAME)) == FALSE)
     	{
-      	  	print_err(ERR_COMMAND_NAME);
-		  	break;
+			if (strcmp(&splitLine[flag_label][START_LINE],".extern") != 0)
+			{
+				print_err(ERR_COMMAND_NAME);
+		  		continue;
+			}
     	}
+		initialize_splitLine();
+		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);/*update the split, if the command is .string we*/
+		                                                                          /*need to split the string in a different way.*/
 
 		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
     	{                                                                                   /*to the first row in spiltLine or the second.*/
       		print_err(outcome);                                                             /*that depends if there is a definition of a label.*/
-        	break;
+        	continue;
     	}
 
 
@@ -112,6 +121,20 @@ void init_globals()
 	IC			  = IC_BEGIN;
 	DC			  = DC_BEGIN;
 }
+
+/*The function initializes the matrix splitLine,for the next sentence*/
+void initialize_splitLine ()
+{
+	int i,j;
+	for ( i = 0; i < MAX_LINE_LEN; i++)
+	{
+		for (j = 0; j < MAX_LINE_LEN; j++)
+		{
+			splitLine[i][j] = '\0';
+		}	
+	}
+}
+
 
 int get_type(char* str, int index)
 {
