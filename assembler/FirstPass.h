@@ -105,6 +105,11 @@ int set_symbol_to_entry(char* name);
 */
 pSymbole get_symbol(char* name);
 
+/*
+*  The function update the address of data labels 
+*/
+void update_dc_address();
+
 /* the function free the memory of all the symbols in the table.
 * @return			- True if success to free all the symbols .
 */

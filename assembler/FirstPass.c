@@ -120,6 +120,11 @@ int firstPass(FILE* pfile)
 		
 
 	}
+
+	/*After we end the first pass we need to recount the address of a data symbol according to the instructions numbers*/
+	update_dc_address();
+
+	/*return the last error number if exists*/
 	return err_num;
 }
 
@@ -363,6 +368,22 @@ pSymbole get_symbol(char* name)
 	}
 
 	return NULL;
+}
+
+void update_dc_address()
+{
+	pSymbole pCurrent_symbol = pSymbole_Head;
+
+	while (pCurrent_symbol != NULL)
+	{
+		if (pCurrent_symbol->type == ST_DATA)
+		{
+			pCurrent_symbol->address += IC;
+		}
+		pCurrent_symbol = pCurrent_symbol->next;
+
+	}
+
 }
 
 int clear_list()
