@@ -31,8 +31,9 @@ int SecondPass(FILE* pfile)
 		if (is_data(line, START_LINE))
 		{
 			read_data(line, START_LINE);
+			continue;
 		}
-
+		initialize_splitLine();
 		split_line(line,START_LINE, NOT_STRING);
 		if ((outcome = read_code (splitLine, START_LINE, START_LINE)) != OK)
 		{
@@ -49,13 +50,12 @@ int SecondPass(FILE* pfile)
 
 int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-	int first_memory = IC-100;
+	int first_memory = IC-START_IC;
 	int second_memory = 0;	
-	/*//int third_memory = 0;*/
-	/*//int label_address = 0;*/
+	int third_memory = 0;
 	int outcome = 0;
 	int i;
-	/*//int num;*/
+
 	int method_address = 0;;
 	if (is_label_definition(line[START_LINE],START_LINE))
 	{
@@ -85,7 +85,7 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 	/*update info for the first operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_source = method_address;
-	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,SOURCE);
+	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,third_memory,SOURCE);
 	if (outcome != OK)
 	{
 		IC++;
@@ -104,7 +104,7 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 	/*update info for the second operator*/
 	method_address = which_type(line[indexR], indexC);
 	code_table[first_memory].word.b_code.adrs_dest = method_address;	
-	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,TARGET);
+	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,third_memory,TARGET);
 	if (outcome != OK)
 	{
 		IC++;
@@ -117,14 +117,14 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 
 
 
-int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag)
+int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int third_memory, int flag)
 {
 	int i = 0;
 	int num = 0;
 	int label_address = 0;
 
 	if (method_address == METHOD_ADDRESS3)/*register*/
-	{	for ( i = 0; i < 8; i++)
+	{	for ( i = 0; i < MAX_REGISTER; i++)
 		{	
 			num = atoi(&splitLine[indexR][indexC+1]);
 			if ( num == i)
@@ -140,7 +140,7 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 	}/*if it isnt a register, we need to add anoter memory word*/
 	else
 	{
-		second_memory = (++IC)-100;
+		second_memory = (++IC)-START_IC;
 		code_table[second_memory].address = IC;
 		if (method_address == METHOD_ADDRESS0)/*number*/
 		{	
@@ -151,21 +151,24 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 		else if (method_address == METHOD_ADDRESS2)/*address label*/
 		{
 			if((label_address = get_symbol_address(&splitLine[indexR][indexC+1])) == NO_SYMBOL)
-				return ERR_UNDEFINED_LABEL;
+				return ERR_SYMBOL_NOT_FOUND;
 			if (get_symbol_type(&splitLine[indexR][indexC+1]) == ST_EXTERN)
 				return ERR_ADDRESS_EXTREN_LABEL;
 			code_table[second_memory].word.b_address.address = label_address;
 			code_table[second_memory].word.b_address.A = 1;
+			third_memory = (++IC)-START_IC;
+			code_table[third_memory].word.b_address.address = label_address - second_memory; /*jumping distance*/
+			code_table[third_memory].word.b_address.A = 1;
 		}
 		else /*the method address is equal to method_adress1, a label.*/
 		{
 			if((label_address = get_symbol_address(&splitLine[indexR][indexC])) == NO_SYMBOL)
-				return ERR_UNDEFINED_LABEL;
+				return ERR_SYMBOL_NOT_FOUND;
 
 			code_table[second_memory].word.b_address.address = label_address;
 
 			/*if the label is an extern we will add the label to the extern table.*/
-			if (get_symbol_type(&splitLine[indexR][indexC+1]) == ST_EXTERN)
+			if (get_symbol_type(&splitLine[indexR][indexC]) == ST_EXTERN)
 			{
 				extern_label[index_extern].addrerss = IC;
 				strcpy(extern_label[index_extern].name, &splitLine[indexR][indexC]);

@@ -365,10 +365,16 @@ int is_more_memory_needed (int op)
 {
     int count = 0;
 
-    if (op == NUMBER || op == ADDRESS_LABEL || op == LABEL)
+    if (op == NUMBER || op == LABEL)
     {
         count++;
     }
+
+    if (op == ADDRESS_LABEL)
+    {
+        count+=2;
+    }
+    
     
     return count;
 }
