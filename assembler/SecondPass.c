@@ -24,6 +24,10 @@ int SecondPass(FILE* pfile)
 		if (is_comment_or_blank_line(line, START_LINE))
 			continue;
 
+		if (is_extern(line, index));
+		{
+			continue;
+		}
 		/* if is entry : set the symbol and jump to the next line*/
 		if (check_and_set_entry(line, START_LINE) == TRUE)
 			continue;
