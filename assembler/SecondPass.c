@@ -10,6 +10,7 @@
 #include "Data_structures.h"
 #include "Defines.h"
 
+
 int SecondPass(FILE* pfile)
 {
 	char line[MAX_LINE_LEN];
@@ -24,7 +25,7 @@ int SecondPass(FILE* pfile)
 		if (is_comment_or_blank_line(line, START_LINE))
 			continue;
 
-		if (is_extern(line, index));
+		if (is_extern(line, START_LINE))
 		{
 			continue;
 		}
@@ -326,8 +327,11 @@ int write_obj_file(char* fName)
      /*In the first of the file, print the number instruction and data numbers*/
 	fprintf(pObjFile, "\t%d %d\n", IC-START_IC , DC);
 
-	for (i=START_IC ; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
-		fprintf(pObjFile, "%06d %06x\n", code_table[i-START_IC].address , code_to_unsigned(code_table[i-START_IC].word.b_code)); /* prints instruction macine code */
+	for (i = START_IC; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
+	{
+		fprintf(pObjFile, "%06d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
+	}
+
 
 	for (i = 0; i < DC; i++)		/*Print data address and data machie code (in hex)*/
 		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address , data_table[i].word.data);
@@ -367,7 +371,7 @@ int write_entry_file(char* fName)
 int write_exteren_file(char* fName)
 {
 	FILE* pExternFile;
-	
+	int i = 0;
 
 	pExternFile = fopen(fName, "w");
 	if (pExternFile == NULL)
@@ -376,8 +380,9 @@ int write_exteren_file(char* fName)
 		return FILE_ERR;
 	}
 
-	/* TODO: print the extern list - shachar format.
-	*/
+	for (i = 0; i < index_extern; i++)
+		fprintf(pExternFile, "%s  %d", extern_label[i].name, extern_label[i].addrerss);
+
 	fclose(pExternFile);
 	return 0;
 }
