@@ -37,10 +37,10 @@ typedef struct st_machine_words {
 
 /*Represent the machine binary address code*/
 typedef struct st_addresses {
-	unsigned int address : 21;
-	unsigned int A    : 1;
-	unsigned int R    : 1;
 	unsigned int E    : 1;
+	unsigned int R    : 1;
+	unsigned int A    : 1;
+	unsigned int address : 21;
 	
 }st_address;
 
@@ -82,7 +82,7 @@ typedef struct _symbol {
 
 typedef struct opcode_table
 {
-    char command_name [4];
+    char command_name [5];
     int opcode;
     int funct;
 

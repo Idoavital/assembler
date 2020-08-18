@@ -10,6 +10,12 @@
 #include "Data_structures.h"
 #include "Defines.h"
 
+void bin(int n)
+{
+	unsigned i;
+	for (i = 1 << 31; i > 0; i = i / 2)
+		(n & i) ? printf("1") : printf("0");
+}
 
 int SecondPass(FILE* pfile)
 {
@@ -332,16 +338,27 @@ int write_obj_file(char* fName)
 
 	for (i = START_IC; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
 	{
+		printf("%06d ",  code_table[i - START_IC].address );
+		bin(code_to_unsigned(code_table[i - START_IC].word.b_code));
+		printf("\n");
+
 		fprintf(pObjFile, "%06d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
 	}
 
 
 	for (i = 0; i < DC; i++)		/*Print data address and data machie code (in hex)*/
-		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address , data_table[i].word.data);
+	{
+		printf("%06d ", IC + data_table[i].address);
+		bin(data_table[i].word.data);
+		printf("\n");
+		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address, data_table[i].word.data);
+
+	}
+	
 
 
 	fclose(pObjFile);
-	return 0;
+	return TRUE;
 }
 
 int write_entry_file(char* fName)
@@ -368,7 +385,7 @@ int write_entry_file(char* fName)
 
 
 	fclose(pEntryFile);
-	return 0;
+	return TRUE;
 }
 
 int write_exteren_file(char* fName)
@@ -384,15 +401,15 @@ int write_exteren_file(char* fName)
 	}
 
 	for (i = 0; i < index_extern; i++)
-		fprintf(pExternFile, "%s  %d", extern_label[i].name, extern_label[i].addrerss);
+		fprintf(pExternFile, "%s  %d\n", extern_label[i].name, extern_label[i].addrerss);
 
 	fclose(pExternFile);
-	return 0;
+	return TRUE;
 }
 
-unsigned int code_to_unsigned(st_machine_word word)
+ int code_to_unsigned(st_machine_word word)
 {
-	return (*((unsigned int*)&word));
+	return (*(( int*)&word));
 
 }
 
