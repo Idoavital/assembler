@@ -133,9 +133,9 @@ int which_operator_and_if_legal (char line[MAX_LINE_LEN][MAX_LINE_LEN], int inde
 
 
 /**
-* this function checks which operator was sent to her, and if the operator isnt a register it will send +1, its means to add more memory word.
+* this function checks which operator was sent to her, and if the operator isnt a register it will send +1 or +2, its means to add more memory word.
 * @param op	- type of the operator (register/label/adress_label/number)
-* @return the function returns 1 if there needed to add more memory word based on the operator, otherwise the function returns 0.
+* @return the function returns 1 or 2 if there needed to add more memory word based on the operator, otherwise the function returns 0.
 */
 int is_more_memory_needed (int op);
 

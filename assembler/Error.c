@@ -105,6 +105,12 @@ int print_err(enum eERROR err_type)
 	case ERR_WRITE_FILES_FIALED:
 		printf("Can't write assembly files.");
 		break;
+	case ERR_SYMBOL_NOT_FOUND:
+		printf("the label is incorrect because it was not set during the program.");
+		break;
+	case ERR_ADDRESS_EXTREN_LABEL:
+		printf("in instruction command: jmp, jsr and bne. you cant use an extern label.");
+		break;
 	default:
 		printf("UNDEFINE ERROR\n");
 		break;

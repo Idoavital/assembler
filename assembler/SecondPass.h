@@ -35,7 +35,7 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC);
 * @param indexC -  the position of the operator.
 * @return  the function returns the specific ERROR if there was any error, otherwise it will return OK.
 */
-int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int flag);
+int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int third_memory,int flag);
 
 
 /**
