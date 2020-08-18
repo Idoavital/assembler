@@ -31,8 +31,9 @@ int SecondPass(FILE* pfile)
 		if (is_data(line, START_LINE))
 		{
 			read_data(line, START_LINE);
+			continue;
 		}
-
+		initialize_splitLine();
 		split_line(line,START_LINE, NOT_STRING);
 		if ((outcome = read_code (splitLine, START_LINE, START_LINE)) != OK)
 		{
@@ -167,7 +168,7 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 			code_table[second_memory].word.b_address.address = label_address;
 
 			/*if the label is an extern we will add the label to the extern table.*/
-			if (get_symbol_type(&splitLine[indexR][indexC+1]) == ST_EXTERN)
+			if (get_symbol_type(&splitLine[indexR][indexC]) == ST_EXTERN)
 			{
 				extern_label[index_extern].addrerss = IC;
 				strcpy(extern_label[index_extern].name, &splitLine[indexR][indexC]);
