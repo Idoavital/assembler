@@ -40,8 +40,9 @@ int get_type(char* str, int index);
 * @param str_in	- the line with label name to copy from.
 * @param name	- pointer to a place that the name will be copy. 
 * @param type	- the label type (if it's extern type).
+* @return		- return FALSE if the label is empty (no text after the label)
 */
-void get_label_name(__IN char* str_in, __OUT char* name, int type);
+int get_label_name(__IN char* str_in, __OUT char* name, int type);
 
 /*
 * This function update the dc counter.

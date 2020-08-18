@@ -97,7 +97,9 @@ int firstPass(FILE* pfile)
 
 			type		= get_type(line, START_LINE);
 			address		= (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-			get_label_name(line, name, type);
+
+			if (get_label_name(line, name, type) == FALSE)  /*if there is empty label */
+				continue;
 
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
@@ -175,8 +177,17 @@ int get_type(char* str, int index)
 	return ST_CODE;
 }
 
-void get_label_name(__IN char* str_in, __OUT char* name, int type)
+
+
+
+int get_label_name(__IN char* str_in, __OUT char* name, int type)
 {
+	/*check if it is a empty label*/
+	if (is_one_word(str_in, START_LINE))
+	{
+		print_err(ERR_EMPTY_LABEL);
+		return FALSE;
+	}
 	if (type == ST_EXTERN) /*take the second word , the label name is after the type*/
 	{
 		int index = 0;
@@ -191,8 +202,10 @@ void get_label_name(__IN char* str_in, __OUT char* name, int type)
 		while (*name != ':')
 			name++;
 		*name = '\0';  /*delet the ':' colon sign */
-	}
 
+		
+	}
+	return TRUE;
 }
 
 void calc_dc_counter(char* str, int index)

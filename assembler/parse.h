@@ -119,12 +119,13 @@ int get_next_comma_pos(char* str, int index);
 */
 int is_end_of_line(char c) ;
 
-
 /**
-* This function print the 24 bit word in hex
-* @word - 24bit word to print
+* This function return TRUE if there is only one word in the line.
+* @param str	- a pointer to beginnig of the line.
+* @param index	- the position in the line.
+* @return		-  return TRUE if there is only one word in the line..
 */
-void print_hex(st_machine_word word);
+int is_one_word(char* str, int index);
 
 
 

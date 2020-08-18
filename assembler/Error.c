@@ -111,6 +111,9 @@ int print_err(enum eERROR err_type)
 	case ERR_ADDRESS_EXTREN_LABEL:
 		printf("in instruction command: jmp, jsr and bne. you cant use an extern label.");
 		break;
+	case ERR_EMPTY_LABEL:
+		printf("empty label.");
+		break;	
 	default:
 		printf("UNDEFINE ERROR\n");
 		break;

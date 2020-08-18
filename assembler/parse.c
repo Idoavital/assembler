@@ -286,7 +286,14 @@ int is_end_of_line(char c)
 	return (c == '\n' || c == '\0' || c == EOF);
 }
 
-void print_hex(st_machine_word word)
+int is_one_word(char* str, int index)
 {
-	printf("%06x", *((unsigned int*)&word));
+	index = clear_white_space(str, START_LINE);
+	index = clear_word(str, index);
+	index = clear_white_space(str, START_LINE);
+
+	if (is_end_of_line(str[index]))
+		return TRUE;
+
+	return FALSE;
 }
