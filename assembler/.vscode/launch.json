@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["/home/shachar/assignments2020b/assembler/assembler/file"],
+            "args": ["/home/shachar/assignments2020b/assembler/assembler/fileError"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
