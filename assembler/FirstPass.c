@@ -103,7 +103,9 @@ int firstPass(FILE* pfile)
 
 			type		= get_type(line, START_LINE);
 			address		= (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-			get_label_name(line, name, type);
+
+			if (get_label_name(line, name, type) == FALSE)  /*if there is empty label */
+				continue;
 
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
@@ -181,8 +183,17 @@ int get_type(char* str, int index)
 	return ST_CODE;
 }
 
-void get_label_name(__IN char* str_in, __OUT char* name, int type)
+
+
+
+int get_label_name(__IN char* str_in, __OUT char* name, int type)
 {
+	/*check if it is a empty label*/
+	if (is_one_word(str_in, START_LINE))
+	{
+		print_err(ERR_EMPTY_LABEL);
+		return FALSE;
+	}
 	if (type == ST_EXTERN) /*take the second word , the label name is after the type*/
 	{
 		int index = 0;
@@ -197,8 +208,10 @@ void get_label_name(__IN char* str_in, __OUT char* name, int type)
 		while (*name != ':')
 			name++;
 		*name = '\0';  /*delet the ':' colon sign */
-	}
 
+		
+	}
+	return TRUE;
 }
 
 void calc_dc_counter(char* str, int index)
@@ -274,7 +287,7 @@ int push_symbol(pSymbole pSymbole_node)
 		if (strcmp(pCurrent_symbol->name, pSymbole_node->name) == 0)
 		{
 			/*if extern symbol is already in the table, no need to push again, but this is not an error */
-			if (pCurrent_symbol->type == ST_EXTERN) 
+			if (pCurrent_symbol->type == ST_EXTERN && pSymbole_node->type == ST_EXTERN)
 			{
 				free(pSymbole_node);
 				return PUSH_OK;
