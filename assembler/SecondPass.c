@@ -168,6 +168,7 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 			code_table[second_memory].word.b_address.address = label_address;
 			code_table[second_memory].word.b_address.R = 1;
 			third_memory = (++IC)-START_IC;
+			code_table[third_memory].address = IC;
 			code_table[third_memory].word.b_address.address = (label_address - second_memory)-START_IC; /*jumping distance*/
 			code_table[third_memory].word.b_address.A = 1;
 		}
