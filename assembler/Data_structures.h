@@ -37,9 +37,9 @@ typedef struct st_machine_words {
 
 /*Represent the machine binary address code*/
 typedef struct st_addresses {
-	unsigned int E    : 1;
-	unsigned int R    : 1;
-	unsigned int A    : 1;
+	unsigned int E       : 1;
+	unsigned int R       : 1;
+	unsigned int A       : 1;
 	unsigned int address : 21;
 	
 }st_address;
@@ -57,14 +57,15 @@ typedef struct memory
 {
 	int     address;
 	un_word word;
+
 }st_memory;
 
 /*the address mathod table that contains the legal methods for each command*/
 typedef struct address_method_table
 {
 	char command_name[4];
-	int legal_source[NUM_METHOD];
-	int legal_target[NUM_METHOD];
+	int  legal_source[NUM_METHOD];
+	int  legal_target[NUM_METHOD];
 
 }address_method_table;
 
@@ -83,15 +84,15 @@ typedef struct _symbol {
 typedef struct opcode_table
 {
     char command_name [5];
-    int opcode;
-    int funct;
+    int  opcode;
+    int  funct;
 
 }opcode_table;
 
 typedef struct extern_table
 {
 	char name[MAX_LABEL_LEN];
-	int addrerss;
+	int  addrerss;
 }extern_table;
 
 

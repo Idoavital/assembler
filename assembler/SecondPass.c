@@ -4,7 +4,7 @@
 
 #include "SecondPass.h"
 #include "FirstPass.h"
-#include "parse.h"
+#include "syntaxLine.h"
 #include "parseLine.h"
 #include "Error.h"
 #include "Data_structures.h"
@@ -61,10 +61,10 @@ int SecondPass(FILE* pfile)
 
 int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-	int first_memory = IC-START_IC;
+	int first_memory  = IC-START_IC;
 	int second_memory = 0;	
-	int third_memory = 0;
-	int outcome = 0;
+	int third_memory  = 0;
+	int outcome       = 0;
 	int i;
 
 	int method_address = 0;;
@@ -130,8 +130,8 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 
 int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int third_memory, int flag)
 {
-	int i = 0;
-	int num = 0;
+	int i             = 0;
+	int num           = 0;
 	int label_address = 0;
 
 	if (method_address == METHOD_ADDRESS3)/*register*/
@@ -166,9 +166,10 @@ int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC,
 			if (get_symbol_type(&splitLine[indexR][indexC+1]) == ST_EXTERN)
 				return ERR_ADDRESS_EXTREN_LABEL;
 			code_table[second_memory].word.b_address.address = label_address;
-			code_table[second_memory].word.b_address.A = 1;
+			code_table[second_memory].word.b_address.R = 1;
 			third_memory = (++IC)-START_IC;
-			code_table[third_memory].word.b_address.address = label_address - second_memory; /*jumping distance*/
+			code_table[third_memory].address = IC;
+			code_table[third_memory].word.b_address.address = (label_address - second_memory)-START_IC; /*jumping distance*/
 			code_table[third_memory].word.b_address.A = 1;
 		}
 		else /*the method address is equal to method_adress1, a label.*/

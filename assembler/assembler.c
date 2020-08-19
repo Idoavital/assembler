@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "parse.h"
+
+#include "syntaxLine.h"
 #include "Data_structures.h"
 #include "FirstPass.h"
 #include "SecondPass.h"
