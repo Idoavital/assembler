@@ -303,19 +303,24 @@ int write_files(char* fName)
 
 	if (write_obj_file(objFilesName) == FALSE)
 	{
-		/*TODO: ERROR*/
+		err_num = ERR_WRITE_FILE;
+		printf(P_ERROR" fiald to write obj file");
+
 		return FILE_ERR;
 	}
 
 	if (write_entry_file(entryFileName) == FALSE)
 	{
-		/*TODO: ERROR*/
+		err_num = ERR_WRITE_FILE;
+		printf(P_ERROR" fiald to write entry file");
+
 		return FILE_ERR;
 	}
 
 	if (write_exteren_file(externFileName) == FALSE)
 	{
-		/*TODO: ERROR*/
+		err_num = ERR_WRITE_FILE;
+		printf(P_ERROR" fiald to write extern file");
 		return FILE_ERR;
 	}
 	return NO_ERROR;

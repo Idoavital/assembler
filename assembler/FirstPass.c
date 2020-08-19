@@ -281,7 +281,7 @@ int push_symbol(pSymbole pSymbole_node)
 		if (strcmp(pCurrent_symbol->name, pSymbole_node->name) == 0)
 		{
 			/*if extern symbol is already in the table, no need to push again, but this is not an error */
-			if (pCurrent_symbol->type == ST_EXTERN) 
+			if (pCurrent_symbol->type == ST_EXTERN && pSymbole_node->type == ST_EXTERN)
 			{
 				free(pSymbole_node);
 				return PUSH_OK;
