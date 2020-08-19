@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["/home/shachar/assignments2020b/assembler/assembler/fileError"],
+            "args": ["/home/shachar/assignments2020b/assembler/assembler/fileErrorFirstPass"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
