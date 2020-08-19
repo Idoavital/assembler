@@ -4,7 +4,7 @@
 #include "FirstPass.h"
 #include "Defines.h"
 #include "Error.h"
-#include "parse.h"
+#include "syntaxLine.h"
 #include "parseLine.h"
 #include "Data_structures.h"
 
@@ -19,7 +19,7 @@ int firstPass(FILE* pfile)
 	int index_command = 0;
     int outcome		  =  0;
     int flag_label    = FALSE;
-	int ic_line	       = 0;
+	int ic_line	      = 0;
 
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =

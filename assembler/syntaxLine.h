@@ -1,5 +1,5 @@
-#ifndef __PARSE_H__
-#define __PARSE_H__
+#ifndef __SYNTAX_LINE_H__
+#define __SYNTAX_LINE_H__
 
 
 #include "Defines.h"
@@ -128,4 +128,4 @@ void print_hex(st_machine_word word);
 
 
 
-#endif /* !__PARSE_H__ */
+#endif /* !__SYNTAX_LINE_H__ */

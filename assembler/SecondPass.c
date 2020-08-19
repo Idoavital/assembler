@@ -4,7 +4,7 @@
 
 #include "SecondPass.h"
 #include "FirstPass.h"
-#include "parse.h"
+#include "syntaxLine.h"
 #include "parseLine.h"
 #include "Error.h"
 #include "Data_structures.h"
@@ -61,10 +61,10 @@ int SecondPass(FILE* pfile)
 
 int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-	int first_memory = IC-START_IC;
+	int first_memory  = IC-START_IC;
 	int second_memory = 0;	
-	int third_memory = 0;
-	int outcome = 0;
+	int third_memory  = 0;
+	int outcome       = 0;
 	int i;
 
 	int method_address = 0;;
@@ -130,8 +130,8 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 
 int read_operator(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC, int method_address,int first_memory, int second_memory,int third_memory, int flag)
 {
-	int i = 0;
-	int num = 0;
+	int i             = 0;
+	int num           = 0;
 	int label_address = 0;
 
 	if (method_address == METHOD_ADDRESS3)/*register*/
