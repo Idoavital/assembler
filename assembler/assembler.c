@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 		}
 
 		/*Clean list and structures and set them to next file */
-		clean();
+		clean(pFile);
 	}
 
 #endif /* DEBUG*/
