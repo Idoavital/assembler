@@ -93,14 +93,13 @@
     <ClCompile Include="Data_structures.c" />
     <ClCompile Include="Error.c" />
     <ClCompile Include="FirstPass.c" />
-    <ClCompile Include="parse.c" />
     <ClCompile Include="parseLine.c" />
     <ClCompile Include="SecondPass.c" />
+    <ClCompile Include="syntaxLine.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="file.as" />
-    <None Include="file1.as" />
     <None Include="file2.as" />
     <None Include="Makefile" />
   </ItemGroup>
@@ -109,9 +108,9 @@
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="FirstPass.h" />
-    <ClInclude Include="parse.h" />
     <ClInclude Include="parseLine.h" />
     <ClInclude Include="SecondPass.h" />
+    <ClInclude Include="syntaxLine.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
