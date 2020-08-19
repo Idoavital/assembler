@@ -2,7 +2,7 @@
 #include <stdio.h>	/* sscanf */
 #include <string.h> /* strlen, strcmp */
 
-#include "parse.h"
+#include "syntaxLine.h"
 #include "Error.h"
 #include "Data_structures.h"
 #include "parseLine.h"
@@ -126,10 +126,10 @@ int check_legal_comma(char* str, int index)
 void split_line(char* str, int index,int flag)
 {
     char temp_str[MAX_LINE_LEN];
-    int row_index = 0;
+    int row_index    = 0;
     int column_index = 0;
+	int last_word    = FALSE;
     int start_word;
-    int last_word = FALSE;
     strcpy(&temp_str[index],&str[index]); 
 
     if (flag == STRING)
@@ -139,15 +139,7 @@ void split_line(char* str, int index,int flag)
 			sscanf(&str[index],"%s",&splitLine[row_index++][column_index]);
 			index = clear_word(str,index);
 			index = clear_white_space(str, index);
-		}
-		
-
-       /*if (!is_end_of_line(str[index]))
-            sscanf(&str[index],"%s",&splitLine[row_index++][column_index]);
-        index = clear_word(str,index);
-        index = clear_white_space(str, index);
-        if (!is_end_of_line(str[index]))
-            strcpy(&splitLine[row_index][column_index],&str[index]); */   
+		} 
     }
     else
     {

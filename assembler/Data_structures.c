@@ -43,7 +43,7 @@ extern_table extern_label [MAX_TABLE_SIZE];
 */
 void initialize_address_mathod_table ()
 {
-    int i=0;
+    int i            = 0;
     int command_name = START_COMMAND_NAME;
     /*copying the name command to the table */
     for (i = 0 ; i < MAX_METHOD_TABLE; i++)
@@ -58,9 +58,9 @@ void initialize_address_mathod_table ()
         method_table[i].legal_source[1] =-1;
         method_table[i].legal_source[2] =-1;
 
-        method_table[i].legal_target[0]=-1;
-        method_table[i].legal_target[1]=-1;
-        method_table[i].legal_target[2]=-1;
+        method_table[i].legal_target[0] =-1;
+        method_table[i].legal_target[1] =-1;
+        method_table[i].legal_target[2] =-1;
     }
     
     /*initialize source method for commands: mov, cmp, add, sub */

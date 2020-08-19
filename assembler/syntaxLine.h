@@ -1,5 +1,5 @@
-#ifndef __PARSE_H__
-#define __PARSE_H__
+#ifndef __SYNTAX_LINE_H__
+#define __SYNTAX_LINE_H__
 
 
 #include "Defines.h"
@@ -129,4 +129,4 @@ int is_one_word(char* str, int index);
 
 
 
-#endif /* !__PARSE_H__ */
+#endif /* !__SYNTAX_LINE_H__ */

@@ -7,7 +7,7 @@
 #include "Data_structures.h"
 #include "Error.h"
 #include "parseLine.h"
-#include "parse.h"
+#include "syntaxLine.h"
 
 
 
@@ -25,7 +25,7 @@ int is_label_definition(char* label , int index) /*here we check if this is a la
 int is_legal_label_definition(char* label, int index)  /*we check if the definition label is valid.*/
 {
     int  endIndex,i = 0;
-	int label_flag = FALSE;
+	int label_flag  = FALSE;
     endIndex = strlen(&label[index]);
 
 	if (is_label_definition(label, index)  && ':' != (label[endIndex-2]))
@@ -77,9 +77,9 @@ int is_label_valid(char* label, int index)
 /*function that checks if the label or the command name is legal, that depends on the flag info.*/
 int is_keyword(char* str, int index, int flag)
 {
-	int max,i = 0;
-    char temp_str[MAX_LABEL_LEN];
+	int max,i      = 0;
 	int temp_index = 0;
+    char temp_str[MAX_LABEL_LEN];
     sscanf(str,"%s",temp_str);
 
     max = (flag == CHECK_COMMAND_NAME) ? MAX_COMMAND_NAME: MAX_KEYWORDS;
@@ -138,7 +138,7 @@ int is_legal_number(char* op, int index)
     int temp_digit;
     char temp_str[1];
     int flag_after_dot = FALSE;
-    int flag_num = TRUE;
+    int flag_num       = TRUE;
 
        for ( i = index ; op[i] != '\0'; i++)
         {
@@ -393,10 +393,10 @@ int is_operator_missing (char* op, int index)
 
 int template2 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-    int op = 0;
-    int amount_memory = 1; /*at least one word of memory must be assigned to a line in the program*/
-    int index_op1 = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
-    int index_op2 = indexR+2;/*like the explanation from above, but here if we move +2 we will point to the second operator.*/
+    int op                = 0;
+    int amount_memory     = 1; /*at least one word of memory must be assigned to a line in the program*/
+    int index_op1         = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
+    int index_op2         = indexR+2;/*like the explanation from above, but here if we move +2 we will point to the second operator.*/
     int index_exstra_text = indexR+3; /*in this row there should be no text, that mean that in this point the command need to end*/
     
     if (is_there_extra_text(line[index_exstra_text],indexC))
@@ -438,9 +438,9 @@ int template2 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 
 int template1 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR ,int indexC)
 {
-    int op = 0;
-    int amount_memory = 1;/*at least one word of memory must be assigned to a line in the program*/
-    int index_op1 = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
+    int op                = 0;
+    int amount_memory     = 1;/*at least one word of memory must be assigned to a line in the program*/
+    int index_op1         = indexR+1;/*indexR points to the row that contains the command name, so if we move +1 we will point to the first operator.*/
     int index_exstra_text = indexR+2;/*in this row there should be no text, that mean that in this point the command need to end*/
 
     if (is_there_extra_text(line[index_exstra_text],indexC))
@@ -468,7 +468,7 @@ int template1 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR ,int indexC)
 
 int template0 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-    int  amount_memory = 1;/*at least one word of memory must be assigned to a line in the program*/
+    int  amount_memory    = 1;/*at least one word of memory must be assigned to a line in the program*/
     int index_exstra_text = indexR+1;/*in this row there should be no text, that mean that in this point the command need to end*/
     
     if (is_there_extra_text(line[index_exstra_text],indexC))
@@ -481,7 +481,7 @@ int template0 (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 
 
 int template_entry_extern (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
-{   int index_label = indexR+1; /*indexR points to the row that contains the '.entry', so if we move +1 we will point to the label.*/
+{   int index_label       = indexR+1; /*indexR points to the row that contains the '.entry', so if we move +1 we will point to the label.*/
     int index_exstra_text = indexR+2;/*in this row there should be no text, that mean that in this point the command need to end*/
     
     if (is_there_extra_text(line[index_exstra_text],indexC))
@@ -520,7 +520,7 @@ int template_data (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC
 
 int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
-    int i  = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
+    int i = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
     int j = indexC;
 
     if (line[i][j] == '"')
@@ -537,7 +537,7 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
                  indexC = j; /*before we finish the loop, we will save the index of the last char.*/
             }
             indexR = i; /*before we finish the loop, we will save the index of the last row(string).*/
-            j = 0;
+            j      = 0;
         }
         if (line[indexR][indexC] != '"') 
         {

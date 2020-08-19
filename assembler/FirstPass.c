@@ -4,7 +4,7 @@
 #include "FirstPass.h"
 #include "Defines.h"
 #include "Error.h"
-#include "parse.h"
+#include "syntaxLine.h"
 #include "parseLine.h"
 #include "Data_structures.h"
 
@@ -19,7 +19,7 @@ int firstPass(FILE* pfile)
 	int index_command = 0;
     int outcome		  =  0;
     int flag_label    = FALSE;
-	int ic_line	       = 0;
+	int ic_line	      = 0;
 
 	/*TODO: need to change the function for the data check, after i write them.*/
 	int (*checkFunc[])(char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC) =
@@ -75,6 +75,12 @@ int firstPass(FILE* pfile)
 		  		continue;
 			}
     	}
+		if ((strcmp(&splitLine[flag_label][START_LINE],".extern") == 0 || strcmp(&splitLine[flag_label][START_LINE],".entry") == 0) && flag_label == TRUE )
+		{
+			print_err(ERR_LABEL_EXTERN);
+			continue;
+		}
+
 		initialize_splitLine();
 		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);/*update the split, if the command is .string we*/
 		                                                                          /*need to split the string in a different way.*/
