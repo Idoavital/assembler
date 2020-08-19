@@ -74,6 +74,13 @@ int firstPass(FILE* pfile)
 				print_err(ERR_COMMAND_NAME);
 		  		continue;
 			}
+			if ((strcmp(&splitLine[flag_label][START_LINE],".extern") == 0 || strcmp(&splitLine[flag_label][START_LINE],".entry") == 0) && flag_label == TRUE )
+			{
+				print_err(ERR_LABEL_EXTERN);
+				continue;
+			}
+			
+			
     	}
 		initialize_splitLine();
 		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);/*update the split, if the command is .string we*/
