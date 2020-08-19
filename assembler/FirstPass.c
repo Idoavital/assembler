@@ -268,6 +268,7 @@ pSymbole create_symbol(char* pName, int address, int type)
 	psym->address	= address;
 	psym->type		= type;
 	psym->isEntry   = FALSE;
+	psym->next		= NULL;
 	return psym;
 }
 
@@ -399,6 +400,7 @@ void update_dc_address()
 		{
 			pCurrent_symbol->address += IC;
 		}
+		
 		pCurrent_symbol = pCurrent_symbol->next;
 
 	}
