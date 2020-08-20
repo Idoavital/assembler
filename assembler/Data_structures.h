@@ -106,6 +106,8 @@ extern char* g_keywords[MAX_KEYWORDS];
 extern char splitLine[MAX_LINE_LEN][MAX_LINE_LEN];
 /*The current line number that read in the assembly file (for print error) */
 extern int Line_number;
+/*The current file name*/
+extern char  file_name[MAX_FILE_NAME];
 /*The head of symbole table link list */
 extern pSymbole pSymbole_Head;
 /*The instruction counter*/

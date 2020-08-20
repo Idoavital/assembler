@@ -16,7 +16,7 @@ FirstPass.o: FirstPass.c FirstPass.h
 SecondPass.o: SecondPass.c SecondPass.h syntaxLine.h Data_structures.h FirstPass.h Error.h  parseLine.h
 	gcc -c -g -ansi -Wall -pedantic -std=c90  SecondPass.c -o SecondPass.o
 
-Error.o: Error.c Error.h Data_structures.h
+Error.o: Error.c Error.h Data_structures.h 
 	gcc -c -g -ansi -Wall -pedantic -std=c90 Error.c -o Error.o
 
 Data_structures.o: Data_structures.c Data_structures.h Defines.h

@@ -270,9 +270,14 @@ int test_symbol_list()
 		{
 			type = get_type(line, START_LINE);
 			address = (type == ST_EXTERN ? 0 : (type == ST_DATA ? DC : IC));
-			get_label_name(line, name, type);
 
-			/*TODO: add to symbloe table*/
+			/*if the label is empty*/
+			if (get_label_name(line, name, type) == FALSE)
+			{
+				continue;
+			}
+
+			/*add to symbloe table*/
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
 			{

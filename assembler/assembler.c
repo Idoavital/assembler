@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
 #else
 	
-	char  file_name[MAX_FILE_NAME];
+
 	FILE* pFile;
 	int   i = 1;  
 

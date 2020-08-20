@@ -2,6 +2,7 @@
 
     .extern LIST
     .extern fn1
+    .extern fn1
 MAIN: add r3, LIST
 jsr fn1
 LOOP: prn #48
@@ -18,7 +19,7 @@ sub L3, L3
     .extern fn1
 jmp LOOP
 END: stop
-STR: .string "abcd"
+STR: .string "ab  , cd"
 LIST: .data 6, -9
     .data -100
 K: .data 31
