@@ -521,31 +521,20 @@ int template_data (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC
 int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 {
     int i = indexR+1;/*indexR points to the row that contains the '.string', so if we move +1 we will point to the string itself.*/
-    int j = indexC;
-
-    if (line[i][j] == '"')
+    int j = 0;
+    if (line[i][j++] == '"')
     {
-        for ( ; line[i][j] != '\0' && i <MAX_LINE_LEN ; i++)
+        for ( ; line[i][j] != '\0' && line[i][j] != '"' && j <MAX_LINE_LEN ; j++)
         {
-            for ( ;  line[i][j] != '\0'  && j<MAX_LINE_LEN ; j++)
-            {
-                 if (!isprint(line[i][j]) && j+1<MAX_LINE_LEN && line[i][j+1]!= '\0')
+               if (!isprint(line[i][j]))
                  {
                      return ERR_STRING;
                  } 
 
-                 indexC = j; /*before we finish the loop, we will save the index of the last char.*/
-            }
-            indexR = i; /*before we finish the loop, we will save the index of the last row(string).*/
-            j      = 0;
+                /* indexC = j; /*before we finish the loop, we will save the index of the last char.*/
         }
-        if (line[indexR][indexC] != '"') 
-        {
-            if (indexC-1 > 0 && line[indexR][indexC] == '\n' && line[indexR][indexC-1] == '"')
-            {
-                return OK;
-            }
-            
+        if (line[i][j] != '"') 
+        {   
             return ERR_STRING;
         }
 
