@@ -15,6 +15,8 @@ char* g_keywords[MAX_KEYWORDS] = { ".extern", ".entry", ".data", ".string", "mov
 char splitLine [MAX_LINE_LEN][MAX_LINE_LEN];
 /*The current line number that read in the assembly file (for print error) */
 int Line_number;
+/*The current file name*/
+char  file_name[MAX_FILE_NAME];
 /*The instruction counter*/
 int IC;
 /*The Data counter*/

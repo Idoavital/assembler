@@ -41,7 +41,7 @@ int firstPass(FILE* pfile)
 		if(is_comment_or_blank_line(line, START_LINE))
 			continue;
 		
-		/*TODO: check comma error in line*/
+		/* check comma error in line*/
 		if (check_legal_comma(line, START_LINE) == COMMA_ERROR)
 		{
 			printf(P_DEBUG"comma problem !!!\n");

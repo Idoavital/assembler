@@ -18,7 +18,7 @@ int check_legal_comma(char* str, int index)
 	index = label_position(str, index);
 
 
-	sscanf(str,"%s", cmd);
+	sscanf(&str[index],"%s", cmd);
 
 	if (strcmp(cmd,".string") ==0 )
 	{

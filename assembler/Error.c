@@ -4,16 +4,11 @@
 #include "Data_structures.h"
 
 
-/*	  EXAMLE TODO: delete this commit
-	 case NAME:
-		printf(P_ERROR"MSG\n");
-		break;
-*/
 
 int print_err(enum eERROR err_type)
 {
 	err_num = err_type;
-	printf/*P_ERROR*/("In line number [%d] ", Line_number);
+	printf(P_ERROR"In file %s In line number [%d] ",file_name, Line_number);
 	switch (err_type)
 	{
 	case ERR_COMMA_AFTER_CMD:
@@ -111,6 +106,8 @@ int print_err(enum eERROR err_type)
 	case ERR_ADDRESS_EXTREN_LABEL:
 		printf("in instruction command: jmp, jsr and bne. you cant use an extern label.");
 		break;
+	case ERR_EMPTY_LABEL:
+		printf("empty label.");
 	case ERR_LABEL_EXTERN:
 		printf("you cannot define a label when declaring an entry or extern label.");
 		break;
