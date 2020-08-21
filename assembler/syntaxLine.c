@@ -41,7 +41,7 @@ int check_legal_comma(char* str, int index)
 
 		if (is_end_of_line(str[index]))
 		{
-			print_err(ERR_EXTRA_TEXT);
+			print_err(ERR_STRING);
 			return  COMMA_ERROR;
 		}
 
