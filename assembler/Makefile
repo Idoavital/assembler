@@ -1,5 +1,5 @@
 assembler: assembler.o syntaxLine.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o 
-	gcc -g -ansi -Wall -pedantic -std=c90 assembler.o syntaxLine.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o Test.o -o assembler 
+	gcc -g -ansi -Wall -pedantic -std=c90 assembler.o syntaxLine.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o  -o assembler 
 
 assembler.o: assembler.c FirstPass.h Data_structures.h syntaxLine.h
 	gcc -c -g -ansi -Wall -pedantic -std=c90 assembler.c -o assembler.o

@@ -222,7 +222,11 @@ int check_and_set_entry(char* line, int index)
 	if (strcmp(".entry", def) == 0)
 	{
 		if (set_symbol_to_entry(label) == NO_SYMBOL)
+		{
+			printf(P_ERROR"In file %s the symbol %s is not found \n", file_name, label);
 			err_num = ERR_SYMBOL_NOT_FOUND;
+		}
+			
 
 		return TRUE;
 	}
@@ -344,9 +348,6 @@ int write_obj_file(char* fName)
 
 	for (i = START_IC; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
 	{
-		printf("%06d ",  code_table[i - START_IC].address );
-		bin(code_to_unsigned(code_table[i - START_IC].word.b_code));
-		printf("\n");
 
 		fprintf(pObjFile, "%07d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
 	}
