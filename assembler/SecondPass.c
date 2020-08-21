@@ -45,7 +45,7 @@ int SecondPass(FILE* pfile)
 			continue;
 		}
 		initialize_splitLine();
-		split_line(line,START_LINE, NOT_STRING);
+		split_line(line,START_LINE, NOT_STRING,NOT_LABEL);
 		if ((outcome = read_code (splitLine, START_LINE, START_LINE)) != OK)
 		{
 			print_err(outcome);

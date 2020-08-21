@@ -1,3 +1,12 @@
+STR: .string "abcd"
+.string "asd   df" 
+.string "abc ,, abs"
+.string "abc , d, "
+.string "fff" fff
+.string "fff"ff"
+.string ggg"
+.string "ggg
+;file.as
 
     .entry LIST
     .extern fn1

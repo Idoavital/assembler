@@ -51,7 +51,7 @@ int firstPass(FILE* pfile)
 		/*Check line error*/
 		initialize_splitLine();
 
-		split_line(line,START_LINE,NOT_STRING); /*split the line to check if there is a label*/
+		split_line(line,START_LINE,NOT_STRING,flag_label); /*split the line to check if there is a label*/
 	
 		if (is_label_definition(splitLine[START_LINE],START_LINE))
     	{
@@ -81,8 +81,8 @@ int firstPass(FILE* pfile)
 		}
 
 		initialize_splitLine();
-		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING);/*update the split, if the command is .string we*/
-		                                                                          /*need to split the string in a different way.*/
+		split_line(line,START_LINE, index_command == STRING? STRING: NOT_STRING,flag_label);/*update the split, if the command is .string we*/
+		                                                                                   /*need to split the string in a different way.*/
 
 		if (  (outcome = (checkFunc[index_command])(splitLine,flag_label,START_LINE)) < 0 ) /*the flag indicate if it will send a pointer.*/
     	{                                                                                   /*to the first row in spiltLine or the second.*/

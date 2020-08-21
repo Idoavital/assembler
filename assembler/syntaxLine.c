@@ -123,7 +123,7 @@ int check_legal_comma(char* str, int index)
 }
 
 
-void split_line(char* str, int index,int flag)
+void split_line(char* str, int index,int flag,int flag_label)
 {
     char temp_str[MAX_LINE_LEN];
     int row_index    = 0;
@@ -138,6 +138,14 @@ void split_line(char* str, int index,int flag)
             sscanf(&temp_str[index],"%s",&splitLine[row_index++][column_index]);
         index = clear_word(temp_str,index);
         index = clear_white_space(temp_str, index);
+		if (flag_label == TRUE)
+		{
+			if (!is_end_of_line(temp_str[index]))
+            sscanf(&temp_str[index],"%s",&splitLine[row_index++][column_index]);
+        	index = clear_word(temp_str,index);
+        	index = clear_white_space(temp_str, index);
+		}
+		
         if (!is_end_of_line(temp_str[index]))
             strcpy(&splitLine[row_index][column_index],&temp_str[index]);  
     }
