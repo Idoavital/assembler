@@ -8,19 +8,9 @@
 #include "SecondPass.h"
 
 
-extern int Test();
-extern void print_sym(pSymbole symbol);
-
 int main(int argc, char* argv[])
 {
-	/*TODO: only for debug - delete leater*/
-/*#define _DEBUG*/
-#ifdef _DEBUG
 
-	Test(); /*debug*/
-
-#else
-	
 
 	FILE* pFile;
 	int   i = 1;  
@@ -41,26 +31,12 @@ int main(int argc, char* argv[])
 
 		if (firstPass(pFile) != NO_ERROR) /*if there is error in first pass no need to pass to second pass*/
 		{
-
 			clean(pFile); /* closes the file */
 			continue;
 		}
 		fseek(pFile,0,SEEK_SET);
 			
-		/*DEBUG*/
-		{
-			pSymbole symbol = pSymbole_Head;
-			symbol = pSymbole_Head;
-			printf("\n");
-			while (symbol)
-			{
 
-				print_sym(symbol);
-				symbol = symbol->next;
-
-			}
-		}
-		/*END DEBUG*/
 		if (SecondPass(pFile) != NO_ERROR) /*if there is error in second pass no need to print assembly files*/
 		{
 			clean(pFile); /* closes the file */
@@ -77,7 +53,6 @@ int main(int argc, char* argv[])
 		clean(pFile);
 	}
 
-#endif /* DEBUG*/
 
 	return 0;
 }

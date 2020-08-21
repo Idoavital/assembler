@@ -260,7 +260,7 @@ pSymbole create_symbol(char* pName, int address, int type)
 
 	if (psym == NULL)
 	{
-		printf(P_ERROR"Can't allocate memory for symbol\n"); /*TODO: FINISH PRINT ERR*/
+		printf(P_ERROR"Can't allocate memory for symbol %s\n", pName);
 		return NULL;
 	}
 	strcpy(psym->name, pName);
@@ -268,6 +268,7 @@ pSymbole create_symbol(char* pName, int address, int type)
 	psym->type		= type;
 	psym->isEntry   = FALSE;
 	psym->next		= NULL;
+
 	return psym;
 }
 

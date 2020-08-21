@@ -531,7 +531,6 @@ int template_string (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int inde
                      return ERR_STRING;
                  } 
 
-                /* indexC = j; /*before we finish the loop, we will save the index of the last char.*/
         }
         if (line[i][j] != '"') 
         {   
