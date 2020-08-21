@@ -223,7 +223,7 @@ int check_and_set_entry(char* line, int index)
 	{
 		if (set_symbol_to_entry(label) == NO_SYMBOL)
 		{
-			printf(P_ERROR"In file %s the symbol %s is not found \n", file_name, label);
+			printf(P_ERROR"In file %s the symbol %s is incorrect because it was not set during the program. \n", file_name, label);
 			err_num = ERR_SYMBOL_NOT_FOUND;
 		}
 			

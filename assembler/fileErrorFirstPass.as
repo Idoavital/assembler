@@ -2,7 +2,11 @@
 
 .entry LIST
 .extern LIST
+    .entry XXX
 X:: mov r2, r1
+
+.string "fff"ff"
+.string ggg"
 8main: add r1, #3
 add , r1,r2
 cmp r1,,r3
@@ -10,6 +14,7 @@ LIST: not K
 cmp r3,r4 more text
 jsr 
 sub #4
+.string "fff" fff
 ma&&in: sub #4,r4
 ; stop
 stop array
@@ -20,9 +25,11 @@ point: .entry K
 .data 9.1,8.2
 .data a, 6y
 .string "one 
-mov r1, #5
+STR: mov r1, #5
+.string "ggg
 lea r2,r4
 clr #5 #5
+STR: clr K
 cmp #5a ,r5
 not 7y
 jsr r3
