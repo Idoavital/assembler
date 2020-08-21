@@ -1,14 +1,7 @@
 #include <ctype.h>  /* isspace */
 #include <string.h>
 #include <stdlib.h>
-/*TODO: DELET THIS FILE BEFOR SENDIG THE PROJECT*/
-/*ONLY FOR DEBUG PORPOSE*/
-#include  "Error.h"
-#include  "syntaxLine.h"
-#include  "FirstPass.h"
-#include  "Data_structures.h"
-#include  "parseLine.h"
-#include  "SecondPass.h"
+
 
 /***************************************************************************/
 							/* Functions Definitions */
@@ -281,7 +274,7 @@ int test_symbol_list()
 			new_symbol = create_symbol(name, address, type);
 			if (new_symbol == NULL)
 			{
-				/*TODO: ERROR*/
+				continue;
 			}
 			push_symbol(new_symbol);/*TODO: GET ERROT ANSWER */
 		}
