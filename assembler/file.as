@@ -1,3 +1,4 @@
+STR: .string "abcd"
 .string "asd   df" 
 .string "abc ,, abs"
 .string "abc , d, "

@@ -1,11 +1,3 @@
-data_table[i].word.dataname: fn1	type: 0,	address: 0	IC:125	DC:9
-name: MAIN	type: 4,	address: 100	IC:125	DC:9
-name: LOOP	type: 4,	address: 104	IC:125	DC:9
-name: END	type: 4,	address: 124	IC:125	DC:9
-name: STR	type: 2,	address: 0	IC:125	DC:9
-name: LIST	type: 2,	address: 5	IC:125	DC:9
-name: K	type: 2,	address: 8	IC:125	DC:9
-name: L3	type: 0,	address: 0	IC:125	DC:9
 
 ;file.as
 

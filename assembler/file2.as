@@ -1,3 +1,6 @@
+.entry x
+.extern p
+sub r1, p
 jmp &next
 list: cmp r1, r2
 .string "abc"

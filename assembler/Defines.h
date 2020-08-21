@@ -52,6 +52,7 @@
 #define LABEL 4
 #define STRING 3 /*string is in index 4 in g_keybords*/
 #define NOT_STRING 5 
+#define NOT_LABEL 6
 
 #define INS_NUMBER 5/*ins: instruction*/
 #define DATA_NUMBER 6
