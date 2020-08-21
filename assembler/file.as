@@ -1,7 +1,6 @@
 ;file.as
 
-    .extern LIST
-    .extern fn1
+    .entry LIST
     .extern fn1
 MAIN: add r3, LIST
 jsr fn1
@@ -19,7 +18,7 @@ sub L3, L3
     .extern fn1
 jmp LOOP
 END: stop
-STR: .string "ab  , cd"
+STR: .string "abcd"
 LIST: .data 6, -9
     .data -100
 K: .data 31

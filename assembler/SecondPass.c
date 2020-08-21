@@ -348,7 +348,7 @@ int write_obj_file(char* fName)
 		bin(code_to_unsigned(code_table[i - START_IC].word.b_code));
 		printf("\n");
 
-		fprintf(pObjFile, "%06d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
+		fprintf(pObjFile, "%07d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
 	}
 
 
@@ -357,7 +357,7 @@ int write_obj_file(char* fName)
 		printf("%06d ", IC + data_table[i].address);
 		bin(data_table[i].word.data);
 		printf("\n");
-		fprintf(pObjFile, "%06d %06x\n", IC + data_table[i].address, data_table[i].word.data);
+		fprintf(pObjFile, "%07d %06x\n", IC + data_table[i].address, data_table[i].word.data);
 
 	}
 	
@@ -384,7 +384,7 @@ int write_entry_file(char* fName)
 	{
 		
 		if(current_sym->isEntry)
-			fprintf(pEntryFile, "%s %d\n",current_sym->name ,current_sym->address );
+			fprintf(pEntryFile, "%s %07d\n",current_sym->name ,current_sym->address );
 
 		current_sym = current_sym->next;
 	}
@@ -407,7 +407,7 @@ int write_exteren_file(char* fName)
 	}
 
 	for (i = 0; i < index_extern; i++)
-		fprintf(pExternFile, "%s  %d\n", extern_label[i].name, extern_label[i].addrerss);
+		fprintf(pExternFile, "%s  %07d\n", extern_label[i].name, extern_label[i].addrerss);
 
 	fclose(pExternFile);
 	return TRUE;
