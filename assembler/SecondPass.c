@@ -348,18 +348,13 @@ int write_obj_file(char* fName)
 
 	for (i = START_IC; i < IC; i++)  /*Print instructions address and machie code (in hex)*/
 	{
-
 		fprintf(pObjFile, "%07d %06x\n", code_table[i - START_IC].address, code_to_unsigned(code_table[i - START_IC].word.b_code)); /* prints instruction macine code */
 	}
 
 
 	for (i = 0; i < DC; i++)		/*Print data address and data machie code (in hex)*/
 	{
-		printf("%06d ", IC + data_table[i].address);
-		bin(data_table[i].word.data);
-		printf("\n");
 		fprintf(pObjFile, "%07d %06x\n", IC + data_table[i].address, data_table[i].word.data);
-
 	}
 	
 

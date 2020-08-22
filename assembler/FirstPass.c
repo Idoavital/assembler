@@ -140,6 +140,7 @@ void init_globals()
 	pSymbole_Head = NULL;
 	IC			  = IC_BEGIN;
 	DC			  = DC_BEGIN;
+	err_num		  = 0;
 }
 
 /*The function initializes the matrix splitLine,for the next sentence*/
