@@ -22,6 +22,6 @@ Error.o: Error.c Error.h Data_structures.h
 Data_structures.o: Data_structures.c Data_structures.h Defines.h
 	gcc -c -g -ansi -Wall -pedantic -std=c90 Data_structures.c -o Data_structures.o
 
-OBJ = assembler.o syntaxLine.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o 
+OBJ = assembler.o syntaxLine.o Error.o Data_structures.o FirstPass.o parseLine.o SecondPass.o syntaxLine.o
 clean:
 	rm -f $(OBJ)  assembler

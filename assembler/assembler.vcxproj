@@ -99,8 +99,9 @@
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="file.as" />
-    <None Include="file2.as" />
+    <None Include="fileErrorFirstPass.as" />
+    <None Include="fileErrorSecondPass.as" />
+    <None Include="fileNoError.as" />
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
