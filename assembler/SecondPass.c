@@ -95,8 +95,15 @@ int read_code (char line[MAX_LINE_LEN][MAX_LINE_LEN], int indexR, int indexC)
 		
 	/*update info for the first operator*/
 	method_address = which_type(line[indexR], indexC);
-	code_table[first_memory].word.b_code.adrs_source = method_address;
-	outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,third_memory,SOURCE);
+	if (splitLine[indexR + 1][indexC] == '\0')
+		code_table[first_memory].word.b_code.adrs_dest = method_address;
+	else
+		code_table[first_memory].word.b_code.adrs_source = method_address;
+
+	if(splitLine[indexR+1][indexC] == '\0')
+		outcome = read_operator(line, indexR, indexC, method_address, first_memory, second_memory, third_memory, TARGET);
+	else
+		outcome = read_operator(line,indexR,indexC,method_address,first_memory,second_memory,third_memory,SOURCE);
 	if (outcome != OK)
 	{
 		IC++;
@@ -409,9 +416,9 @@ int write_exteren_file(char* fName)
 	return TRUE;
 }
 
- int code_to_unsigned(st_machine_word word)
+unsigned code_to_unsigned(st_machine_word word)
 {
-	return (*(( int*)&word));
+	return (*((unsigned*)&word));
 
 }
 

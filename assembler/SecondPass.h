@@ -101,7 +101,7 @@ int write_exteren_file(char* fName);
 * @param word	-  the macine word to convert.
 * @return		- return unsignd int that represent the binary code.
 */
- int code_to_unsigned(st_machine_word  word);
+ unsigned int code_to_unsigned(st_machine_word  word);
 
 /* The function clean all memory , structures and globals 
 * @param pFile	- pointer to assembler code file
